@@ -1,0 +1,6 @@
+include LICENSE.rst
+include blog/schema.sql
+graft blog/static
+graft blog/templates
+graft tests
+global-exclude *.pyc

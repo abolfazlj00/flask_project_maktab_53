@@ -1,0 +1,36 @@
+body {
+    direction: rtl;
+}
+
+.header-register {
+    direction: ltr;
+}
+
+.register {
+    padding: 8px;
+}
+
+.register button {
+    width: 100px;
+    height: 40px;
+}
+
+#signup-button {
+    background-color: #2f2ff5;
+    color: white;
+}
+
+.register button:focus{
+    box-shadow: none;
+}
+
+.header-nav {
+    position: sticky;
+    top: 0;
+    background-color: aquamarine;
+}
+
+#navbarNav  button:focus {
+    box-shadow: none;
+    background: none;
+}

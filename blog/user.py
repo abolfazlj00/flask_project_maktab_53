@@ -17,6 +17,7 @@ def posts_list():
 def creat_post():
     return "creat a post"
 
+
 @bp.route("/edit-post/<int:post_id>/")
 def edit_post(post_id):
     return f"{post_id} post edited"

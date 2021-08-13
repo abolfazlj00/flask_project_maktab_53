@@ -10,15 +10,16 @@ $('#register-form').submit(function (e) {
         url: url,
         data: formData, // serializes the form's elements.
         success: function (data) {
-            if (data === 'ERROR'){
-                alert('Error !!! Try another username')
-            }
-            else {
-                let welcome = "خوش آمدید"
+            if (typeof data === "string") {
+                alert(data)
+            } else {
+                let welcome = "ثبت نام شما با موفقیت انجام شد"
                 let user = data.f_name + ' ' + data.l_name
                 alert(
                     user + ' ' + welcome
                 )
+
+                loadContent('login')
             }
         },
         cache: false,

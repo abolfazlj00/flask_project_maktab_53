@@ -1,11 +1,15 @@
-from flask import Blueprint
+from flask import Blueprint, render_template, request, redirect, session
+
+from blog.db import get_db
 
 bp = Blueprint("user", __name__)
 
 
 @bp.route("/profile/")
 def profile():
-    return "profile"
+    db = get_db()
+    login_user = db.users.find({"username": session["username"]}, {"_id": 0})
+    return render_template("profile_content.html", logged_in_user=login_user[0])
 
 
 @bp.route("/posts-list/")

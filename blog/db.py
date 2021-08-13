@@ -9,3 +9,4 @@ def get_db():
         db_name = current_app.config['DB_NAME']
         g.db = client[db_name]
     return g.db
+

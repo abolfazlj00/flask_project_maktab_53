@@ -3,6 +3,7 @@ from werkzeug.utils import secure_filename
 import hashlib
 import base64
 import uuid
+from datetime import datetime
 
 from blog.db import get_db
 
@@ -15,7 +16,7 @@ def index(page):
     if page is None:
         return render_template('base.html')
     else:
-        if page not in ('home', 'login', 'register', 'profile'):
+        if page not in ('home', 'login', 'register', 'profile', 'insert_post'):
             return "Page not Found!", 404
         content_html = f"{page}_content.html"
         if page in ('login', 'register'):
@@ -40,15 +41,24 @@ def register():
         f = request.files.get('image')
         if f:
             file_name = secure_filename(f.filename)
-            f.save('blog/static/img/' + file_name)
+            f.save('blog/static/img/profile' + file_name)
             image = file_name
     else:
         image = None
 
     db = get_db()
-    user = {'f_name': f_name, 'l_name': l_name, 'password': hashed_password, 'salt': salt, 'username': username,
-            'email': email,
-            'image': image, 'phone_number': phone_number}
+
+    user = {
+        'f_name': f_name,
+        'l_name': l_name,
+        'password': hashed_password,
+        'salt': salt,
+        'username': username,
+        'email': email,
+        'image': image,
+        'phone_number': phone_number
+    }
+
     skip_username = 0
     skip_phone = 0
     for i in range(db.users.count()):
@@ -93,6 +103,42 @@ def logout():
     session.pop('username', None)
     print(session)
     return ""
+
+
+@bp.route("/post/create", methods=["POST"])
+def create_post():
+    db = get_db()
+
+    # this section get an image for our post
+    f = request.files.get('image')
+    file_name = secure_filename(f.filename)
+    f.save('blog/static/img/posts' + file_name)
+    image = file_name
+
+    username = session["username"]
+    title = request.form.get('title')
+    main_text = request.form.get('main_text')
+    image = image
+    tags = []
+    pub_date = datetime.now()
+    category_of_post = str()
+    like = []
+    active_state = 1
+
+    user_post = {
+        "username": username,
+        "title": title,
+        "main_text": main_text,
+        "image": image,
+        "tags": tags,
+        "pub_date": pub_date,
+        "like": like,
+        "category_of_post": category_of_post,
+        "active_state": active_state
+    }
+
+    db.posts.insert_one(user_post)
+    return user_post
 
 
 @bp.route("/post/<int:post_id>/")

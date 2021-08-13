@@ -1,10 +1,82 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<div class="container px-1 pt-5 mx-auto">
+    <div class="row d-flex justify-content-center">
+        <div class="col-12 text-center" style="position: static">
+            <div class="card" style="background-color: #8ec3eb; position: static">
+                <div class="container">
+                    <div class="main-body">
 
-</body>
-</html>
+
+                        <!-- /Breadcrumb -->
+
+                        <div class="row gutters-sm" style="position:static;">
+                            <div class="col-md-4">
+                                <div class="card" style="position:static; z-index: -100">
+                                    <div class="card-body">
+                                        <div class="d-flex flex-column align-items-center text-center">
+                                            {% if logged_in_user.image %}
+                                                <img src="{{ url_for('static', filename='img/' + logged_in_user.image) }}"
+                                                     alt="avatar"
+                                                     class="rounded-circle" width="150" height="150">
+                                            {% endif %}
+                                            <div class="mt-3">
+                                                <h4>{{ logged_in_user.f_name }} {{ logged_in_user.l_name }}</h4>
+                                                <p class="text-secondary mb-1">{{ logged_in_user.username }}</p>
+                                                <button class="btn btn-outline-primary">افزودن پست جدید</button>
+                                                <button class="btn btn-outline-primary">پست های من</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-8" style="position:static;">
+                                <div class="card" style="position:static;">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-sm-4">
+                                                <h6 class="mb-0">نام</h6>
+                                            </div>
+                                            <div class="col-sm-8 text-secondary">
+                                                {{ logged_in_user.f_name }}
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-sm-4">
+                                                <h6 class="mb-0">نام خانوادگی</h6>
+                                            </div>
+                                            <div class="col-sm-8 text-secondary">
+                                                {{ logged_in_user.l_name }}
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-sm-4">
+                                                <h6 class="mb-0">ایمیل</h6>
+                                            </div>
+                                            <div class="col-sm-8 text-secondary">
+                                                {{ logged_in_user.email }}
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-sm-4">
+                                                <h6 class="mb-0">شماره همراه</h6>
+                                            </div>
+                                            <div class="col-sm-8 text-secondary">
+                                                {{ logged_in_user.phone_number }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

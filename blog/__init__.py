@@ -26,17 +26,15 @@ def create_app(test_config=None):
     except OSError:
         pass
 
-
     # apply the blueprints to the app
-    from blog import blog,user,api
-    app.register_blueprint(blog.bp,url_prefix="/blog")
-    app.register_blueprint(user.bp,url_prefix="/user")
-    app.register_blueprint(api.bp,url_prefix="/api")
+    from blog import blog, user, api
+    app.register_blueprint(blog.bp, url_prefix="/blog")
+    app.register_blueprint(user.bp, url_prefix="/user")
+    app.register_blueprint(api.bp, url_prefix="/api")
 
     # make url_for('index') == url_for('blog.index')
     # in another app, you might define a separate main index here with
     # app.route, while giving the blog blueprint a url_prefix, but for
     # the tutorial the blog will be the main index
     app.add_url_rule("/", endpoint="index")
-
     return app

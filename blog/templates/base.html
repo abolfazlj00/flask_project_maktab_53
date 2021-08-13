@@ -5,15 +5,19 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
     <link rel='stylesheet' href="{{ url_for('static',filename='css/base.css') }}">
+    <link rel='stylesheet' href="{{ url_for('static',filename='css/register.css') }}">
     <title> بلاگ </title>
 </head>
-<body>
-<div class="container-fluid">
+<body class="backGround">
+<div class="container-fluid ">
     <div class="header-register row">
         <div class="register">
             <button onclick="loadContent('register')" class="btn" id="signup-button"> ثبت نام</button>
@@ -22,20 +26,20 @@
     </div>
     <div class="header-nav row">
         <nav class="navbar navbar-expand-sm navbar-light w-100 ">
-            <h2 class="navbar-brand"> فهرست </h2>
+            <h2 class="navbar-brand font-weight-bold" style="font-size: 2rem;"> فهرست </h2>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item active">
-                        <button onclick="loadContent('')" class="btn btn-block"> خانه</button>
+                        <button onclick="loadContent('')" class="btn btn-block" style="font-size: 1.5rem !important;"> خانه</button>
                     </li>
                     <li class="nav-item">
-                        <button class="btn btn-block"> جستجو</button>
+                        <button class="btn btn-block" style="font-size: 1.5rem !important;"> جستجو</button>
                     </li>
                     <li class="nav-item">
-                      <button class="btn btn-block"> پنل کاربری </button>
+                        <button class="btn btn-block" id="block" style="font-size: 1.5rem !important;"> پنل کاربری</button>
                     </li>
                 </ul>
             </div>
@@ -50,13 +54,16 @@
 </div>
 <!--<script src="{{ url_for('static',filename='js/base_script.js') }}"></script>-->
 <script>
-    function loadContent(page){
-    $.get('{{ url_for('index') }}'+'blog/'+page, function (response) {
-        $('.content').html('')
-            if(page!=''){$('.content').html(response)}
+    function loadContent(page) {
+        $.get('{{ url_for('index') }}' + 'blog/' + page, function (response) {
+            $('.content').html('')
 
-})
-}
+            if (page != '') {
+                $('.content').html(response)
+            }
+
+        })
+    }
 </script>
 </body>
 </html>

@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request
+from flask import Blueprint, render_template, request, redirect
 from werkzeug.utils import secure_filename
 import hashlib
 import base64
@@ -26,7 +26,6 @@ def index(page):
 
 @bp.route("/register", methods=["POST"])
 def register():
-
     if request.method == 'POST':
         f_name = request.form.get('f_name')
         l_name = request.form.get('l_name')
@@ -64,6 +63,25 @@ def register():
         return "ERROR"
 
 
+@bp.route("/login", methods=["POST"])
+def login():
+    db = get_db()
+    users = db.items.find()
+    username = request.form.get('username')
+    password = request.form.get('password')
+    login_user = db.users.find({"username": username}, {"_id":0})
+
+    if login_user.count() != 0:
+        valid_password = login_user[0]["password"]
+        generated_password = hashlib.sha512((password + login_user[0]["salt"]).encode()).hexdigest()
+        if valid_password == generated_password:
+            return login_user[0]
+        else:
+            return "wrong password"
+    else:
+        return "User not found"
+
+
 @bp.route("/post/<int:post_id>/")
 def post(post_id):
     return f'post_id is {post_id}'
@@ -77,5 +95,3 @@ def category(category_id):
 @bp.route("/tag-posts/<int:tag_id>/")
 def tag(tag_id):
     return f'tag_id is {tag_id}'
-
-

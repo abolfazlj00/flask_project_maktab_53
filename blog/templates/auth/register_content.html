@@ -1,31 +1,59 @@
-<form id="register-form" action="{{ url_for('blog.register') }}" method="post" enctype="multipart/form-data">
-    <label for="f_name">نام</label>
-    <input name="f_name" id="f_name" required><br>
-    <label for="l_name">نام خانوادگی</label>
-    <input name="l_name" id="l_name" required><br>
-    <label for="username">نام کاربری</label>
-    <input name="username" id="username" required><br>
-    <label for="password">رمزعبور</label>
-    <input type="password" name="password" id="password" required><br>
-    <label for="phone">شماره همراه</label>
-    <input name="phone" id="phone" required><br>
-    <label for="email">ایمیل</label>
-    <input type="email" name="email" id="email" required><br>
-    <label for="image">عکس</label>
-    <input type="file" name="image" id="image" required><br>
 
-    <button id="add-btn" type="submit" value="Register" class="btn btn-primary">ثبت نام</button>
-</form>
-{##}
-{#<form id="entry-form" action="{{ url_for('shopping.entry') }}" method="post" enctype="multipart/form-data">#}
-{#    <label for="name">نام</label>#}
-{#    <input name="name" id="name" required>#}
-{#    <label for="price">قیمت</label>#}
-{#    <input type="number" name="price" id="price" required>#}
-{#    <label for="count">تعداد</label>#}
-{#    <input type="number" name="count" id="count" required>#}
-{#    <label for="image">تصویر</label>#}
-{#    <input type="file" name="image" id="image" required>#}
-{#    <button id="add-btn" type="button" class="btn btn-primary">افزودن</button>#}
-{#</form>#}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+      integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+
+
+{#    <div class="p-5" style="font-family: 'B Nazanin',serif; width: 100%;">#}
+{#        <form id="register-form" class="form-group m-auto" action="{{ url_for('blog.register') }}" method="post"#}
+{#              enctype="multipart/form-data" style="">#}
+{#            <label class="text-light" dir="ltr" for="f_name">نام</label>#}
+{#            <input class="input-group" name="f_name" id="f_name" required><br>#}
+{#            <label class="text-light" for="l_name">نام خانوادگی</label>#}
+{#            <input class="input-group" name="l_name" id="l_name" required><br>#}
+{#            <label class="text-light" for="username">نام کاربری</label>#}
+{#            <input class="input-group" name="username" id="username" required><br>#}
+{#            <label class="text-light" for="password">رمزعبور</label>#}
+{#            <input class="input-group" type="password" name="password" id="password" required><br>#}
+{#            <label class="text-light" for="phone">شماره همراه</label>#}
+{#            <input class="input-group" name="phone" id="phone" required><br>#}
+{#            <label class="text-light" for="email">ایمیل</label>#}
+{#            <input class="input-group" type="email" name="email" id="email" required><br>#}
+{#            <label class="text-light" for="image">عکس</label>#}
+{#            <input class="input-group" type="file" name="image" id="image" required><br>#}
+{#            <button id="add-btn" type="submit" value="Register" class="btn btn-primary">ثبت نام</button>#}
+{#        </form>#}
+
 <script src="{{ url_for('static', filename='js/register.js') }}"></script>
+
+
+<div class="container-fluid px-1 py-5 mx-auto">
+    <div class="row d-flex justify-content-center" >
+        <div class="col-xl-7 col-lg-8 col-md-9 col-11 text-center" >
+            <div class="card" style="background-color: #8ec3eb">
+                <h5 class="text-center mb-4 font-weight-bold">ثبت نام</h5>
+                <form class="form-card" id="register-form"  action="{{ url_for('blog.register') }}" method="post" >
+                    <div class="row justify-content-between text-right">
+                        <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3 mb-2">نام<span class="text-danger"> *</span></label> <input type="text" id="f_name" name="f_name" required> </div>
+                        <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3 mb-2">نام خانوادگی<span class="text-danger"> *</span></label> <input type="text" id="l_name" name="l_name" required> </div>
+                    </div>
+                    <div class="row justify-content-between text-right">
+                        <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3 mb-2">ایمیل<span class="text-danger"> *</span></label> <input type="text" id="email" name="email" required> </div>
+                        <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3 mb-2">شماره موبایل<span class="text-danger"> *</span></label> <input type="text" id="phone" name="phone" required> </div>
+                    </div>
+                    <div class="row justify-content-between text-right">
+                        <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3 mb-2">عکس<span class="text-danger"> *</span></label> <input type="file" class="form-control" id="image" name="image"  required style="background-color: white"> </div>
+                    </div>
+                    <div class="row justify-content-between text-right">
+                        <div class="form-group col-12 flex-column d-flex"> <label class="form-control-label px-3 mb-2">نام کاربری<span class="text-danger"> *</span></label> <input type="text" id="username" name="username" required> </div>
+                    </div>
+                    <div class="row justify-content-between text-right">
+                        <div class="form-group col-12 flex-column d-flex"> <label class="form-control-label px-3 mb-2">رمز عبور<span class="text-danger"> *</span></label> <input type="password" id="password" name="password"  required> </div>
+                    </div>
+                    <div class="row justify-content-center">
+                        <div class="form-group col-sm-6"> <button type="submit" class="btn-block btn-primary mt-3" id="add-btn">ثبت نام</button> </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

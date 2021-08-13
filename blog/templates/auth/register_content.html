@@ -3,33 +3,13 @@
       integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
 
 
-{#    <div class="p-5" style="font-family: 'B Nazanin',serif; width: 100%;">#}
-{#        <form id="register-form" class="form-group m-auto" action="{{ url_for('blog.register') }}" method="post"#}
-{#              enctype="multipart/form-data" style="">#}
-{#            <label class="text-light" dir="ltr" for="f_name">نام</label>#}
-{#            <input class="input-group" name="f_name" id="f_name" required><br>#}
-{#            <label class="text-light" for="l_name">نام خانوادگی</label>#}
-{#            <input class="input-group" name="l_name" id="l_name" required><br>#}
-{#            <label class="text-light" for="username">نام کاربری</label>#}
-{#            <input class="input-group" name="username" id="username" required><br>#}
-{#            <label class="text-light" for="password">رمزعبور</label>#}
-{#            <input class="input-group" type="password" name="password" id="password" required><br>#}
-{#            <label class="text-light" for="phone">شماره همراه</label>#}
-{#            <input class="input-group" name="phone" id="phone" required><br>#}
-{#            <label class="text-light" for="email">ایمیل</label>#}
-{#            <input class="input-group" type="email" name="email" id="email" required><br>#}
-{#            <label class="text-light" for="image">عکس</label>#}
-{#            <input class="input-group" type="file" name="image" id="image" required><br>#}
-{#            <button id="add-btn" type="submit" value="Register" class="btn btn-primary">ثبت نام</button>#}
-{#        </form>#}
-
 <script src="{{ url_for('static', filename='js/register.js') }}"></script>
 
 
-<div class="container-fluid px-1 py-5 mx-auto">
+<div class="container px-1 pt-5 mx-auto">
     <div class="row d-flex justify-content-center" >
-        <div class="col-xl-7 col-lg-8 col-md-9 col-11 text-center" >
-            <div class="card" style="background-color: #8ec3eb">
+        <div class="col-xl-7 col-lg-8 col-md-9 col-11 text-center" style="position: static">
+            <div class="card" style="background-color: #8ec3eb; position: static">
                 <h5 class="text-center mb-4 font-weight-bold">ثبت نام</h5>
                 <form class="form-card" id="register-form"  action="{{ url_for('blog.register') }}" method="post" >
                     <div class="row justify-content-between text-right">

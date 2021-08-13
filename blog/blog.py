@@ -41,7 +41,7 @@ def register():
         f = request.files.get('image')
         if f:
             file_name = secure_filename(f.filename)
-            f.save('blog/static/img/profile' + file_name)
+            f.save('blog/static/img/profiles/' + file_name)
             image = file_name
     else:
         image = None
@@ -112,7 +112,7 @@ def create_post():
     # this section get an image for our post
     f = request.files.get('image')
     file_name = secure_filename(f.filename)
-    f.save('blog/static/img/posts' + file_name)
+    f.save('blog/static/img/posts/' + file_name)
     image = file_name
 
     username = session["username"]
@@ -138,6 +138,7 @@ def create_post():
     }
 
     db.posts.insert_one(user_post)
+    user_post['_id'] = str(user_post['_id'])
     return user_post
 
 

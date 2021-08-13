@@ -8,8 +8,9 @@ $('#insert_post-form').submit(function (e) {
         type: "POST",
         url: url,
         data: formData, // serializes the form's elements.
-        success: function (data) {
-            console.log(data)
+        success: function () {
+            alert("کاربر گرامی پست شما با موفقیت ایجاد شد")
+            view_profile()
         },
         cache: false,
         contentType: false,

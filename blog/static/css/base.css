@@ -19,7 +19,7 @@ body {
 }
 
 .backGround{
-     background-color: #2a6592
+     background-color: #2a6592 !important
 }
 
 .form-group {

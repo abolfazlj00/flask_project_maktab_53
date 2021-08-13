@@ -10,7 +10,7 @@ $('#register-form').submit(function (e) {
         url: url,
         data: formData, // serializes the form's elements.
         success: function (data) {
-            if (data == 'ERROR'){
+            if (data === 'ERROR'){
                 alert('Error !!! Try another username')
             }
             else {

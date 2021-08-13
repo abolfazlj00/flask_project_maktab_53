@@ -26,6 +26,7 @@ def index(page):
 
 @bp.route("/register", methods=["POST"])
 def register():
+
     if request.method == 'POST':
         f_name = request.form.get('f_name')
         l_name = request.form.get('l_name')
@@ -76,3 +77,5 @@ def category(category_id):
 @bp.route("/tag-posts/<int:tag_id>/")
 def tag(tag_id):
     return f'tag_id is {tag_id}'
+
+

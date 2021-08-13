@@ -1,8 +1,31 @@
-<form method="post">
-    <label for="username">Username</label>
-    <input name="username" id="username" required>
-    <label for="password">Password</label>
-    <input type="password" name="password" id="password" required>
-    <input type="submit" value="Register">
-</form>
+<form id="register-form" action="{{ url_for('blog.register') }}" method="post" enctype="multipart/form-data">
+    <label for="f_name">نام</label>
+    <input name="f_name" id="f_name" required><br>
+    <label for="l_name">نام خانوادگی</label>
+    <input name="l_name" id="l_name" required><br>
+    <label for="username">نام کاربری</label>
+    <input name="username" id="username" required><br>
+    <label for="password">رمزعبور</label>
+    <input type="password" name="password" id="password" required><br>
+    <label for="phone">شماره همراه</label>
+    <input name="phone" id="phone" required><br>
+    <label for="email">ایمیل</label>
+    <input type="email" name="email" id="email" required><br>
+    <label for="image">عکس</label>
+    <input type="file" name="image" id="image" required><br>
 
+    <button id="add-btn" type="submit" value="Register" class="btn btn-primary">ثبت نام</button>
+</form>
+{##}
+{#<form id="entry-form" action="{{ url_for('shopping.entry') }}" method="post" enctype="multipart/form-data">#}
+{#    <label for="name">نام</label>#}
+{#    <input name="name" id="name" required>#}
+{#    <label for="price">قیمت</label>#}
+{#    <input type="number" name="price" id="price" required>#}
+{#    <label for="count">تعداد</label>#}
+{#    <input type="number" name="count" id="count" required>#}
+{#    <label for="image">تصویر</label>#}
+{#    <input type="file" name="image" id="image" required>#}
+{#    <button id="add-btn" type="button" class="btn btn-primary">افزودن</button>#}
+{#</form>#}
+<script src="{{ url_for('static', filename='js/register.js') }}"></script>

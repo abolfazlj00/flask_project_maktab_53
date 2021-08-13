@@ -1,30 +1,24 @@
-<link rel='stylesheet' href="{{ url_for('static',filename='css/base.css') }}">
 
 
-{#  <form method="post" class="register">#}
-{#    <label for="username">Username</label>#}
-{#    <input name="username" id="username" required>#}
-{#    <label for="password">Password</label>#}
-{#    <input type="password" name="password" id="password" required>#}
-{#    <input type="submit" value="Log In">#}
-{#  </form>#}
+<script src="{{ url_for('static', filename='js/login.js') }}"></script>
 
-<div class="container-fluid px-1 py-5 mx-auto">
+<div class="container px-1 py-5 mx-auto">
     <div class="row d-flex justify-content-center" >
         <div class="col-xl-7 col-lg-8 col-md-9 col-11 text-center" >
             <div class="card" style="background-color: #8ec3eb">
                 <h5 class="text-center mb-4 font-weight-bold">ورود</h5>
-                <form class="form-card" id="register-form"  action="{{ url_for('blog.register') }}" method="post" >
+                <form class="form-card" id="login-form"  action="{{ url_for('blog.login') }}" method="post" >
                     <div class="row justify-content-between text-right">
                         <div class="form-group col-7 flex-column d-flex m-auto" > <label class="form-control-label px-3 mb-2">نام کاربری<span class="text-danger"> *</span></label> <input type="text" id="username" name="username" required> </div>
                         <div class="form-group col-7 flex-column d-flex m-auto"> <label class="form-control-label px-3 mb-2">رمز عبور<span class="text-danger"> *</span></label> <input type="password" id="password" name="password"  required> </div>
                     </div>
                     <div class="row justify-content-center">
-                        <div class="form-group col-3"> <button type="submit" class="btn-block btn-primary mt-3" id="add-btn">ورود</button> </div>
+                        <div class="form-group col-3"> <button type="submit" class="btn-block btn-primary mt-3" id="login-btn">ورود</button> </div>
                     </div>
                 </form>
             </div>
         </div>
     </div>
 </div>
+
 

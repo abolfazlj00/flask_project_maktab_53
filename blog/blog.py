@@ -16,7 +16,7 @@ def index(page):
     if page is None:
         return render_template('base.html')
     else:
-        if page not in ('home', 'login', 'register', 'profile'):
+        if page not in ('home', 'login', 'register', 'profile', 'insert_post'):
             return "Page not Found!", 404
         content_html = f"{page}_content.html"
         if page in ('login', 'register'):
@@ -137,7 +137,8 @@ def create_post():
         "active_state": active_state
     }
 
-    pass
+    db.posts.insert_one(user_post)
+    return user_post
 
 
 @bp.route("/post/<int:post_id>/")

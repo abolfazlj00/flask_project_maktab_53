@@ -21,7 +21,9 @@
                                             <div class="mt-3">
                                                 <h4>{{ logged_in_user.f_name }} {{ logged_in_user.l_name }}</h4>
                                                 <p class="text-secondary mb-1">{{ logged_in_user.username }}</p>
-                                                <button class="btn btn-outline-primary">افزودن پست جدید</button>
+                                                <button onclick="insert_post()" class="btn btn-outline-primary">افزودن پست
+                                                    جدید
+                                                </button>
                                                 <button class="btn btn-outline-primary">پست های من</button>
                                             </div>
                                         </div>
@@ -80,3 +82,10 @@
         </div>
     </div>
 </div>
+<script>
+    function insert_post() {
+        $.get('{{ url_for('index') }}' + 'blog/insert_post', function (response) {
+            $('.content').html(response)
+        })
+    }
+</script>

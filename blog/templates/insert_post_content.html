@@ -1,0 +1,27 @@
+<div class="container px-1 pt-5 mx-auto">
+    <div class="row d-flex justify-content-center" >
+        <div class="col-xl-7 col-lg-8 col-md-9 col-11 text-center" style="position: static">
+            <div class="card" style="background-color: #8ec3eb; position: static">
+                <h5 class="text-center mb-4 font-weight-bold"> ایجاد پست جدید </h5>
+                <form class="form-card" id="insert_post-form"  action="{{ url_for('blog.create_post') }}" method="post" >
+                    <div class="row justify-content-between text-right">
+                        <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3 mb-2">عنوان<span class="text-danger"> *</span></label> <input type="text" id="title" name="title" required> </div>
+                        <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3 mb-2">محتوای پست<span class="text-danger"> *</span></label> <input type="text" id="main_text" name="main_text" required> </div>
+                    </div>
+                    <div class="row justify-content-between text-right">
+                        <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3 mb-2">برچسب<span class="text-danger"> *</span></label> <input type="text" id="tags" name="tags" required> </div>
+                        <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3 mb-2">دسته بندی <span class="text-danger"> *</span></label> <input type="text" id="category_of_post" name="category_of_post" required> </div>
+                    </div>
+                    <div class="row justify-content-between text-right">
+                        <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3 mb-2">عکس<span class="text-danger"> *</span></label> <input type="file" class="form-control" id="image" name="image"  required style="background-color: white"> </div>
+                    </div>
+                    <div class="row justify-content-center">
+                        <div class="form-group col-sm-6"> <button type="submit" class="btn-block btn-primary mt-3" id="create-btn">ایچاد پست</button> </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="{{ url_for('static', filename='js/insert_post.js') }}"></script>

@@ -60,7 +60,7 @@ Run
 
 Or on Windows cmd::
 
-    > set FLASK_APP=flaskr
+    > set FLASK_APP=blog
     > set FLASK_ENV=development
     > flask run
 

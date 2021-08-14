@@ -1,9 +1,11 @@
-# Flask_Project
-## Used Technologies: Flask, Flask_Template, JS, AJAX, HTML, CSS, MongoDB
+
+
+
+Flask_Project
 ======
 
-This is a Group Poject, Order By Maktabsharif.com [Maktab_53]
-.. _flask_project: https://group3.ir/
+This is a Group Poject, Order By Maktabsharif.com [Maktab_53].. _flask_project: https://group3.ir/
+
 
 
 Install

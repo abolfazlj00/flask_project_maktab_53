@@ -119,7 +119,11 @@ def create_post():
     title = request.form.get('title')
     main_text = request.form.get('main_text')
     image = image
-    tags = []
+    tags = request.form.get("tags")
+    for tag in tags:
+        tag_in_database = db.tag_db.find({"tag_name": tag}, {"_id": 0})
+        if tag_in_database.count()==0:
+            db.tag_db.insert_one({"tag_name":tag})
     pub_date = datetime.now()
     category_of_post = str()
     like = []

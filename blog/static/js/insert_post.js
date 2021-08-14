@@ -17,3 +17,7 @@ $('#insert_post-form').submit(function (e) {
         processData: false
     });
 });
+
+$("#create-btn").click(function (){
+    $("#insert_post-form").submit()
+})

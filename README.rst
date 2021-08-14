@@ -6,7 +6,15 @@ Flask_Project
 
 This is a Group Poject, Order By Maktabsharif.com [Maktab_53].. _flask_project: https://group3.ir/
 
-
+Technologies. 
+-------
+This is what Techs that we used in our project
+s ::
+    -> Flask
+    -> HTML
+    -> CSS
+    -> JS
+    -> MongoDB
 
 Install
 -------

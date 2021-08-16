@@ -27,3 +27,25 @@ $('#register-form').submit(function (e) {
         processData: false
     });
 });
+
+function readURLForRegister(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+            $('#edit_img').html(`<img id="preview" src=""
+                                     className="mr-3"
+                                     alt="avatar"
+                                     width="150" height="150" style="border: 3px solid #2a6592; border-radius: 16px ">`)
+
+            $('#preview').attr('src', e.target.result);
+        }
+
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
+$("#img_input").change(function () {
+    readURLForRegister(this);
+});
+

@@ -12,6 +12,13 @@ def profile():
     return render_template("profile_content.html", logged_in_user=login_user[0])
 
 
+@bp.route("/edit-profile/")
+def edit_profile():
+    db = get_db()
+    login_user = db.users.find({"username": session["username"]}, {"_id": 0})
+    return render_template("edit_profile_content.html", logged_in_user=login_user[0])
+
+
 @bp.route("/posts-list/")
 def posts_list():
     return "list of posts"

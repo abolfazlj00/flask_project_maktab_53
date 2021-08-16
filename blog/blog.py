@@ -29,7 +29,7 @@ def index(page):
                 'salt': salt,
                 'username': 'admin',
                 'email': '',
-                'image': '',
+                'image': 'avatar.jfif',
                 'phone_number': '',
                 'is_admin': 1
             }
@@ -63,8 +63,8 @@ def register():
             file_name = secure_filename(f.filename)
             f.save('blog/static/img/profiles/' + file_name)
             image = file_name
-    else:
-        image = None
+        else:
+            image = 'avatar.jfif'
 
     db = get_db()
     regex_for_email = r"^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$"

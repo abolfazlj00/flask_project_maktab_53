@@ -13,7 +13,11 @@
                                 <div class="card" style="position:static; z-index: -100">
                                     <div class="card-body">
                                         <div class="d-flex flex-column align-items-center text-center">
-                                            {% if logged_in_user.image %}
+                                            {% if logged_in_user.image == 'avatar.jfif' %}
+                                                <img src="{{ url_for('static', filename='img/avatar/avatar.jfif') }}"
+                                                     alt="avatar"
+                                                     class="rounded-circle" width="150" height="150">
+                                            {% else %}
                                                 <img src="{{ url_for('static', filename='img/profiles/' + logged_in_user.image) }}"
                                                      alt="avatar"
                                                      class="rounded-circle" width="150" height="150">
@@ -74,7 +78,7 @@
                                         <br>
                                         <div class="d-flex justify-content-center">
                                             <div class="col-sm-4">
-                                                <button class="btn btn-outline-primary">ویرایش اطلاعات</button>
+                                                <button onclick="edit_profile()" class="btn btn-outline-primary">ویرایش اطلاعات</button>
                                             </div>
                                         </div>
 
@@ -98,4 +102,10 @@
             $('.content').html(response)
         })
     }
+    function edit_profile(){
+        $.get('{{ url_for('user.edit_profile') }}', function (response) {
+            $('.content').html(response)
+        })
+    }
+
 </script>

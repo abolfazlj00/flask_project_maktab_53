@@ -67,7 +67,7 @@ def register():
             image = 'avatar.jfif'
 
     db = get_db()
-    regex_for_email = r"^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$"
+    regex_for_email = r"^[a-zA-Z0-9]+[\._]?[a-zA-Z0-9]+[@]\w+[.]\w{2,3}$"
     regex_for_phone = r"^(\+98?)?{?(0?9[0-9]{9,9}}?)$"
     if not re.search(regex_for_email, email):
         return "ایمیل نامعتبر است"

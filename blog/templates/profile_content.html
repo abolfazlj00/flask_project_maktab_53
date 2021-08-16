@@ -21,7 +21,8 @@
                                             <div class="mt-3">
                                                 <h4>{{ logged_in_user.f_name }} {{ logged_in_user.l_name }}</h4>
                                                 <p class="text-secondary mb-1">{{ logged_in_user.username }}</p>
-                                                <button onclick="insert_post()" class="btn btn-outline-primary">افزودن پست
+                                                <button onclick="insert_post()" class="btn btn-outline-primary">افزودن
+                                                    پست
                                                     جدید
                                                 </button>
                                                 <button class="btn btn-outline-primary">پست های من</button>
@@ -67,6 +68,10 @@
                                             </div>
                                             <div class="col-sm-8 text-secondary">
                                                 {{ logged_in_user.phone_number }}
+                                            </div>
+                                            <hr>
+                                            <div class="col-sm-4" >
+                                                <button class="btn btn-outline-primary">ویرایش اطلاعات</button>
                                             </div>
                                         </div>
                                     </div>

@@ -4,6 +4,7 @@ import hashlib
 import base64
 import uuid
 from datetime import datetime
+import re
 
 from blog.db import get_db
 
@@ -47,7 +48,12 @@ def register():
         image = None
 
     db = get_db()
-
+    regex_for_email = r"^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$"
+    regex_for_phone = r"^(\+98?)?{?(0?9[0-9]{9,9}}?)$"
+    if not re.search(regex_for_email, email):
+        return "ایمیل نامعتبر است"
+    if not re.search(regex_for_phone, phone_number):
+        return "شماره موبایل نامعتبر است"
     user = {
         'f_name': f_name,
         'l_name': l_name,
@@ -56,7 +62,8 @@ def register():
         'username': username,
         'email': email,
         'image': image,
-        'phone_number': phone_number
+        'phone_number': phone_number,
+        'is_admin': 0
     }
 
     skip_username = 0

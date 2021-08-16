@@ -11,3 +11,5 @@ build/
 .idea/
 *.swp
 *~
+blog/static/img/posts/*
+blog/static/img/profiles/*

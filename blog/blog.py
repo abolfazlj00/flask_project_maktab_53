@@ -52,7 +52,7 @@ def register():
         l_name = request.form.get('l_name')
         username = request.form.get('username')
         password = request.form.get('password')
-
+        confrim_password = request.form.get('confrim_password')
         salt = base64.urlsafe_b64encode(uuid.uuid4().bytes).hex()
         hashed_password = hashlib.sha512((password + salt).encode()).hexdigest()
 
@@ -73,6 +73,8 @@ def register():
         return "ایمیل نامعتبر است"
     if not re.search(regex_for_phone, phone_number):
         return "شماره موبایل نامعتبر است"
+    if password != confrim_password:
+        return "رمز عبور با تکرار خود همخوانی ندارد"
     user = {
         'f_name': f_name,
         'l_name': l_name,
@@ -185,6 +187,3 @@ def category(category_id):
 @bp.route("/tag-posts/<int:tag_id>/")
 def tag(tag_id):
     return f'tag_id is {tag_id}'
-
-
-

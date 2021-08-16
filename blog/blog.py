@@ -15,6 +15,25 @@ bp = Blueprint("blog", __name__)
 @bp.route('/<page>/')
 def index(page):
     if page is None:
+        # create admin of website
+        db = get_db()
+        find_admin = db.user.find({'username': 'admin'}, {"_id": 0})
+        if find_admin.count() == 0:
+            password = '1234'
+            salt = base64.urlsafe_b64encode(uuid.uuid4().bytes).hex()
+            hashed_password = hashlib.sha512((password + salt).encode()).hexdigest()
+            admin = {
+                'f_name': '',
+                'l_name': '',
+                'password': hashed_password,
+                'salt': salt,
+                'username': 'admin',
+                'email': '',
+                'image': '',
+                'phone_number': '',
+                'is_admin': 1
+            }
+            db.users.insert_one(admin)
         return render_template('base.html')
     else:
         if page not in ('home', 'login', 'register', 'profile', 'insert_post'):

@@ -56,20 +56,8 @@
     </div>
 </div>
 <!--<script src="{{ url_for('static',filename='js/base_script.js') }}"></script>-->
-<script>
-    function loadContent(page) {
-        $.get('{{ url_for('index') }}' + 'blog/' + page, function (response) {
-            $('.content').html('')
 
-            if (page != '') {
-                $('.content').html(response)
-            }
 
-        })
-    }
-
-    loadContent("home")
-</script>
 <script src="{{ url_for('static', filename='js/login.js') }}"></script>
 <script>
     $(document).ready(function () {

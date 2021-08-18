@@ -3,7 +3,7 @@
         <div class="col-xl-7 col-lg-8 col-md-9 col-11 text-center" style="position: static">
             <div class="card" style="background-color: #8ec3eb; position: static">
                 <h5 class="text-center mb-4 font-weight-bold">ویرایش اطلاعات</h5>
-                <form class="form-card" id="edit_profile-form"  action="{{ url_for('------') }}" method="post" >
+                <form enctype="multipart/form-data" class="form-card" id="edit_profile-form"  action="{{ url_for('user.merge_change') }}" method="post" >
                     <div class="row justify-content-between text-right">
                         <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3 mb-2">نام</label> <input type="text" id="f_name" name="f_name" placeholder="{{ logged_in_user.f_name }}" > </div>
                         <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3 mb-2">نام خانوادگی</label> <input type="text" id="l_name" name="l_name" placeholder="{{ logged_in_user.l_name }}" > </div>
@@ -28,14 +28,17 @@
                             {% endif %}
                         </div>
                     </div>
+                <div class="row justify-content-between text-right">
+                        <div class="form-group col-12 flex-column d-flex"> <label class="form-control-label px-3 mb-2">نام کاربری</label> <input type="text" placeholder="{{ logged_in_user.username }}" readonly> </div>
+                    </div>
                     <div class="row justify-content-between text-right">
                         <div class="form-group col-12 flex-column d-flex"> <label class="form-control-label px-3 mb-2">رمز عبور جدید</label> <input type="password" id="new_password" name="new_password"> </div>
                     </div>
                     <div class="row justify-content-between text-right">
-                        <div class="form-group col-12 flex-column d-flex"> <label class="form-control-label px-3 mb-2">تکرار رمز عبور جدید</label> <input type="password" id="confirm_password" name="confirm_password"> </div>
+                        <div class="form-group col-12 flex-column d-flex"> <label class="form-control-label px-3 mb-2">تکرار رمز عبور جدید</label> <input type="password" id="new_confirm_password" name="new_confirm_password"> </div>
                     </div>
                     <div class="row justify-content-center">
-                        <div class="form-group col-sm-6"> <button type="submit" class="btn-block btn-primary mt-3" id="add-btn">ویرایش</button> </div>
+                        <div class="form-group col-sm-6"> <button type="submit" class="btn-block btn-primary mt-3" id="edit-btn">ویرایش</button> </div>
                     </div>
                 </form>
             </div>

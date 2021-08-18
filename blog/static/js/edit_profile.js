@@ -10,7 +10,7 @@ function readURL(input) {
     }
 }
 
-$("#img_input").change(function(){
+$("#img_input").change(function () {
     readURL(this);
 });
 
@@ -26,12 +26,13 @@ $('#edit_profile-form').submit(function (e) {
         url: url,
         data: formData, // serializes the form's elements.
         success: function (data) {
-            console.log(data)
-            alert(
-                'پروفایل شما با موفقیت تغییر کرد'
-            )
+            if(data==="success"){
+                view_profile()
+            }
+            else {
+                    alert(data)
+            }
 
-            view_profile()
         },
         cache: false,
         contentType: false,

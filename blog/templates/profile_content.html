@@ -80,6 +80,11 @@
                                             <div class="col-sm-4">
                                                 <button onclick="edit_profile()" class="btn btn-outline-primary">ویرایش اطلاعات</button>
                                             </div>
+                                                  {% if logged_in_user.is_admin == 1 %}
+                                                <div class="col-sm-4">
+                                                <button onclick="edit_profile()" class="btn btn-outline-primary">ایجاد دسته بندی</button>
+                                            </div>
+                                            {% endif %}
                                         </div>
 
                                     </div>

@@ -23,14 +23,14 @@ def index(page):
             salt = base64.urlsafe_b64encode(uuid.uuid4().bytes).hex()
             hashed_password = hashlib.sha512((password + salt).encode()).hexdigest()
             admin = {
-                'f_name': 'first name',
-                'l_name': 'last name',
+                'f_name': 'f_name',
+                'l_name': 'l_name',
                 'password': hashed_password,
                 'salt': salt,
                 'username': 'admin',
                 'email': 'admin@example.com',
                 'image': 'avatar.jfif',
-                'phone_number': '09123456789',
+                'phone_number': '11111111111',
                 'is_admin': 1
             }
             db.users.insert_one(admin)

@@ -34,7 +34,7 @@ def index(page):
                 'is_admin': 1
             }
             db.users.insert_one(admin)
-        return render_template('base.html')
+        return render_template('base.html', Session=session)
     else:
         if page not in ('home', 'login', 'register', 'profile', 'insert_post'):
             return "Page not Found!", 404
@@ -139,15 +139,17 @@ def create_post():
 
     # this section get an image for our post
     f = request.files.get('image')
-    file_name = secure_filename(f.filename)
-    f.save('blog/static/img/posts/' + file_name)
-    image = file_name
-
+    if f:
+        file_name = secure_filename(f.filename)
+        f.save('blog/static/img/posts/' + file_name)
+        image = file_name
+    else:
+        image = None
     username = session["username"]
     title = request.form.get('title')
     main_text = request.form.get('main_text')
-    image = image
     tags = request.form.get("tags")
+    print(tags)
     for tag in tags:
         tag_in_database = db.tag_db.find({"tag_name": tag}, {"_id": 0})
         if tag_in_database.count() == 0:

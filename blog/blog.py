@@ -17,20 +17,20 @@ def index(page):
     if page is None:
         # create admin of website
         db = get_db()
-        find_admin = db.user.find({'username': 'admin'}, {"_id": 0})
+        find_admin = db.users.find({'username': 'admin'}, {"_id": 0})
         if find_admin.count() == 0:
             password = '1234'
             salt = base64.urlsafe_b64encode(uuid.uuid4().bytes).hex()
             hashed_password = hashlib.sha512((password + salt).encode()).hexdigest()
             admin = {
-                'f_name': '',
-                'l_name': '',
+                'f_name': 'first name',
+                'l_name': 'last name',
                 'password': hashed_password,
                 'salt': salt,
                 'username': 'admin',
-                'email': '',
+                'email': 'admin@example.com',
                 'image': 'avatar.jfif',
-                'phone_number': '',
+                'phone_number': '09123456789',
                 'is_admin': 1
             }
             db.users.insert_one(admin)

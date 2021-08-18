@@ -61,7 +61,7 @@
 <script>
     $(document).ready(function () {
         var username = $('#my-data').data();
-        if (username) {
+        if ((username.name).length != 0) {
             get_profile(username.name)
         }
 

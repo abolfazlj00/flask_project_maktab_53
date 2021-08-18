@@ -4,6 +4,7 @@ import re
 import uuid
 
 from flask import Blueprint, render_template, request, redirect, session
+from werkzeug.utils import secure_filename
 
 from blog.db import get_db
 
@@ -24,59 +25,59 @@ def edit_profile():
     return render_template("edit_profile_content.html", logged_in_user=login_user[0])
 
 
-@bp.route("/merge_change/")
+@bp.route("/merge_change/", methods=["POST"])
 def merge_change():
-    db = get_db()
-    myquery = {"username": session["username"]}
-    f_name = request.form.get('f_name')
-    l_name = request.form.get('l_name')
-    email = request.form.get('email')
-    phone_number = request.form.get('phone')
-    f = request.files.get('image')
-    password = request.form.get('password')
-    confirm_password = request.form.get('confirm_password')
-    salt = base64.urlsafe_b64encode(uuid.uuid4().bytes).hex()
-    hashed_password = hashlib.sha512((password + salt).encode()).hexdigest()
-    # update name and lastname
-    name_lastname = {
-        'f_name': f_name,
-        'l_name': l_name,
-    }
-    for item in name_lastname:
-        if name_lastname[item]:
-            newvalues = {"$set": {item: name_lastname[item]}}
+    if request.method == 'POST':
+        db = get_db()
+        myquery = {"username": session["username"]}
+        f_name = request.form.get('f_name')
+        l_name = request.form.get('l_name')
+        email = request.form.get('email')
+        phone_number = request.form.get('phone')
+        f = request.files.get('image')
+        password = request.form.get('new_password')
+        confirm_password = request.form.get('new_confirm_password')
+        # update name and lastname
+        name_lastname = {
+            'f_name': f_name,
+            'l_name': l_name,
+        }
+        for item in name_lastname:
+            if name_lastname[item]:
+                newvalues = {"$set": {item: name_lastname[item]}}
+                db.users.update_one(myquery, newvalues)
+        # update email
+        regex_for_email = r"^[a-zA-Z0-9]+[\._]?[a-zA-Z0-9]+[@]\w+[.]\w{2,3}$"
+        if email:
+            if not re.search(regex_for_email, email):
+                return "ایمیل نامعتبر است"
+            newvalues = {"$set": {'email': email}}
             db.users.update_one(myquery, newvalues)
-    # update email
-    regex_for_email = r"^[a-zA-Z0-9]+[\._]?[a-zA-Z0-9]+[@]\w+[.]\w{2,3}$"
-    if email:
-        if not re.search(regex_for_email, email):
-            return "ایمیل نامعتبر است"
-        newvalues = {"$set": {'email': email}}
-        db.users.update_one(myquery, newvalues)
-    # update phone_number
-    regex_for_phone = r"^(\+98?)?{?(0?9[0-9]{9,9}}?)$"
-    if phone_number:
-        if not re.search(regex_for_phone, phone_number):
-            return "شماره موبایل است"
-        newvalues = {"$set": {'phone_number': phone_number}}
-        db.users.update_one(myquery, newvalues)
-    # update image
-    if f:
-        file_name = secure_filename(f.filename)
-        f.save('blog/static/img/profiles/' + file_name)
-        image = file_name
-        newvalues = {"$set": {'image': image}}
-        db.users.update_one(myquery, newvalues)
-    if password:
-        if password != confirm_password:
-            return 'رمز عبور با تکرار خود همخوانی ندارد'
-        newvalues = {"$set": {'password': hashed_password}}
-        db.users.update_one(myquery, newvalues)
-    if confirm_password:
-        if password != confirm_password:
-            return 'رمز عبور با تکرار خود همخوانی ندارد'
-        newvalues = {"$set": {'password': hashed_password}}
-        db.users.update_one(myquery, newvalues)
+        # update phone_number
+        regex_for_phone = r"^(\+98?)?{?(0?9[0-9]{9,9}}?)$"
+        if phone_number:
+            if not re.search(regex_for_phone, phone_number):
+                return "شماره موبایل است"
+            newvalues = {"$set": {'phone_number': phone_number}}
+            db.users.update_one(myquery, newvalues)
+        # update image
+        if f:
+            file_name = secure_filename(f.filename)
+            f.save('blog/static/img/profiles/' + file_name)
+            image = file_name
+            newvalues = {"$set": {'image': image}}
+            db.users.update_one(myquery, newvalues)
+        if password:
+            salt = base64.urlsafe_b64encode(uuid.uuid4().bytes).hex()
+            hashed_password = hashlib.sha512((password + salt).encode()).hexdigest()
+            if password != confirm_password:
+                return 'رمز عبور با تکرار خود همخوانی ندارد'
+            newvalues = {"$set": {'password': hashed_password, 'salt': salt}}
+            db.users.update_one(myquery, newvalues)
+        if confirm_password:
+            if password != confirm_password:
+                return 'رمز عبور با تکرار خود همخوانی ندارد'
+        return "success"
 
     @bp.route("/posts-list/")
     def posts_list():

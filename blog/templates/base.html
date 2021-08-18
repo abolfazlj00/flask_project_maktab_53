@@ -11,13 +11,15 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-    <link rel='stylesheet' href="{{ url_for('static',filename='css/tags_for_insert_post.css') }}" >
+    <link rel='stylesheet' href="{{ url_for('static',filename='css/tags_for_insert_post.css') }}">
     <link rel='stylesheet' href="{{ url_for('static',filename='css/base.css') }}">
     <link rel='stylesheet' href="{{ url_for('static',filename='css/register.css') }}">
     <link rel='stylesheet' href="{{ url_for('static',filename='css/profile.css') }}">
     <title> بلاگ </title>
+
 </head>
 <body class="backGround">
+<meta id="my-data" data-name="{{ Session.username }}">
 <div class="container-fluid ">
     <div class="header-register row" style="z-index: 10">
         <div class="register" id="upper_div">
@@ -34,7 +36,9 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item active">
-                        <button id="home" onclick="loadContent('home')" class="btn btn-block" style="font-size: 1.5rem !important;"> خانه</button>
+                        <button id="home" onclick="loadContent('home')" class="btn btn-block"
+                                style="font-size: 1.5rem !important;"> خانه
+                        </button>
                     </li>
                     <li class="nav-item">
                         <button class="btn btn-block" style="font-size: 1.5rem !important;"> جستجو</button>
@@ -51,7 +55,19 @@
 
     </div>
 </div>
-<!--<script src="{{ url_for('static',filename='js/base_script.js') }}"></script>-->
+
+
+<script src="{{ url_for('static', filename='js/login.js') }}"></script>
+<script>
+    $(document).ready(function () {
+        var username = $('#my-data').data();
+        if (username) {
+            get_profile(username.name)
+        }
+
+    });
+</script>
+
 <script>
     function loadContent(page) {
         $.get('{{ url_for('index') }}' + 'blog/' + page, function (response) {

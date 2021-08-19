@@ -139,7 +139,6 @@ def login():
 @bp.route("/logout", methods=["GET"])
 def logout():
     session.pop('username', None)
-    print(session)
     return ""
 
 
@@ -159,12 +158,11 @@ def create_post():
     title = request.form.get('title')
     main_text = request.form.get('main_text')
     tags = request.form.get("tags")
-    print(tags)
     for tag in tags:
         tag_in_database = db.tag_db.find({"tag_name": tag}, {"_id": 0})
         if tag_in_database.count() == 0:
             db.tag_db.insert_one({"tag_name": tag})
-    jalali_pub_date = jdatetime.datetime.now(timezone("Asia/Tehran"))
+    jalali_pub_date = jdatetime.datetime.now()
     pub_date = datetime(jalali_pub_date.year, jalali_pub_date.month,
                         jalali_pub_date.day, jalali_pub_date.hour,
                         jalali_pub_date.minute, jalali_pub_date.second)

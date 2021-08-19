@@ -18,6 +18,29 @@ $('#insert_post-form').submit(function (e) {
     });
 });
 
-$("#create-btn").click(function (){
-    $("#insert_post-form").submit()
+$("#create-btn").click(function () {
+    const input_fields = [
+        'title', 'main_text', 'category_of_post', 'image',
+    ]
+    var pass = 0
+    for (var field in input_fields) {
+        if (pass !== 1) {
+            field = input_fields[field]
+            console.log(field)
+            if (!check_valid(field)) {
+                pass = 1
+                alert('قیلدهای اجباری را پر کنید !')
+            }
+        }
+
+    }
+    if (pass === 0) {
+        $('#insert_post-form').submit()
+    }
 })
+
+
+function check_valid(field) {
+    let inpObj = document.getElementById(field)
+    return inpObj.checkValidity();
+}

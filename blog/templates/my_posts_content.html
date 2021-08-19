@@ -1,0 +1,14 @@
+<div class="blog-posts d-flex justify-content-start">
+    {% for my_post in list_of_user_posts %}
+        <div class="post">
+            <img src="{{ url_for('static', filename='img/posts/' + my_post.image) }}" style="width: 100%;height: 50%">
+            <div class="post-content">
+                <div>
+                <h3>{{ my_post.main_text }}</h3>
+                </div>
+                <span class="date">{{ my_post.pub_date.day }} / {{ my_post.pub_date.month }} / {{ my_post.pub_date.year }}</span>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+

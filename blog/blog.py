@@ -49,9 +49,13 @@ def index(page):
 @bp.route("/home/")
 def view_home():
     db = get_db()
-    active_posts = db.posts.find({"active_state": 1}, {"_id": 0})
+    active_posts = db.posts.find({"active_state": 1})
+
     sort_active_posts = active_posts.sort("pub_date", -1)
-    list_active_posts = [item for item in sort_active_posts]
+    list_active_posts = list()
+    for item in sort_active_posts:
+        item["_id"] = str(item["_id"])
+        list_active_posts.append(item)
     return render_template("home_content.html", list_active_posts=list_active_posts)
 
 

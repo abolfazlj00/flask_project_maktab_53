@@ -1,7 +1,8 @@
 <div class="d-flex justify-content-center">
     <div class="blog-posts d-flex justify-content-start">
-         {% for active_post in list_active_posts %}
-            <div class="post mr-4">
+        {% for active_post in list_active_posts %}
+            <div class="post mr-4" data-toggle="modal" data-target="#id_{{ active_post._id }}" data-backdrop="static"
+                 data-keyboard="false">
                 <img class="post-img" src="{{ url_for('static', filename='img/posts/' + active_post.image) }}"
                      style="width: 100%;height: 50%">
                 <div class="post-content">
@@ -9,13 +10,39 @@
                         <h4 style="color: indigo; font-weight: bold"> {{ active_post.title }}</h4>
                     </div>
                     <div style="text-align: center">
-                        <textarea rows="3" cols="40" readonly style="resize: none; overflow: hidden; text-align: justify; padding-bottom: 1px">{{ active_post.main_text }}</textarea>
+                        <textarea rows="3" cols="40" readonly
+                                  style="resize: none; overflow: hidden; text-align: justify; padding-bottom: 1px">{{ active_post.main_text }}</textarea>
                     </div>
                     <div style="text-align: center; margin-bottom: -17px">
-                    <p class="date_time text"> نوشته شده توسط <span class="date_time" style="color: #228b40">  {{ active_post.owner }}  </span> در تاریخ {{ active_post.pub_date.strftime("%Y/%m/%d") }} ساعت {{ active_post.pub_date.strftime("%H:%M:%S") }}</p>
+                        <p class="date_time text"> نوشته شده توسط <span class="date_time"
+                                                                        style="color: #228b40">  {{ active_post.owner }}  </span>
+                            در تاریخ {{ active_post.pub_date.strftime("%Y/%m/%d") }}
+                            ساعت {{ active_post.pub_date.strftime("%H:%M:%S") }}</p>
                     </div>
                 </div>
             </div>
         {% endfor %}
     </div>
 </div>
+
+
+
+
+
+{% for active_post in list_active_posts %}
+    <!-- The Modal -->
+    <div class="modal fade" id="id_{{ active_post._id }}">
+        <div class="modal-dialog modal-xl modal-dialog-centered">
+            <div class="modal-content">
+
+
+                <div class="modal-footer d-flex justify-content-center">
+                    <button type="button" class="btn btn-danger w-25" data-dismiss="modal">Close</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+{% endfor %}
+
+

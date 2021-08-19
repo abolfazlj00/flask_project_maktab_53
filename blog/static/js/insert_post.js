@@ -10,7 +10,7 @@ $('#insert_post-form').submit(function (e) {
         data: formData, // serializes the form's elements.
         success: function () {
             alert("کاربر گرامی پست شما با موفقیت ایجاد شد")
-            view_profile()
+            view_home()
         },
         cache: false,
         contentType: false,

@@ -1,3 +1,7 @@
+html {
+    margin: 0;
+}
+
 body {
     direction: rtl;
 }
@@ -13,13 +17,13 @@ body {
 .register button {
     width: 100px;
     height: 40px;
-    font-family: "B Nazanin",sans-serif;
+    font-family: "B Nazanin", sans-serif;
     font-size: 20px;
     color: white;
 }
 
-.backGround{
-     background-color: #2a6592 !important
+.backGround {
+    background-color: #444 !important
 }
 
 .form-group {
@@ -28,42 +32,41 @@ body {
 
 }
 
-.input-group{
+.input-group {
     min-width: 50px;
     min-height: 25px;
 }
 
 
-
-
 #signup-button {
     background-color: #2f2ff5;
     color: white;
-    font-family: "B Nazanin",sans-serif;
+    font-family: "B Nazanin", sans-serif;
     font-size: 20px;
 }
 
-.register button:focus{
+.register button:focus {
     box-shadow: none;
 }
 
 .header-nav {
     position: sticky;
     top: 0;
+    margin-top: -2%;
     background-color: #f6d8ac;
-    font-family: "B Nazanin",sans-serif;
+    font-family: "B Nazanin", sans-serif;
 
 }
 
-#navbarNav  button:focus {
+#navbarNav button:focus {
     box-shadow: none;
     background: none;
 }
 
-.btn-block:hover{
-            font-weight: bold;
-            color: black !important;
-        }
+.btn-block:hover {
+    font-weight: bold;
+    color: black !important;
+}
 
 
 

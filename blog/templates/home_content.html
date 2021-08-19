@@ -1,1 +1,13 @@
-<h1>home</h1>
+<ul>
+    {% for active_post in list_active_posts %}
+    <li>
+    {{ active_post.username }}
+    </li>
+     <li>
+     {{ active_post.title }}
+     </li>
+        <li>
+        {{ active_post.image }}
+        </li>
+    {% endfor %}
+</ul>

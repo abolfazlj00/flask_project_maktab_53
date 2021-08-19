@@ -29,7 +29,7 @@ $("#create-btn").click(function () {
             console.log(field)
             if (!check_valid(field)) {
                 pass = 1
-                alert('قیلدهای اجباری را پر کنید !')
+                alert('فیلدهای اجباری را پر کنید !')
             }
         }
 
@@ -44,3 +44,23 @@ function check_valid(field) {
     let inpObj = document.getElementById(field)
     return inpObj.checkValidity();
 }
+
+function readURLForRegister(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+            $('#edit_post_img').html(`<img id="preview_post_img" src=""
+                                     class="mr-3"
+                                     alt="avatar"
+                                     width="150" height="150" style="border: 3px solid #2a6592; border-radius: 16px ">`)
+
+            $('#preview_post_img').attr('src', e.target.result);
+        }
+
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+$("#image").change(function () {
+    readURLForRegister(this);
+});

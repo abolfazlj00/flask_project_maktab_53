@@ -111,16 +111,6 @@
             $('.content').html(response)
         })
     }
-    function show_my_posts() {
-        console.log("in show_my_posts function")
-    $.ajax({
-        type: "GET",
-        url: "/user/my_posts/",
-        success: function (data) {
-            $(".content").html(data)
-            console.log(data)
-        }
-    })
-}
+
 
 </script>

@@ -2,7 +2,7 @@
 <div class="blog-posts d-flex justify-content-start">
     {% for my_post in list_of_user_posts %}
         <div class="post mr-4">
-            <img src="{{ url_for('static', filename='img/posts/' + my_post.image) }}" style="width: 100%;height: 50%">
+            <img class="post-img" src="{{ url_for('static', filename='img/posts/' + my_post.image) }}" style="width: 100%;height: 50%">
             <div class="post-content">
                 <div>
                     <h3>{{ my_post.main_text }}</h3>

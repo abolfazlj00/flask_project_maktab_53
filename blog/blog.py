@@ -168,7 +168,7 @@ def create_post():
     active_state = 1
 
     user_post = {
-        "username": username,
+        "owner": username,
         "title": title,
         "main_text": main_text,
         "image": image,

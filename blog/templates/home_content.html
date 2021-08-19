@@ -1,15 +1,15 @@
+<div class="d-flex justify-content-center">
 <div class="blog-posts d-flex justify-content-start">
     {% for active_post in list_active_posts %}
-        <div class="post">
-            <img src="{{ url_for('static', filename='img/posts/' + active_post.image) }}" style="width: 100%;height: 50%">
+        <div class="post mr-4">
+            <img class="post-img" src="{{ url_for('static', filename='img/posts/' + active_post.image) }}" style="width: 100%;height: 50%">
             <div class="post-content">
                 <div>
-                <h3>{{ active_post.main_text }}</h3>
+                    <h3>{{ active_post.main_text }}</h3>
                 </div>
                 <span class="date">{{ active_post.pub_date.day }} / {{ active_post.pub_date.month }} / {{ active_post.pub_date.year }}</span>
-                <p>posted by: {{ active_post.owner }}</p>
             </div>
         </div>
     {% endfor %}
 </div>
-
+</div>

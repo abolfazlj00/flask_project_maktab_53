@@ -45,6 +45,14 @@ def index(page):
             return render_template(content_html)
 
 
+@bp.route("/home/")
+def view_home():
+    db = get_db()
+    active_posts = db.posts.find({"active_state": 1}, {"_id": 0})
+    list_active_posts = [item for item in active_posts]
+    return render_template("home_content.html",list_active_posts=list_active_posts)
+
+
 @bp.route("/register", methods=["POST"])
 def register():
     if request.method == 'POST':

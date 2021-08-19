@@ -79,14 +79,25 @@ def merge_change():
                 return 'رمز عبور با تکرار خود همخوانی ندارد'
         return "success"
 
-    @bp.route("/posts-list/")
-    def posts_list():
-        return "list of posts"
 
-    @bp.route("/creat-post/")
-    def creat_post():
-        return "creat a post"
+@bp.route("/my_posts/")
+def my_posts():
+    db = get_db()
+    user_posts = db.posts.find({"owner": session["username"]}, {"_id": 0})
+    list_of_user_posts = [post for post in user_posts]
+    return render_template("my_posts_content.html", list_of_user_posts=list_of_user_posts)
 
-    @bp.route("/edit-post/<int:post_id>/")
-    def edit_post(post_id):
-        return f"{post_id} post edited"
+
+@bp.route("/posts-list/")
+def posts_list():
+    return "list of posts"
+
+
+@bp.route("/creat-post/")
+def create_post():
+    return "creat a post"
+
+
+@bp.route("/edit-post/<int:post_id>/")
+def edit_post(post_id):
+    return f"{post_id} post edited"

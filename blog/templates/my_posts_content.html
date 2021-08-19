@@ -1,15 +1,21 @@
 <div class="d-flex justify-content-center">
-<div class="blog-posts d-flex justify-content-start">
-    {% for my_post in list_of_user_posts %}
-        <div class="post mr-4">
-            <img class="post-img" src="{{ url_for('static', filename='img/posts/' + my_post.image) }}" style="width: 100%;height: 50%">
-            <div class="post-content">
-                <div>
-                    <h3>{{ my_post.main_text }}</h3>
+    <div class="blog-posts d-flex justify-content-start">
+        {% for my_post in list_of_user_posts %}
+            <div class="post mr-4">
+                <img class="post-img" src="{{ url_for('static', filename='img/posts/' + my_post.image) }}"
+                     style="width: 100%;height: 50%">
+                <div class="post-content">
+                    <div class="mb-n2">
+                        <h4 style="color: indigo; font-weight: bold"> {{ my_post.title }}</h4>
+                    </div>
+                    <div style="text-align: center">
+                        <textarea rows="3" cols="40" readonly style="resize: none; overflow: hidden; text-align: justify; padding-bottom: 1px">{{ my_post.main_text }}</textarea>
+                    </div>
+                    <div style="text-align: center; margin-bottom: -17px">
+                    <p class="date_time text"> نوشته شده توسط <span class="date_time" style="color: #228b40">  {{ my_post.owner }}  </span> در تاریخ {{ my_post.pub_date.strftime("%Y/%m/%d") }} ساعت {{ my_post.pub_date.strftime("%H:%M:%S") }}</p>
+                    </div>
                 </div>
-                <span class="date">{{ my_post.pub_date.day }} / {{ my_post.pub_date.month }} / {{ my_post.pub_date.year }}</span>
             </div>
-        </div>
-    {% endfor %}
-</div>
+        {% endfor %}
+    </div>
 </div>

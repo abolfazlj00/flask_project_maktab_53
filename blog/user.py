@@ -57,7 +57,7 @@ def merge_change():
         regex_for_phone = r"^(\+98?)?{?(0?9[0-9]{9,9}}?)$"
         if phone_number:
             if not re.search(regex_for_phone, phone_number):
-                return "شماره موبایل است"
+                return "شماره موبایل نامعتبر است"
             newvalues = {"$set": {'phone_number': phone_number}}
             db.users.update_one(myquery, newvalues)
         # update image

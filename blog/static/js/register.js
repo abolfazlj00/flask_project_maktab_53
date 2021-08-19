@@ -34,7 +34,7 @@ function readURLForRegister(input) {
 
         reader.onload = function (e) {
             $('#edit_img').html(`<img id="preview" src=""
-                                     className="mr-3"
+                                     class="mr-3"
                                      alt="avatar"
                                      width="150" height="150" style="border: 3px solid #2a6592; border-radius: 16px ">`)
 

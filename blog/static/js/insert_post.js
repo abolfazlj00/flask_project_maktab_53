@@ -4,6 +4,7 @@ $('#insert_post-form').submit(function (e) {
     var form = $(this);
     var url = form.attr('action');
     var formData = new FormData(this);
+    formData.set('tags',tags);
     $.ajax({
         type: "POST",
         url: url,

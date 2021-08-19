@@ -15,18 +15,14 @@
     <link rel='stylesheet' href="{{ url_for('static',filename='css/base.css') }}">
     <link rel='stylesheet' href="{{ url_for('static',filename='css/register.css') }}">
     <link rel='stylesheet' href="{{ url_for('static',filename='css/profile.css') }}">
+    <link rel='stylesheet' href="{{ url_for('static',filename='css/my_posts_content.css') }}">
     <title> بلاگ </title>
 
 </head>
 <body class="backGround">
 <meta id="my-data" data-name="{{ Session.username }}">
 <div class="container-fluid ">
-    <div class="header-register row" style="z-index: 10">
-        <div class="register" id="upper_div">
-            <button onclick="loadContent('register')" class="btn" id="signup-button"> ثبت نام</button>
-            <button onclick="loadContent('login')" class="btn"> ورود</button>
-        </div>
-    </div>
+
     <div class="header-nav row" style="z-index: 10">
         <nav class="navbar navbar-expand-sm navbar-light w-100 ">
             <h2 class="navbar-brand font-weight-bold" style="font-size: 2rem;"> بلاگ </h2>
@@ -45,9 +41,15 @@
                     </li>
                 </ul>
             </div>
+            <div class="header-register row" style="z-index: 10">
+                <div class="register" id="upper_div">
+                    <button onclick="loadContent('register')" class="btn" id="signup-button"> ثبت نام</button>
+                    <button onclick="loadContent('login')" class="btn"> ورود</button>
+                </div>
+            </div>
         </nav>
     </div>
-    <div class="content row">
+    <div class="content row mt-5">
         {% block content %}
         {% endblock %}
     </div>

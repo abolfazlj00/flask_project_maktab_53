@@ -4,6 +4,7 @@ import hashlib
 import base64
 import uuid
 from datetime import datetime
+import jdatetime
 import re
 
 from blog.db import get_db
@@ -48,7 +49,7 @@ def index(page):
 @bp.route("/home/")
 def view_home():
     db = get_db()
-    active_posts = db.posts.find({"active_state": 1},{"_id":0})
+    active_posts = db.posts.find({"active_state": 1}, {"_id": 0})
     sort_active_posts = active_posts.sort("pub_date", -1)
     list_active_posts = [item for item in sort_active_posts]
     return render_template("home_content.html", list_active_posts=list_active_posts)
@@ -163,7 +164,10 @@ def create_post():
         tag_in_database = db.tag_db.find({"tag_name": tag}, {"_id": 0})
         if tag_in_database.count() == 0:
             db.tag_db.insert_one({"tag_name": tag})
-    pub_date = datetime.now()
+    jalali_pub_date = jdatetime.datetime.now(timezone("Asia/Tehran"))
+    pub_date = datetime(jalali_pub_date.year, jalali_pub_date.month,
+                        jalali_pub_date.day, jalali_pub_date.hour,
+                        jalali_pub_date.minute, jalali_pub_date.second)
     category_of_post = str()
     like = []
     active_state = 1

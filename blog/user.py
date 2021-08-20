@@ -90,7 +90,7 @@ def my_posts():
     for item in sort_user_posts:
         item["_id"] = str(item["_id"])
         list_of_user_posts.append(item)
-    return render_template("my_posts_content.html", list_of_user_posts=list_of_user_posts)
+    return render_template("my_posts_content.html", list_of_user_posts=(list_of_user_posts,session))
 
 
 @bp.route("/posts-list/")

@@ -15,6 +15,7 @@ bp = Blueprint("blog", __name__)
 @bp.route('/', defaults={'page': None})
 @bp.route('/<page>/')
 def index(page):
+    print(f"page:{page}")
     if page is None:
         # create admin of website
         db = get_db()
@@ -37,7 +38,7 @@ def index(page):
             db.users.insert_one(admin)
         return render_template('base.html', Session=session)
     else:
-        if page not in ('home', 'login', 'register', 'profile', 'insert_post'):
+        if page not in ('home', 'login', 'register', 'profile', 'insert_post', 'edit_post'):
             return "Page not Found!", 404
         content_html = f"{page}_content.html"
         if page in ('login', 'register'):
@@ -50,13 +51,12 @@ def index(page):
 def view_home():
     db = get_db()
     active_posts = db.posts.find({"active_state": 1})
-
     sort_active_posts = active_posts.sort("pub_date", -1)
     list_active_posts = list()
     for item in sort_active_posts:
         item["_id"] = str(item["_id"])
         list_active_posts.append(item)
-    return render_template("home_content.html", list_active_posts=(list_active_posts,session))
+    return render_template("home_content.html", list_active_posts=(list_active_posts, session))
 
 
 @bp.route("/register", methods=["POST"])
@@ -161,8 +161,10 @@ def create_post():
     username = session["username"]
     title = request.form.get('title')
     main_text = request.form.get('main_text')
-    tags = request.form.get("tags")
+    list_of_tags = request.form.get("tags")
+    tags = list_of_tags.split(",")
     for tag in tags:
+        tag = tag.strip()
         tag_in_database = db.tag_db.find({"tag_name": tag}, {"_id": 0})
         if tag_in_database.count() == 0:
             db.tag_db.insert_one({"tag_name": tag})

@@ -77,7 +77,7 @@
         $.get('{{ url_for('index') }}' + 'blog/' + page, function (response) {
             $('.content').html('')
 
-            if (page != '') {
+            if (page !== '') {
                 $('.content').html(response)
             }
 

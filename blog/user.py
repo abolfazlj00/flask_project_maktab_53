@@ -93,6 +93,28 @@ def my_posts():
     return render_template("my_posts_content.html", list_of_user_posts=(list_of_user_posts,session))
 
 
+@bp.route('/change-state/', methods=["POST"])
+def post_state():
+    db = get_db()
+    user_posts = db.posts.find({"owner": session["username"]}, )
+    state = int(request.form.get('state'))
+    post_id = request.form.get('post_id')[3:]
+
+    for item in user_posts:
+        if str(item['_id']) == post_id:
+            new_val = {"$set": {'active_state': state}}
+            db.posts.update_one(item, new_val)
+            return ''
+
+@bp.route('/drop-post/', methods=['POST'])
+def drop_post():
+    db = get_db()
+    user_posts = db.posts.find({"owner": session["username"]}, )
+    post_id = request.form.get('post_id')[3:]
+    for item in user_posts:
+        if str(item['_id']) == post_id:
+            db.posts.delete_one(item)
+            return ''
 @bp.route("/posts-list/")
 def posts_list():
     return "list of posts"

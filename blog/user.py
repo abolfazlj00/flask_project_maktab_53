@@ -83,10 +83,14 @@ def merge_change():
 @bp.route("/my_posts/")
 def my_posts():
     db = get_db()
-    user_posts = db.posts.find({"owner": session["username"]}, {"_id": 0})
+    user_posts = db.posts.find({"owner": session["username"]},)
     sort_user_posts = user_posts.sort("pub_date", -1)
-    list_of_user_posts = [post for post in sort_user_posts]
-    return render_template("my_posts_content.html", list_of_user_posts=(list_of_user_posts, session))
+
+    list_of_user_posts = list()
+    for item in sort_user_posts:
+        item["_id"] = str(item["_id"])
+        list_of_user_posts.append(item)
+    return render_template("my_posts_content.html", list_of_user_posts=list_of_user_posts)
 
 
 @bp.route("/posts-list/")

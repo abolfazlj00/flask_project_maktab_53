@@ -1,0 +1,8 @@
+.modal-content {
+    direction: rtl;
+}
+.card-img-top {
+    width: 100%;
+    height: 17vw;
+    min-height: 250px;
+}

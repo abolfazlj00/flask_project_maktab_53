@@ -37,12 +37,14 @@
                 <div class="card " style="margin: 0; padding: 0">
                     <img class="card-img-top" src="{{ url_for('static', filename='img/posts/' + my_post.image) }}"
                          alt="img_post">
+                    {% if list_of_user_posts[1].username==my_post.owner %}
                         <div class="buttons d-flex justify-content-center mt-2">
                             <span class="fa fa-edit fa-3x " style="cursor: pointer"></span>
                             {% if my_post.active_state==1 %}
                                 <span class="fa fa-eye-slash fa-3x mx-3" style="cursor: pointer"></span>
                             {% else %}
                                 <span class="fa fa-eye fa-3x mx-3" style="cursor: pointer"></span>
+                            {% endif %}
 
                             <span class="fa fa-trash fa-3x" style="cursor: pointer"
                                   onclick="console.log('salam')"></span>

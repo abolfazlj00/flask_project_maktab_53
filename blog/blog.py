@@ -56,7 +56,7 @@ def view_home():
     for item in sort_active_posts:
         item["_id"] = str(item["_id"])
         list_active_posts.append(item)
-    return render_template("home_content.html", list_active_posts=list_active_posts)
+    return render_template("home_content.html", list_active_posts=(list_active_posts,session))
 
 
 @bp.route("/register", methods=["POST"])

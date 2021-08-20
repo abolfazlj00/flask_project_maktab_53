@@ -2,7 +2,7 @@
     <div class="blog-posts d-flex justify-content-start">
         {% for active_post in list_active_posts[0] %}
             <div class="post mr-4" data-toggle="modal" data-target="#id_{{ active_post._id }}" data-backdrop="static"
-                 data-keyboard="false" >
+                 data-keyboard="false">
                 <img class="post-img" src="{{ url_for('static', filename='img/posts/' + active_post.image) }}"
                      style="width: 100%;height: 50%">
                 <div class="post-content">
@@ -12,6 +12,17 @@
                     <div style="text-align: center">
                         <textarea rows="3" cols="40" readonly
                                   style="resize: none; overflow: hidden; text-align: justify; padding-bottom: 1px">{{ active_post.main_text }}</textarea>
+                    </div>
+                    <div style="text-align: center; margin-top: -2%; margin-bottom: 1%; color: #ff6200">
+                        {% if active_post.tags|length >= 3 %}
+                            <span>#{{ active_post.tags[active_post.tags|length-1] }}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <span>#{{ active_post.tags[active_post.tags|length-2] }}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <span>#{{ active_post.tags[active_post.tags|length-3] }}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        {% else %}
+                            {% for tag in active_post.tags %}
+                                <span>#{{ tag }}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            {% endfor %}
+                        {% endif %}
                     </div>
                     <div style="text-align: center; margin-bottom: -17px">
                         <p class="date_time text"> نوشته شده توسط <span class="date_time"
@@ -39,7 +50,8 @@
                          alt="img_post">
                     {% if list_active_posts[1].username==active_post.owner %}
                         <div class="buttons d-flex justify-content-center mt-2">
-                            <span class="fa fa-edit fa-3x " style="cursor: pointer"></span>
+                            <span class="fa fa-edit fa-3x " id="edit_btn"
+                                  onclick="edit_post('id_{{ active_post._id }}')" style="cursor: pointer"></span>
                             <span class="fa fa-eye-slash fa-3x mx-3" style="cursor: pointer"></span>
                             <span id="{{ active_post._id }}" class="fa fa-trash fa-3x" style="cursor: pointer"
                                   onclick="delete_post(this)"></span>
@@ -50,6 +62,17 @@
                             style="color: indigo; font-weight: bold;margin-top: -5px;margin-bottom: 14px; text-align: right">{{ active_post.title }}</h2>
                         <p class="card-text" style="font-size: 22px;text-align: justify">
                             {{ active_post.main_text }}</p>
+                        <div style="text-align: center; margin-top: 2%; margin-bottom: 4%; color: #ff6200; font-size: x-large">
+                            {% if active_post.tags|length >= 3 %}
+                                <span onclick="select_tag_function()">#{{ active_post.tags[active_post.tags|length-1] }}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <span onclick="select_tag_function()">#{{ active_post.tags[active_post.tags|length-2] }}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <span onclick="select_tag_function()">#{{ active_post.tags[active_post.tags|length-3] }}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            {% else %}
+                                {% for tag in active_post.tags %}
+                                    <span onclick="select_tag_function()">#{{ tag }}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                {% endfor %}
+                            {% endif %}
+                        </div>
                         <p class="date_time text" style="font-size: 16px;margin-bottom: -3px"> نوشته
                             شده توسط <span class="date_time"
                                            style="font-size: 16px;color: #228b40">  {{ active_post.owner }}  </span>
@@ -57,7 +80,7 @@
                             ساعت {{ active_post.pub_date.strftime("%H:%M:%S") }}</p>
                     </div>
                     <div class="mb-3 d-flex justify-content-center">
-                        <button type="button" class="btn btn-danger w-25" data-dismiss="modal" >Close</button>
+                        <button type="button" class="btn btn-danger w-25" data-dismiss="modal">Close</button>
                     </div>
 
 
@@ -67,26 +90,29 @@
         </div>
     </div>
 {% endfor %}
+
+<script src="{{ url_for('static', filename='js/buttons_for_my_post.js') }}"></script>
 <script src="{{ url_for('static', filename='js/home.js') }}"></script>
+<script src="{{ url_for('static', filename='js/select_tag.js') }}"></script>
 
 <script>
 
-function delete_post(data) {
-    if (confirm('آیا می خواهید این پست را حذف کنید؟')) {
-  // Save it
-         $.ajax({
-        type: "POST",
-        data: data.id,
-        url: "/user/delete_post",
-        success: function (data) {
-            $('.modal-backdrop').remove();
-           view_home()
+    function delete_post(data) {
+        if (confirm('آیا می خواهید این پست را حذف کنید؟')) {
+            // Save it
+            $.ajax({
+                type: "POST",
+                data: data.id,
+                url: "/user/delete_post",
+                success: function (data) {
+                    $('.modal-backdrop').remove();
+                    view_home()
+                }
+            })
+
+        } else {
+            // Do nothing!
         }
-    })
 
-} else {
-  // Do nothing!
-}
-
-}
+    }
 </script>

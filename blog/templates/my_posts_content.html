@@ -38,14 +38,15 @@
                     <img class="card-img-top" src="{{ url_for('static', filename='img/posts/' + my_post.image) }}"
                          alt="img_post">
                         <div class="buttons d-flex justify-content-center mt-2">
-                            <span class="fa fa-edit fa-3x" id="edit_btn" style="cursor: pointer"></span>
+                            <span class="fa fa-edit fa-3x" id="edit_btn" onclick="edit_post('id_{{ my_post._id }}')" style="cursor: pointer"></span>
                             {% if my_post.active_state==1 %}
-                                <span class="fa fa-eye fa-3x mx-3" onclick="post_state(0,'id_{{ my_post._id }}')" style="cursor: pointer"></span>
+                                <span class="fa fa-eye-slash fa-3x mx-3" onclick="post_state(0,'id_{{ my_post._id }}')" style="cursor: pointer"></span>
                             {% else %}
-                                <span class="fa fa-eye-slash fa-3x mx-3" id="enable_btn" onclick="post_state(1,'id_{{ my_post._id }}')" style="cursor: pointer"></span>
+                                <span class="fa fa-eye fa-3x mx-3" id="enable_btn" onclick="post_state(1,'id_{{ my_post._id }}')" style="cursor: pointer"></span>
                             {% endif %}
 
-                            <span class="fa fa-trash fa-3x" id="trash_btn" onclick="drop_post('id_{{ my_post._id }}')" style="cursor: pointer"></span>
+                           <span id="{{ my_post._id }}" class="fa fa-trash fa-3x" style="cursor: pointer"
+                                  onclick="delete_post(this)"></span>
                         </div>
                     <div style="margin: 0 15px" class="card-body text-center ">
                         <h2 class="card-title"
@@ -70,3 +71,4 @@
     </div>
 {% endfor %}
 <script src="{{ url_for('static', filename='js/buttons_for_my_post.js') }}"></script>
+<script src="{{ url_for('static', filename='js/home.js') }}"></script>

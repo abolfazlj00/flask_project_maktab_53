@@ -65,3 +65,5 @@ function readURLForRegister(input) {
 $("#image").change(function () {
     readURLForRegister(this);
 });
+
+

@@ -2,6 +2,7 @@ import base64
 import hashlib
 import re
 import uuid
+from bson import ObjectId
 
 from flask import Blueprint, render_template, request, redirect, session
 from werkzeug.utils import secure_filename
@@ -83,14 +84,24 @@ def merge_change():
 @bp.route("/my_posts/")
 def my_posts():
     db = get_db()
-    user_posts = db.posts.find({"owner": session["username"]},)
+    user_posts = db.posts.find({"owner": session["username"]}, )
     sort_user_posts = user_posts.sort("pub_date", -1)
 
     list_of_user_posts = list()
     for item in sort_user_posts:
         item["_id"] = str(item["_id"])
         list_of_user_posts.append(item)
-    return render_template("my_posts_content.html", list_of_user_posts=(list_of_user_posts,session))
+    return render_template("my_posts_content.html", list_of_user_posts=(list_of_user_posts, session))
+
+
+@bp.route("delete_post", methods=["POST"])
+def delete_post():
+    if request.method == 'POST':
+        print("this delete")
+        db = get_db()
+        print(ObjectId(list(request.form.keys())[0]))
+        db.posts.delete_one({"_id": ObjectId(list(request.form.keys())[0])})
+    return "پست مورد نظر با موفقیت حذف گردید"
 
 
 @bp.route('/change-state/', methods=["POST"])
@@ -99,22 +110,60 @@ def post_state():
     user_posts = db.posts.find({"owner": session["username"]}, )
     state = int(request.form.get('state'))
     post_id = request.form.get('post_id')[3:]
-
     for item in user_posts:
         if str(item['_id']) == post_id:
             new_val = {"$set": {'active_state': state}}
             db.posts.update_one(item, new_val)
-            return ''
+            return " "
 
-@bp.route('/drop-post/', methods=['POST'])
-def drop_post():
+
+@bp.route('/edit_post/', methods=["POST"])
+def edit_post():
+    if request.method == 'POST':
+        db = get_db()
+        post_id = request.form.get('post_id')[3:]
+        post_id = ObjectId(post_id)
+        selected_post = db.posts.find_one({"_id": post_id})
+        selected_post["_id"] = str(selected_post["_id"])
+        return render_template("edit_post_content.html", selected_post=selected_post)
+
+
+@bp.route("/post-edit-in-database/", methods=["POST"])
+def edit_post_in_database():
     db = get_db()
-    user_posts = db.posts.find({"owner": session["username"]}, )
-    post_id = request.form.get('post_id')[3:]
-    for item in user_posts:
-        if str(item['_id']) == post_id:
-            db.posts.delete_one(item)
-            return ''
+    if request.method == 'POST':
+        title = request.form.get('title')
+        main_text = request.form.get('main_text')
+        tags = request.form.get('tags')
+        print(tags)
+        new_list_of_tags=str(tags).replace("['","").replace("']","").split(",")
+        print(f'type of {type(new_list_of_tags)}')
+        print(f"new {new_list_of_tags}   {type(new_list_of_tags)}")
+        id_of_post = request.form.get("_id")
+        myquery = {"_id": ObjectId(id_of_post)}
+        fields = {
+            'title': title,
+            'main_text': main_text,
+            'tags': new_list_of_tags,
+        }
+        for item in fields:
+            if item != "tags":
+                if fields[item]:
+                    newvalues = {"$set": {item: fields[item]}}
+                    db.posts.update_one(myquery, newvalues)
+            else:
+                print(item)
+                if fields[item]:
+                    tags = fields[item]
+                    for tag in tags:
+                        tag_in_database = db.tag_db.find({"tag_name": tag}, {"_id": 0})
+                        if tag_in_database.count() == 0:
+                            db.tag_db.insert_one({"tag_name": tag})
+                            newvalues = {"$set": {item: fields[item]}}
+                            db.posts.update_one(myquery, newvalues)
+        return " "
+
+
 @bp.route("/posts-list/")
 def posts_list():
     return "list of posts"
@@ -123,8 +172,3 @@ def posts_list():
 @bp.route("/creat-post/")
 def create_post():
     return "creat a post"
-
-
-@bp.route("/edit-post/<int:post_id>/")
-def edit_post(post_id):
-    return f"{post_id} post edited"

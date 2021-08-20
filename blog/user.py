@@ -106,7 +106,15 @@ def post_state():
             db.posts.update_one(item, new_val)
             return ''
 
-
+@bp.route('/drop-post/', methods=['POST'])
+def drop_post():
+    db = get_db()
+    user_posts = db.posts.find({"owner": session["username"]}, )
+    post_id = request.form.get('post_id')[3:]
+    for item in user_posts:
+        if str(item['_id']) == post_id:
+            db.posts.delete_one(item)
+            return ''
 @bp.route("/posts-list/")
 def posts_list():
     return "list of posts"

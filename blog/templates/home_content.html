@@ -32,12 +32,32 @@
 {% for active_post in list_active_posts %}
     <!-- The Modal -->
     <div class="modal fade" id="id_{{ active_post._id }}">
-        <div class="modal-dialog modal-xl modal-dialog-centered">
+        <div class="modal-dialog modal-lg ">
             <div class="modal-content">
+                <div class="card " style="margin: 0; padding: 0">
+                    <img class="card-img-top" src="{{ url_for('static', filename='img/posts/' + active_post.image) }}"
+                         alt="img_post">
+                    <div class="buttons d-flex justify-content-center mt-2" >
+                        <span class="fa fa-edit fa-3x " style="cursor: pointer"></span>
+                        <span class="fa fa-eye-slash fa-3x mx-3" style="cursor: pointer"></span>
+                        <span class="fa fa-trash fa-3x" style="cursor: pointer" onclick="console.log('salam')"></span>
+                    </div>
+                    <div style="margin: 0 15px" class="card-body text-center ">
+                        <h2 class="card-title"
+                            style="color: indigo; font-weight: bold;margin-top: -5px;margin-bottom: 14px; text-align: right">{{ active_post.title }}</h2>
+                        <p class="card-text" style="font-size: 22px;text-align: justify">
+                            {{ active_post.main_text }}</p>
+                        <p class="date_time text" style="font-size: 16px;margin-bottom: -3px"> نوشته
+                            شده توسط <span class="date_time"
+                                           style="font-size: 16px;color: #228b40">  {{ active_post.owner }}  </span>
+                            در تاریخ {{ active_post.pub_date.strftime("%Y/%m/%d") }}
+                            ساعت {{ active_post.pub_date.strftime("%H:%M:%S") }}</p>
+                    </div>
+                    <div class="mb-3 d-flex justify-content-center">
+                        <button type="button" class="btn btn-danger w-25" data-dismiss="modal">Close</button>
+                    </div>
 
 
-                <div class="modal-footer d-flex justify-content-center">
-                    <button type="button" class="btn btn-danger w-25" data-dismiss="modal">Close</button>
                 </div>
 
             </div>

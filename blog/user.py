@@ -85,6 +85,7 @@ def my_posts():
     db = get_db()
     user_posts = db.posts.find({"owner": session["username"]},)
     sort_user_posts = user_posts.sort("pub_date", -1)
+
     list_of_user_posts = list()
     for item in sort_user_posts:
         item["_id"] = str(item["_id"])

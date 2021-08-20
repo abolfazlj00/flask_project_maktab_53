@@ -161,7 +161,7 @@ def edit_post_in_database():
                             db.tag_db.insert_one({"tag_name": tag})
                             newvalues = {"$set": {item: fields[item]}}
                             db.posts.update_one(myquery, newvalues)
-        return " "
+        return "OK"
 
 
 @bp.route("/posts-list/")

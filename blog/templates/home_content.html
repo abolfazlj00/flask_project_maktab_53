@@ -2,7 +2,7 @@
     <div class="blog-posts d-flex justify-content-start">
         {% for active_post in list_active_posts[0] %}
             <div class="post mr-4" data-toggle="modal" data-target="#id_{{ active_post._id }}" data-backdrop="static"
-                 data-keyboard="false">
+                 data-keyboard="false" >
                 <img class="post-img" src="{{ url_for('static', filename='img/posts/' + active_post.image) }}"
                      style="width: 100%;height: 50%">
                 <div class="post-content">
@@ -10,7 +10,8 @@
                         <h4 style="color: indigo; font-weight: bold"> {{ active_post.title }}</h4>
                     </div>
                     <div style="text-align: center">
-                        <textarea rows="3" cols="40" readonly style="resize: none; overflow: hidden; text-align: justify; padding-bottom: 1%; width: 99%;">{{ active_post.main_text }}</textarea>
+                        <textarea rows="3" cols="40" readonly
+                                  style="resize: none; overflow: hidden; text-align: justify; padding-bottom: 1px">{{ active_post.main_text }}</textarea>
                     </div>
                     <div style="text-align: center; margin-bottom: -17px">
                         <p class="date_time text"> نوشته شده توسط <span class="date_time"
@@ -30,24 +31,20 @@
 
 {% for active_post in list_active_posts[0] %}
     <!-- The Modal -->
-    <div class="modal fade" id="id_{{ active_post._id }}">
+    <div class="modal" id="id_{{ active_post._id }}">
         <div class="modal-dialog modal-lg ">
             <div class="modal-content">
                 <div class="card " style="margin: 0; padding: 0">
                     <img class="card-img-top" src="{{ url_for('static', filename='img/posts/' + active_post.image) }}"
                          alt="img_post">
-                    {% if list_active_posts[1].username==active_post.owner or list_active_posts[1].username=='admin' %}
+                    {% if list_active_posts[1].username==active_post.owner %}
                         <div class="buttons d-flex justify-content-center mt-2">
-                            {% if list_active_posts[1].username==active_post.owner %}
-                                <span class="fa fa-edit fa-3x " style="cursor: pointer"></span>
-
-                                <span class="fa fa-trash fa-3x mx-3" style="cursor: pointer"
-                                      onclick="console.log('salam')"></span>
-                            {% endif %}
-                            <span class="fa fa-eye-slash fa-3x " style="cursor: pointer"></span>
+                            <span class="fa fa-edit fa-3x " style="cursor: pointer"></span>
+                            <span class="fa fa-eye-slash fa-3x mx-3" style="cursor: pointer"></span>
+                            <span id="{{ active_post._id }}" class="fa fa-trash fa-3x" style="cursor: pointer"
+                                  onclick="delete_post(this)"></span>
                         </div>
                     {% endif %}
-
                     <div style="margin: 0 15px" class="card-body text-center ">
                         <h2 class="card-title"
                             style="color: indigo; font-weight: bold;margin-top: -5px;margin-bottom: 14px; text-align: right">{{ active_post.title }}</h2>
@@ -60,7 +57,7 @@
                             ساعت {{ active_post.pub_date.strftime("%H:%M:%S") }}</p>
                     </div>
                     <div class="mb-3 d-flex justify-content-center">
-                        <button type="button" class="btn btn-danger w-25" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-danger w-25" data-dismiss="modal" >Close</button>
                     </div>
 
 
@@ -70,5 +67,26 @@
         </div>
     </div>
 {% endfor %}
+<script src="{{ url_for('static', filename='js/home.js') }}"></script>
 
+<script>
 
+function delete_post(data) {
+    if (confirm('آیا می خواهید این پست را حذف کنید؟')) {
+  // Save it
+         $.ajax({
+        type: "POST",
+        data: data.id,
+        url: "/user/delete_post",
+        success: function (data) {
+            $('.modal-backdrop').remove();
+           view_home()
+        }
+    })
+
+} else {
+  // Do nothing!
+}
+
+}
+</script>

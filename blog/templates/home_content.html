@@ -1,6 +1,6 @@
 <div class="d-flex justify-content-center">
     <div class="blog-posts d-flex justify-content-start">
-        {% for active_post in list_active_posts %}
+        {% for active_post in list_active_posts[0] %}
             <div class="post mr-4" data-toggle="modal" data-target="#id_{{ active_post._id }}" data-backdrop="static"
                  data-keyboard="false">
                 <img class="post-img" src="{{ url_for('static', filename='img/posts/' + active_post.image) }}"
@@ -29,7 +29,7 @@
 
 
 
-{% for active_post in list_active_posts %}
+{% for active_post in list_active_posts[0] %}
     <!-- The Modal -->
     <div class="modal fade" id="id_{{ active_post._id }}">
         <div class="modal-dialog modal-lg ">
@@ -37,11 +37,15 @@
                 <div class="card " style="margin: 0; padding: 0">
                     <img class="card-img-top" src="{{ url_for('static', filename='img/posts/' + active_post.image) }}"
                          alt="img_post">
-                    <div class="buttons d-flex justify-content-center mt-2" >
-                        <span class="fa fa-edit fa-3x " style="cursor: pointer"></span>
-                        <span class="fa fa-eye-slash fa-3x mx-3" style="cursor: pointer"></span>
-                        <span class="fa fa-trash fa-3x" style="cursor: pointer" onclick="console.log('salam')"></span>
-                    </div>
+                    {% if list_active_posts[1].username==active_post.owner %}
+                        <div class="buttons d-flex justify-content-center mt-2">
+                            <span class="fa fa-edit fa-3x " style="cursor: pointer"></span>
+                            <span class="fa fa-eye-slash fa-3x mx-3" style="cursor: pointer"></span>
+                            <span class="fa fa-trash fa-3x" style="cursor: pointer"
+                                  onclick="console.log('salam')"></span>
+                        </div>
+                    {% endif %}
+
                     <div style="margin: 0 15px" class="card-body text-center ">
                         <h2 class="card-title"
                             style="color: indigo; font-weight: bold;margin-top: -5px;margin-bottom: 14px; text-align: right">{{ active_post.title }}</h2>

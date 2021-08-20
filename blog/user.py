@@ -86,7 +86,7 @@ def my_posts():
     user_posts = db.posts.find({"owner": session["username"]}, {"_id": 0})
     sort_user_posts = user_posts.sort("pub_date", -1)
     list_of_user_posts = [post for post in sort_user_posts]
-    return render_template("my_posts_content.html", list_of_user_posts=list_of_user_posts)
+    return render_template("my_posts_content.html", list_of_user_posts=(list_of_user_posts, session))
 
 
 @bp.route("/posts-list/")

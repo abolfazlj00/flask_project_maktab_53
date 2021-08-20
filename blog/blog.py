@@ -15,7 +15,6 @@ bp = Blueprint("blog", __name__)
 @bp.route('/', defaults={'page': None})
 @bp.route('/<page>/')
 def index(page):
-    print(f"page:{page}")
     if page is None:
         # create admin of website
         db = get_db()
@@ -162,7 +161,9 @@ def create_post():
     title = request.form.get('title')
     main_text = request.form.get('main_text')
     list_of_tags = request.form.get("tags")
+    print(f'create{list_of_tags}')
     tags = list_of_tags.split(",")
+    print(f"tags === {tags}")
     for tag in tags:
         tag = tag.strip()
         tag_in_database = db.tag_db.find({"tag_name": tag}, {"_id": 0})

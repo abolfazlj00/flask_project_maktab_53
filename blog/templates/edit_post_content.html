@@ -22,15 +22,20 @@
                                 class="text-danger"> </span></label>
                             <div class="tag-main_container">
                                 <div class="tag-container">
-                                <meta id="my-tags" data-name="{{ selected_post.tags }}">
-                                    {% for tag in selected_post.tags %}
-                                        <div class="tag">
+
+                                    {% if selected_post.tags is not none %}
+                                        <meta id="my-tags" data-name="{{ selected_post.tags }}">
+                                        {% for tag in selected_post.tags %}
+                                            <div class="tag">
                                         <span>
                                         {{ tag }}
                                         </span>
-                                            <i class="material-icons" data-item="{{ tag }}">close</i>
-                                        </div>
-                                    {% endfor %}
+                                                <i class="material-icons" data-item="{{ tag }}">close</i>
+                                            </div>
+                                        {% endfor %}
+                                    {% else %}
+                                        <meta id="my-tags" data-name="None">
+                                    {% endif %}
                                     <input type="text" name="tags" placeholder="پس از ورود هر تگ Enter بزنید"/>
                                 </div>
                             </div>
@@ -50,37 +55,38 @@
         </div>
     </div>
 </div>
- <meta id="id_of_post" data-name="{{ selected_post._id }}">
+<meta id="id_of_post" data-name="{{ selected_post._id }}">
 <script src="{{ url_for('static', filename='js/tags_for_edit_post.js') }}"></script>
 <script src="{{ url_for('static', filename='js/insert_post.js') }}"></script>
 
 <script>
     $('#edit_post-form').submit(function (e) {
-    e.preventDefault(); // avoid to execute the actual submit of the form.
-    var form = $(this);
-    var url = form.attr('action');
-    var formData = new FormData(this);
-    formData.set('tags',tags);
-    formData.append('_id', $('#id_of_post').data().name)
-    $.ajax({
-        type: "POST",
-        url: url,
-        data: formData, // serializes the form's elements.
-        success: function () {
-            alert("کاربر گرامی پست شما با موفقیت ویرایش شد")
-            view_home()
-        },
-        cache: false,
-        contentType: false,
-        processData: false
+        e.preventDefault(); // avoid to execute the actual submit of the form.
+        var form = $(this);
+        var url = form.attr('action');
+        var formData = new FormData(this);
+        formData.append('edit_tags', edit_tags);
+        formData.append('_id', $('#id_of_post').data().name)
+        console.log(formData)
+        console.log(edit_tags)
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: formData, // serializes the form's elements.
+            success: function () {
+                alert("کاربر گرامی پست شما با موفقیت ویرایش شد")
+                view_home()
+            },
+            cache: false,
+            contentType: false,
+            processData: false
+        });
     });
-});
 
-$("#edit-btn").click(function () {
+    $("#edit-btn").click(function () {
 
         $('#edit_post-form').submit()
-})
-
+    })
 
 
 </script>

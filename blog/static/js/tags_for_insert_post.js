@@ -1,4 +1,4 @@
-const tagContainer = document.querySelector('.tag-container')
+var tagContainer = document.querySelector('.tag-container')
 var input = document.querySelector('.tag-container input')
 
 var tags = []
@@ -9,10 +9,14 @@ function createTag(label){
     const span = document.createElement('span')
     span.innerHTML = label
     const closeBtn = document.createElement('i')
+    const hashtag = document.createElement('i')
     closeBtn.setAttribute('class', 'material-icons')
     closeBtn.setAttribute('data-item',label)
     closeBtn.innerHTML='close'
+    hashtag.setAttribute('class', 'material-icons')
+    hashtag.innerHTML='hashtag'
 
+    div.appendChild(hashtag)
     div.appendChild(span)
     div.appendChild(closeBtn)
     return div

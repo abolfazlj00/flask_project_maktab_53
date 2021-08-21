@@ -14,14 +14,22 @@
                                   style="resize: none; overflow: hidden; text-align: justify; padding-bottom: 1px">{{ active_post.main_text }}</textarea>
                     </div>
                     <div style="text-align: center; margin-top: -2%; margin-bottom: 1%; color: #ff6200">
-                        {% if active_post.tags|length >= 3 %}
-                            <span>#{{ active_post.tags[active_post.tags|length-1] }}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <span>#{{ active_post.tags[active_post.tags|length-2] }}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <span>#{{ active_post.tags[active_post.tags|length-3] }}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        {% if active_post.tags is not none %}
+
+                            {% if active_post.tags|length >= 3 %}
+                                <span>#{{ active_post.tags[0] }}</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;
+                                <span>#{{ active_post.tags[1] }}</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;
+                                <span>#{{ active_post.tags[2] }}</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;
+                            {% else %}
+                                {% for tag in active_post.tags %}
+                                    <span>#{{ tag }}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                {% endfor %}
+                            {% endif %}
                         {% else %}
-                            {% for tag in active_post.tags %}
-                                <span>#{{ tag }}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            {% endfor %}
+                            <span style="visibility: hidden">s</span>
                         {% endif %}
                     </div>
                     <div style="text-align: center; margin-bottom: -17px">
@@ -37,9 +45,6 @@
 </div>
 
 
-
-
-
 {% for active_post in list_active_posts[0] %}
     <!-- The Modal -->
     <div class="modal" id="id_{{ active_post._id }}">
@@ -48,7 +53,7 @@
                 <div class="card " style="margin: 0; padding: 0">
                     <img class="card-img-top" src="{{ url_for('static', filename='img/posts/' + active_post.image) }}"
                          alt="img_post">
-                    {% if list_active_posts[1].username==active_post.owner %}
+                    {% if list_active_posts[1].username==active_post.owner or session["username"]=="admin" %}
                         <div class="buttons d-flex justify-content-center mt-2">
                             <span class="fa fa-edit fa-3x " id="edit_btn"
                                   onclick="edit_post('id_{{ active_post._id }}')" style="cursor: pointer"></span>
@@ -59,19 +64,22 @@
                     {% endif %}
                     <div style="margin: 0 15px" class="card-body text-center ">
                         <h2 class="card-title"
-                            style="color: indigo; font-weight: bold;margin-top: -5px;margin-bottom: 14px; text-align: right">{{ active_post.title }}</h2>
+                            style="color: indigo; font-weight: bold;margin-top: -5px;margin-bottom: 14px; text-align: right">{{ active_post.title }}
+                        </h2>
                         <p class="card-text" style="font-size: 22px;text-align: justify">
-                            {{ active_post.main_text }}</p>
+                            {{ active_post.main_text }}
+                        </p>
                         <div style="text-align: center; margin-top: 2%; margin-bottom: 4%; color: #ff6200; font-size: x-large">
-                            {% if active_post.tags|length >= 3 %}
-                                <span onclick="select_tag_function()">#{{ active_post.tags[active_post.tags|length-1] }}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                <span onclick="select_tag_function()">#{{ active_post.tags[active_post.tags|length-2] }}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                <span onclick="select_tag_function()">#{{ active_post.tags[active_post.tags|length-3] }}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            {% else %}
+
+                            {% if active_post.tags is not none %}
                                 {% for tag in active_post.tags %}
-                                    <span onclick="select_tag_function()">#{{ tag }}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <span onclick="select_tag_function()">#{{ tag }}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    &nbsp;&nbsp;&nbsp;
                                 {% endfor %}
+                            {% else %}
+                                <span style="visibility: hidden">s</span>
                             {% endif %}
+
                         </div>
                         <p class="date_time text" style="font-size: 16px;margin-bottom: -3px"> نوشته
                             شده توسط <span class="date_time"

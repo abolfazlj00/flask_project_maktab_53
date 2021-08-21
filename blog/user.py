@@ -134,11 +134,8 @@ def edit_post_in_database():
     if request.method == 'POST':
         title = request.form.get('title')
         main_text = request.form.get('main_text')
-        tags = request.form.get('tags')
-        print(tags)
-        new_list_of_tags=str(tags).replace("['","").replace("']","").split(",")
-        print(f'type of {type(new_list_of_tags)}')
-        print(f"new {new_list_of_tags}   {type(new_list_of_tags)}")
+        tags = request.form.get('edit_tags')
+        new_list_of_tags = str(tags).replace("['", "").replace("']", "").split(",")
         id_of_post = request.form.get("_id")
         myquery = {"_id": ObjectId(id_of_post)}
         fields = {
@@ -152,15 +149,14 @@ def edit_post_in_database():
                     newvalues = {"$set": {item: fields[item]}}
                     db.posts.update_one(myquery, newvalues)
             else:
-                print(item)
                 if fields[item]:
                     tags = fields[item]
                     for tag in tags:
                         tag_in_database = db.tag_db.find({"tag_name": tag}, {"_id": 0})
                         if tag_in_database.count() == 0:
                             db.tag_db.insert_one({"tag_name": tag})
-                            newvalues = {"$set": {item: fields[item]}}
-                            db.posts.update_one(myquery, newvalues)
+                    newvalues = {"$set": {item: fields[item]}}
+                    db.posts.update_one(myquery, newvalues)
         return "OK"
 
 

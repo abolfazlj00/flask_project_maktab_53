@@ -1,51 +1,64 @@
-const tagContainer = document.querySelector('.tag-container')
-var input = document.querySelector('.tag-container input')
-var tags = $('#my-tags').data().name.replaceAll(" ","").replace("[","").replace("]","").replaceAll("'","").split(",");
+var edit_tagContainer = document.querySelector('.tag-container')
+var edit_input = document.querySelector('.tag-container input')
+console.log($("#my-tags").data().name)
+if ($("#my-tags").data().name != "None"){
+   var edit_tags = $('#my-tags').data().name.replaceAll(" ","").replace("[","").replace("]","").replaceAll("'","").split(",");
+}
+else {
+    var edit_tags = []
+}
+
+
 // name.replace("[","").replace("]","").replaceAll("'","").split(",");
-console.log(tags)
-function createTag(label){
+console.log(edit_tags)
+function edit_createTag(label){
     const div = document.createElement('div')
     div.setAttribute('class', 'tag')
     const span = document.createElement('span')
     span.innerHTML = label
     const closeBtn = document.createElement('i')
+    const hashtag = document.createElement('i')
     closeBtn.setAttribute('class', 'material-icons')
     closeBtn.setAttribute('data-item',label)
     closeBtn.innerHTML='close'
 
+    hashtag.setAttribute('class', 'material-icons')
+    hashtag.innerHTML='hashtag'
+
+    div.appendChild(hashtag)
     div.appendChild(span)
     div.appendChild(closeBtn)
     return div
 }
 
-function reset(){
+function edit_reset(){
     document.querySelectorAll('.tag').forEach(function (tag){
         tag.parentElement.removeChild(tag)
     })
 }
 
-function addTag(){
-        reset()
-        tags.slice().reverse().forEach(function (tag){
-            const input = createTag(tag)
-            tagContainer.prepend(input)
+function edit_addTag(){
+        edit_reset()
+        edit_tags.slice().reverse().forEach(function (tag){
+            const input = edit_createTag(tag)
+            edit_tagContainer.prepend(input)
         })
 }
 
-input.addEventListener('keyup', function (e){
+edit_input.addEventListener('keyup', function (e){
     if (e.key === 'Enter'){
-        tags.push(input.value)
-        addTag()
-        input.value = ''
+        edit_tags.push(edit_input.value)
+        edit_addTag()
+        edit_input.value = ''
     }
 })
 
 document.addEventListener('click', function (e){
     if (e.target.tagName === 'I'){
         const value = e.target.getAttribute('data-item')
-        const index = tags.indexOf(value)
+        const index = edit_tags.indexOf(value)
 
-        tags = [...tags.slice(0,index),...tags.slice(index+1)]
-        addTag()
+        edit_tags = [...edit_tags.slice(0,index),...edit_tags.slice(index+1)]
+        edit_addTag()
     }
 })

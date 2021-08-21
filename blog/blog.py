@@ -161,14 +161,16 @@ def create_post():
     title = request.form.get('title')
     main_text = request.form.get('main_text')
     list_of_tags = request.form.get("tags")
-    print(f'create{list_of_tags}')
-    tags = list_of_tags.split(",")
-    print(f"tags === {tags}")
-    for tag in tags:
-        tag = tag.strip()
-        tag_in_database = db.tag_db.find({"tag_name": tag}, {"_id": 0})
-        if tag_in_database.count() == 0:
-            db.tag_db.insert_one({"tag_name": tag})
+    if len(list_of_tags) == 0:
+        tags = None
+    else:
+        tags = list_of_tags.split(",")
+        for tag in tags:
+            tag = tag.strip()
+            tag_in_database = db.tag_db.find({"tag_name": tag}, {"_id": 0})
+            if tag_in_database.count() == 0:
+                db.tag_db.insert_one({"tag_name": tag})
+
     jalali_pub_date = jdatetime.datetime.now()
     pub_date = datetime(jalali_pub_date.year, jalali_pub_date.month,
                         jalali_pub_date.day, jalali_pub_date.hour,

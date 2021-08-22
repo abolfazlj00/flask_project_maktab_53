@@ -6,18 +6,21 @@ var tags = []
 function createTag(label){
     const div = document.createElement('div')
     div.setAttribute('class', 'tag')
+    const div_text = document.createElement('div')
+    div_text.setAttribute('class', 'tag-text')
     const span = document.createElement('span')
     span.innerHTML = label
     const closeBtn = document.createElement('i')
-    const hashtag = document.createElement('i')
+    const hashtag = document.createElement('span')
     closeBtn.setAttribute('class', 'material-icons')
     closeBtn.setAttribute('data-item',label)
     closeBtn.innerHTML='close'
-    hashtag.setAttribute('class', 'material-icons')
-    hashtag.innerHTML='hashtag'
+    hashtag.setAttribute('class', 'material-icons  hashtag-icon')
+    hashtag.innerHTML='tag'
 
-    div.appendChild(hashtag)
-    div.appendChild(span)
+    div_text.appendChild(hashtag)
+    div_text.appendChild(span)
+    div.appendChild(div_text)
     div.appendChild(closeBtn)
     return div
 }

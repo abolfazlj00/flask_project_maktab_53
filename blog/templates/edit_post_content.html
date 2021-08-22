@@ -8,15 +8,13 @@
                     <div class="row justify-content-between text-right">
                         <div class="form-group col-sm-6 flex-column d-flex"><label class="form-control-label px-3 mb-2">عنوان<span
                                 class="text-danger"> </span></label> <input type="text" id="title" name="title"
-                                                                            placeholder="{{ selected_post.title }}"
-                        ></div>
-                        <div class="form-group col-sm-6 flex-column d-flex"><label class="form-control-label px-3 mb-2">محتوای
-                            پست<span class="text-danger"> </span></label> <input type="text" id="main_text"
-                                                                                 placeholder="{{ selected_post.main_text }}"
-                                                                                 name="main_text">
+                                                                            placeholder="{{ selected_post.title }}"/>
+                            <label class="form-control-label px-3 mb-2">محتوای
+                                پست<span class="text-danger"> </span></label><textarea cols="10" rows="8" type="text"
+                                                                                       id="main_text"
+                                                                                       placeholder="{{ selected_post.main_text }}"
+                                                                                       name="main_text"></textarea>
                         </div>
-                    </div>
-                    <div class="row justify-content-between text-right">
                         {# remove required attribute from tag input#}
                         <div class="form-group col-sm-6 flex-column d-flex"><label class="form-control-label px-3 mb-2">برچسب<span
                                 class="text-danger"> </span></label>
@@ -27,16 +25,21 @@
                                         <meta id="my-tags" data-name="{{ selected_post.tags }}">
                                         {% for tag in selected_post.tags %}
                                             <div class="tag">
-                                        <span>
-                                        {{ tag }}
-                                        </span>
+                                                <div class="tag-text">
+                                                    <span class="material-icons hashtag-icon">tag</span>
+                                                    <span>{{ tag }}</span>
+                                                </div>
                                                 <i class="material-icons" data-item="{{ tag }}">close</i>
                                             </div>
                                         {% endfor %}
                                     {% else %}
                                         <meta id="my-tags" data-name="None">
                                     {% endif %}
-                                    <input type="text" name="tags" placeholder="پس از ورود هر تگ Enter بزنید"/>
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">#</span>
+                                        <input id="tags" type="text" name="tags"
+                                               placeholder="پس از ورود هر تگ Enter بزنید"/>
+                                    </div>
                                 </div>
                             </div>
 

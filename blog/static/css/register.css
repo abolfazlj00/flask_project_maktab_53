@@ -54,10 +54,31 @@ textarea:focus {
 }
 
 
-
 button:focus {
     -moz-box-shadow: none !important;
     -webkit-box-shadow: none !important;
     box-shadow: none !important;
     outline-width: 0
+}
+
+
+#tags {
+    margin: 0;
+!important;
+    font-size: 10px;
+!important;
+}
+
+#tags::placeholder {
+    text-align: center;
+!important;
+    font-size: 16px;
+!important;
+}
+
+@media only screen and (max-width: 992px) {
+    #tags::placeholder {
+        font-size: 12px;
+    !important;
+    }
 }

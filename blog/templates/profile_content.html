@@ -31,7 +31,7 @@
                                                 </button>
                                                 <button class="btn btn-outline-primary" onclick="show_my_posts()">پست های من</button>
                                                  {% if logged_in_user.is_admin == 1 %}
-                                                <button  class="btn btn-outline-primary">ایجاد دسته بندی</button>
+                                                <button  class="btn btn-outline-primary" onclick="create_category()">ایجاد دسته بندی</button>
                                             {% endif %}
                                             </div>
                                         </div>
@@ -121,4 +121,12 @@
     })
 }
 
+function create_category() {
+        $.get('{{ url_for('index') }}' + 'blog/new_category', function (response) {
+            $('.content').html(response)
+        })
+    }
+
+
 </script>
+<script src="{{ url_for('static', filename='js/new_category.js') }}"></script>

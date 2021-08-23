@@ -37,7 +37,7 @@ def index(page):
             db.users.insert_one(admin)
         return render_template('base.html', Session=session)
     else:
-        if page not in ('home', 'login', 'register', 'profile', 'insert_post', 'edit_post', 'posts_by_tag'):
+        if page not in ('home', 'login', 'register', 'profile', 'insert_post', 'edit_post', 'posts_by_tag', 'new_category'):
             return "Page not Found!", 404
         content_html = f"{page}_content.html"
         if page in ('login', 'register'):
@@ -195,6 +195,25 @@ def create_post():
     user_post['_id'] = str(user_post['_id'])
     return user_post
 
+
+
+
+@bp.route("/create_category/")
+def create_category():
+    db = get_db()
+    all_categories = db.categories.find()
+
+    return render_template('new_category_content.html', all_categories=all_categories )
+
+
+@bp.route("/category_in_database", methods=["POST"])
+def category_in_database():
+    if request.method == "POST":
+        category_name = request.form, get('category_name')
+        parent_category = request.form.get('parent_category')
+        print(category_name, parent_category)
+        print(all_categories[0])
+        return 'ok'
 
 @bp.route("/post/<int:post_id>/")
 def post(post_id):

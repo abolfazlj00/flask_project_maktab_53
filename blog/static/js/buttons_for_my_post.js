@@ -46,6 +46,7 @@ function edit_post(post_id) {
         success: function (data) {
             $('.content').html(data)
             $('.modal-backdrop').remove();
+            $('#body').css()
         }
     })
 }

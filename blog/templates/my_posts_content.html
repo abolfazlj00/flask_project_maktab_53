@@ -13,18 +13,18 @@
                         <textarea rows="3" cols="40" readonly
                                   style="resize: none; overflow: hidden; text-align: justify; padding-bottom: 1%;width: 99%;cursor: pointer;">{{ my_post.main_text }}</textarea>
                     </div>
-                    <div style="text-align: center; margin-top: -2%; margin-bottom: 1%; color: #ff6200">
+                    <div style="text-align: center; margin-top: -2%; margin-bottom: 1%">
                         {% if my_post.tags is not none %}
                             {% if my_post.tags|length >= 3 %}
-                                <span>#{{ my_post.tags[0] }}</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                                <span class="badge badge-pill badge-light" style="margin: 1% auto ;color: #ff6200 !important; font-size: medium">#{{ my_post.tags[0] }}</span>&nbsp;&nbsp;&nbsp;&nbsp;
                                 &nbsp;&nbsp;&nbsp;&nbsp;
-                                <span>#{{ my_post.tags[1] }}</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                                <span class="badge badge-pill badge-light" style="margin: 1% auto ;color: #ff6200 !important; font-size: medium">#{{ my_post.tags[1] }}</span>&nbsp;&nbsp;&nbsp;&nbsp;
                                 &nbsp;&nbsp;&nbsp;&nbsp;
-                                <span>#{{ my_post.tags[2] }}</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                                <span class="badge badge-pill badge-light" style="margin: 1% auto ;color: #ff6200 !important; font-size: medium">#{{ my_post.tags[2] }}</span>&nbsp;&nbsp;&nbsp;&nbsp;
                                 &nbsp;&nbsp;&nbsp;&nbsp;
                             {% else %}
                                 {% for tag in my_post.tags %}
-                                    <span>#{{ tag }}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <span class="badge badge-pill badge-light" style="margin: 1% auto ;color: #ff6200 !important; font-size: medium">#{{ tag }}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 {% endfor %}
                             {% endif %}
                         {% else %}
@@ -78,7 +78,7 @@
                         <div style="text-align: center; margin-top: 2%; margin-bottom: 4%; color: #ff6200; font-size: x-large">
                             {% if my_post.tags is not none %}
                                 {% for tag in my_post.tags %}
-                                    <span style="cursor: pointer" onclick="select_tag_function()">#{{ tag }}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <span class="badge badge-pill badge-light" style="margin: 1% auto ;color: #ff6200 !important; font-size: medium; cursor: pointer" onclick="select_tag_function()">#{{ tag }}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                     &nbsp;&nbsp;&nbsp;
                                 {% endfor %}
                             {% else %}

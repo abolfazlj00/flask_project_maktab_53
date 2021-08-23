@@ -27,20 +27,29 @@
 
     <div class="header-nav row" style="z-index: 10">
         <nav class="navbar navbar-expand-sm navbar-light w-100 ">
-            <h2 class="navbar-brand font-weight-bold" style="font-size: 2rem;"> بلاگ </h2>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
+
+
                     <li class="nav-item active">
-                        <button id="home" onclick="view_home()" class="btn btn-block"
-                                style="font-size: 1.5rem !important;"> خانه
-                        </button>
+
+                        <span class="fa fa-home fa-3x mt-2" id="home" onclick="view_home()" style="cursor: pointer"></span>
+
+{#                        <button id="home" onclick="view_home()" class="btn btn-block "#}
+{#                                style="font-size: 30px !important;"> صفحه اصلی#}
+{#                        </button>#}
                     </li>
+
+
                     <li class="nav-item">
-                        <button class="btn btn-block" style="font-size: 1.5rem !important;"> جستجو</button>
+{#                        <button class="btn btn-block" style="font-size: 1.5rem !important;"> جستجو</button>#}
+                        <input type="text" class="search" name="" id="home" placeholder="دنبال چی میگردید؟">
                     </li>
+
+
                 </ul>
             </div>
             <div class="header-register row" style="z-index: 10">
@@ -73,7 +82,7 @@
 </script>
 
 <script>
-    function loadContent(page) {
+     function loadContent(page) {
         $.get('{{ url_for('index') }}' + 'blog/' + page, function (response) {
             $('.content').html('')
 
@@ -83,6 +92,8 @@
 
         })
     }
+
+    view_home();
 
     view_home()
 </script>

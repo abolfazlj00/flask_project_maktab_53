@@ -6,6 +6,18 @@ body {
     direction: rtl;
 }
 
+.search{
+    width: 450px;
+    padding: 5px;
+    border-radius: 25px ;
+    -moz-border-radius: 25px ;
+    -webkit-border-radius: 25px ;
+    border: none;
+    font-size: 18px;
+    text-align: center;
+    margin: 15px;
+}
+
 .header-register {
     direction: ltr;
 }

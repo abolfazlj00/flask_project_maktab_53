@@ -37,7 +37,7 @@ def index(page):
             db.users.insert_one(admin)
         return render_template('base.html', Session=session)
     else:
-        if page not in ('home', 'login', 'register', 'profile', 'insert_post', 'edit_post'):
+        if page not in ('home', 'login', 'register', 'profile', 'insert_post', 'edit_post', 'posts_by_tag'):
             return "Page not Found!", 404
         content_html = f"{page}_content.html"
         if page in ('login', 'register'):

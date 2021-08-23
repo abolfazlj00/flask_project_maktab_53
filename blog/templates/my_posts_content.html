@@ -78,7 +78,7 @@
                         <div style="text-align: center; margin-top: 2%; margin-bottom: 4%; color: #ff6200; font-size: x-large">
                             {% if my_post.tags is not none %}
                                 {% for tag in my_post.tags %}
-                                    <span style="cursor: pointer" onclick="select_tag_function()">#{{ tag }}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <span id="{{ tag }}" style="cursor: pointer" onclick="select_tag_function(this)">#{{ tag }}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                     &nbsp;&nbsp;&nbsp;
                                 {% endfor %}
                             {% else %}
@@ -92,7 +92,7 @@
                             ساعت {{ my_post.pub_date.strftime("%H:%M:%S") }}</p>
                     </div>
                     <div class="mb-3 d-flex justify-content-center">
-                        <button type="button" id="close-modal" data-dismiss="modal" class="btn btn-danger w-25">Close
+                        <button type="button"  data-dismiss="modal" class="btn btn-danger w-25">Close
                         </button>
                     </div>
 

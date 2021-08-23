@@ -94,7 +94,7 @@ def my_posts():
     return render_template("my_posts_content.html", list_of_user_posts=(list_of_user_posts, session))
 
 
-@bp.route("delete_post", methods=["POST"])
+@bp.route("/delete_post/", methods=["POST"])
 def delete_post():
     if request.method == 'POST':
         print("this delete")
@@ -158,6 +158,20 @@ def edit_post_in_database():
                     newvalues = {"$set": {item: fields[item]}}
                     db.posts.update_one(myquery, newvalues)
         return "OK"
+
+
+@bp.route("/posts-list-by-tag/", methods=["POST"])
+def search_by_tag():
+    global list_posts_by_tag
+    if request.method == 'POST':
+        print(f'form in search{request.form.get("tag")}')
+        db = get_db()
+        posts_by_tag = db.posts.find({"tags": request.form.get("tag"), "active_state": 1})
+        list_posts_by_tag = list()
+        for item in posts_by_tag:
+            item["_id"] = str(item["_id"])
+            list_posts_by_tag.append(item)
+        return render_template("posts_by_tag_content.html", posts_by_tag=(list_posts_by_tag, session))
 
 
 @bp.route("/posts-list/")

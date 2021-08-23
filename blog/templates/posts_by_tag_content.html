@@ -1,0 +1,106 @@
+<div class="d-flex justify-content-center">
+    <div class="blog-posts d-flex justify-content-start">
+        {% for post_by_tag in posts_by_tag[0] %}
+            <div class="post mr-4" data-toggle="modal" data-target="#id_{{ post_by_tag._id }}" data-backdrop="static"
+                 data-keyboard="false">
+                <img class="post-img" src="{{ url_for('static', filename='img/posts/' + post_by_tag.image) }}"
+                     style="width: 100%;height: 50%">
+                <div class="post-content">
+                    <div class="mb-n2">
+                        <h4 style="color: indigo; font-weight: bold"> {{ post_by_tag.title }}</h4>
+                    </div>
+                    <div style="text-align: center">
+                        <textarea rows="3" cols="40" readonly
+                                  style="resize: none; overflow: hidden; text-align: justify; padding-bottom: 1px;cursor: pointer;">{{ post_by_tag.main_text }}</textarea>
+                    </div>
+                    <div style="text-align: center; margin-top: -2%; margin-bottom: 1%; color: #ff6200">
+                        {% if post_by_tag.tags is not none %}
+
+                            {% if post_by_tag.tags|length >= 3 %}
+                                <span>#{{ post_by_tag.tags[0] }}</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;
+                                <span>#{{ post_by_tag.tags[1] }}</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;
+                                <span>#{{ post_by_tag.tags[2] }}</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                                &nbsp;&nbsp;&nbsp;&nbsp;
+                            {% else %}
+                                {% for tag in post_by_tag.tags %}
+                                    <span>#{{ tag }}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                {% endfor %}
+                            {% endif %}
+                        {% else %}
+                            <span style="visibility: hidden">s</span>
+                        {% endif %}
+                    </div>
+                    <div style="text-align: center; margin-bottom: -17px">
+                        <p class="date_time text"> نوشته شده توسط <span class="date_time"
+                                                                        style="color: #228b40">  {{ post_by_tag.owner }}  </span>
+                            در تاریخ {{ post_by_tag.pub_date.strftime("%Y/%m/%d") }}
+                            ساعت {{ post_by_tag.pub_date.strftime("%H:%M:%S") }}</p>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+
+{% for post_by_tag in posts_by_tag[0] %}
+    <!-- The Modal -->
+    <div class="modal fade" id="id_{{ post_by_tag._id }}">
+        <div class="modal-dialog modal-lg ">
+            <div class="modal-content">
+                <div class="card " style="margin: 0; padding: 0">
+                    <img class="card-img-top" src="{{ url_for('static', filename='img/posts/' + post_by_tag.image) }}"
+                         alt="img_post">
+                    {% if posts_by_tag[1].username==post_by_tag.owner or session["username"]=="admin" %}
+                        <div class="buttons d-flex justify-content-center mt-2">
+                            <span class="fa fa-edit fa-3x " id="edit_btn"
+                                  onclick="edit_post('id_{{ post_by_tag._id }}')" style="cursor: pointer"></span>
+                            <span class="fa fa-eye-slash fa-3x mx-3" onclick="post_state(0,'_id{{ post_by_tag._id }}')"
+                                  style="cursor: pointer"></span>
+                            <span id="{{ post_by_tag._id }}" class="fa fa-trash fa-3x" style="cursor: pointer"
+                                  onclick="delete_post(this)"></span>
+                        </div>
+                    {% endif %}
+                    <div style="margin: 0 15px" class="card-body text-center ">
+                        <h2 class="card-title"
+                            style="color: indigo; font-weight: bold;margin-top: -5px;margin-bottom: 14px; text-align: right">{{ post_by_tag.title }}
+                        </h2>
+                        <p class="card-text" style="font-size: 22px;text-align: justify">
+                            {{ post_by_tag.main_text }}
+                        </p>
+                        <div style="text-align: center; margin-top: 2%; margin-bottom: 4%; color: #ff6200; font-size: x-large">
+
+                            {% if post_by_tag.tags is not none %}
+                                {% for tag in post_by_tag.tags %}
+                                    <span id="{{ tag }}" style="cursor: pointer" onclick="select_tag_function(this)">#{{ tag }}</span>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    &nbsp;&nbsp;&nbsp;
+                                {% endfor %}
+                            {% else %}
+                                <span style="visibility: hidden">s</span>
+                            {% endif %}
+
+                        </div>
+                        <p class="date_time text" style="font-size: 16px;margin-bottom: -3px"> نوشته
+                            شده توسط <span class="date_time"
+                                           style="font-size: 16px;color: #228b40">  {{ post_by_tag.owner }}  </span>
+                            در تاریخ {{ post_by_tag.pub_date.strftime("%Y/%m/%d") }}
+                            ساعت {{ post_by_tag.pub_date.strftime("%H:%M:%S") }}</p>
+                    </div>
+                    <div class="mb-3 d-flex justify-content-center">
+                        <button type="button" class="btn btn-danger w-25" data-dismiss="modal">Close</button>
+                    </div>
+
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+{% endfor %}
+
+<script src="{{ url_for('static', filename='js/buttons_for_my_post.js') }}"></script>
+<script src="{{ url_for('static', filename='js/home.js') }}"></script>
+<script src="{{ url_for('static', filename='js/select_tag.js') }}"></script>

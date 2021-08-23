@@ -54,6 +54,7 @@ function logout() {
             $("#upper_div").html(`
             <button onclick="loadContent('register')" class="btn" id="signup-button"> ثبت نام</button>
             <button onclick="loadContent('login')" class="btn"> ورود</button>
+            
             `)
 
         }
@@ -70,4 +71,5 @@ function view_profile() {
         }
     })
 }
+
 

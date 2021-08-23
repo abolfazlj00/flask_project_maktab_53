@@ -10,10 +10,10 @@
                                 class="text-danger"> </span></label> <input type="text" id="title" name="title"
                                                                             placeholder="{{ selected_post.title }}"/>
                             <label class="form-control-label px-3 mb-2">محتوای
-                                پست<span class="text-danger"> </span></label><textarea cols="10" rows="8" type="text"
+                                پست<span class="text-danger"> </span></label><textarea cols="10" rows="8" type="text" style="color: rgb(109,109,109) !important;"
                                                                                        id="main_text"
-                                                                                       placeholder="{{ selected_post.main_text }}"
-                                                                                       name="main_text"></textarea>
+{#                                                                                       placeholder="{{ selected_post.main_text }}"#}
+                                                                                       name="main_text">{{ selected_post.main_text }}</textarea>
                         </div>
                         {# remove required attribute from tag input#}
                         <div class="form-group col-sm-6 flex-column d-flex"><label class="form-control-label px-3 mb-2">برچسب<span

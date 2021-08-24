@@ -114,7 +114,7 @@ def post_state():
         if str(item['_id']) == post_id:
             new_val = {"$set": {'active_state': state}}
             db.posts.update_one(item, new_val)
-            return " "
+    return " "
 
 
 @bp.route('/edit_post/', methods=["POST"])

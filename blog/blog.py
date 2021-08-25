@@ -177,7 +177,7 @@ def create_post():
                         jalali_pub_date.day, jalali_pub_date.hour,
                         jalali_pub_date.minute, jalali_pub_date.second)
     category_of_post = str()
-    like = []
+    liked_by = []
     active_state = 1
 
     user_post = {
@@ -187,7 +187,7 @@ def create_post():
         "image": image,
         "tags": tags,
         "pub_date": pub_date,
-        "like": like,
+        "liked_by": liked_by,
         "category_of_post": category_of_post,
         "active_state": active_state
     }

@@ -7,7 +7,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/v4-shims.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
@@ -21,7 +22,7 @@
     <title> بلاگ </title>
 
 </head>
-<body class="backGround">
+<body id="body" class="backGround">
 <meta id="my-data" data-name="{{ Session.username }}">
 <div class="container-fluid ">
 
@@ -46,16 +47,14 @@
 
 
                     <li class="nav-item">
-                        <form id="serach-form" action="{{ url_for('blog.search') }}" method="post">
+                       <form id="serach-form" action="{{ url_for('blog.search') }}" method="post">
                             <div class="input-group">
                                 <input class="search" name="search" id="search" type="text" placeholder="دنبال چی میگردید؟">
                                 <div class="input-group-append">
                                     <button id="submit-search" type="button" class="fa fa-search input-group-text" style="margin: 15px 0 15px 15px"></button>
                                 </div>
                             </div>
-                        </form>
-
-
+                  </form>
                     </li>
 
 

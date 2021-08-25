@@ -117,6 +117,26 @@ def post_state():
     return " "
 
 
+@bp.route('/like_post/', methods=["POST"])
+def like_post():
+    db = get_db()
+    all_posts = db.posts.find()
+    like_state = int(request.form.get('like_state'))
+    post_id = request.form.get('post_id')[3:]
+    print(post_id)
+    for item in all_posts:
+        if str(item['_id']) == post_id and like_state == 0:
+            new_val = {"$push": {'liked_by': session["username"]}}
+            db.posts.update_one(item, new_val)
+            like_state = 1
+        elif str(item['_id']) == post_id and like_state == 1:
+            new_val = {"$pull": {'liked_by': session["username"]}}
+            db.posts.update_one(item, new_val)
+            like_state = 0
+    my_dict = {"like_state": like_state}
+    return my_dict
+
+
 @bp.route('/edit_post/', methods=["POST"])
 def edit_post():
     if request.method == 'POST':
@@ -136,6 +156,8 @@ def edit_post_in_database():
         main_text = request.form.get('main_text')
         tags = request.form.get('edit_tags')
         new_list_of_tags = str(tags).replace("['", "").replace("']", "").split(",")
+        if new_list_of_tags[0] == "":
+            new_list_of_tags = None
         id_of_post = request.form.get("_id")
         myquery = {"_id": ObjectId(id_of_post)}
         fields = {
@@ -149,14 +171,16 @@ def edit_post_in_database():
                     newvalues = {"$set": {item: fields[item]}}
                     db.posts.update_one(myquery, newvalues)
             else:
+                print(fields[item])
                 if fields[item]:
+                    print("in if")
                     tags = fields[item]
                     for tag in tags:
                         tag_in_database = db.tag_db.find({"tag_name": tag}, {"_id": 0})
                         if tag_in_database.count() == 0:
                             db.tag_db.insert_one({"tag_name": tag})
-                    newvalues = {"$set": {item: fields[item]}}
-                    db.posts.update_one(myquery, newvalues)
+                newvalues = {"$set": {item: fields[item]}}
+                db.posts.update_one(myquery, newvalues)
         return "OK"
 
 
@@ -172,13 +196,3 @@ def search_by_tag():
             item["_id"] = str(item["_id"])
             list_posts_by_tag.append(item)
         return render_template("posts_by_tag_content.html", posts_by_tag=(list_posts_by_tag, session))
-
-
-@bp.route("/posts-list/")
-def posts_list():
-    return "list of posts"
-
-
-@bp.route("/creat-post/")
-def create_post():
-    return "creat a post"

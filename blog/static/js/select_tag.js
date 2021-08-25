@@ -7,8 +7,7 @@ function select_tag_function(data) {
         success: function (data) {
             $(".content").html(data)
             $('.modal-backdrop').remove()
-            $('#body').css("overflow-y", "scroll")
-            $('#body').css("padding-right", "0")
+            $('#body').css("overflow-y", "scroll").css("padding-right", "0")
         }
     })
 }

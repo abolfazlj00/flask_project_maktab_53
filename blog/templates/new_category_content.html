@@ -2,26 +2,33 @@
     <div class="row d-flex justify-content-center">
         <div class="col-xl-7 col-lg-8 col-md-9 col-11 text-center" style="position: static; margin-top: -8%">
             <div class="card" style="background-color: #8ec3eb; position: static">
-                <h5 class="text-center mb-4 font-weight-bold"> ایجاد پست جدید </h5>
-                <form enctype="multipart/form-data" class="form-card" id="insert_post-form"
-                      action="{{ url_for('blog.create_post') }}" method="post">
+                <h5 class="text-center mb-4 font-weight-bold"> ایجاد دسته بندی جدید </h5>
+                <form class="form-card" id="insert-category-form"
+                      action="{{ url_for('blog.category_in_database') }}" method="post">
                     <div class="row justify-content-between text-right">
-                        <div class="form-group col-sm-6 flex-column d-flex"><label class="form-control-label px-3 mb-2">دسته
-                            بندی اصلی<span
+
+                        <div class="form-group col-sm-6 flex-column d-flex"><label class="form-control-label px-3 mb-2">نام
+                            دسته
+                            بندی <span
                                     class="text-danger"> *</span></label> <input type="text" id="category_name"
                                                                                  name="category_name"
-                                                                                 required="required"></div>
-                        <div class="form-group col-sm-6 flex-column d-flex"><label class="form-control-label px-3 mb-2">زیر
-                            دسته
-                            <span class="text-danger"> *</span></label> <input type="text" id="parent_category"
-                                                                               name="parent_category"></div>
+                                                                                 required></div>
+                        <div class="form-group col-sm-6 flex-column d-flex"><label class="form-control-label px-3 mb-2">دسته
+                            بندی
+                            والد
+
+                            <span class="text-danger"> </span></label> <input type="text" id="parent_category"
+                                                                              name="parent_category"></div>
                     </div>
                     <div class="row justify-content-center">
                         <div class="form-group col-sm-6">
-                            <button type="button" class="btn-block btn-primary mt-3" id="create-btn">ایجاد کتگوری</button>
+                            <button type="button" class="btn-block btn-primary mt-3" id="create-btn">ایجاد دسته بندی
+                            </button>
                         </div>
                     </div>
+                <meta id="my-categories" data-name="{{ all_categories }}">
                     {% for category in all_categories %}
+
                         {% if category.parent_id == None %}
                             <div class="dropdown">
                                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
@@ -29,20 +36,59 @@
                                     {{ category.category_name }}
                                 </button>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    {% for subcategory in category.childes %}
+                                        {% for categoryn in all_categories%}
+                                            {% if categoryn.category_name==subcategory %}
+                                        <a id="{{ categoryn.childes }}" class="dropdown-item" href="#"
+                                           onclick="menu_subcategory(this)">{{ subcategory }}</a>
+                                            {% endif %}
+                                            {% endfor %}
+                                    {% endfor %}
 
-
-                                    {#                                <a class="dropdown-item" href="#">Something else here</a>#}
 
                                 </div>
                             </div>
                         {% endif %}
-
-
                     {% endfor %}
-
+ <ul id="subcategories"></ul>
                 </form>
 
             </div>
         </div>
     </div>
 </div>
+<script src="{{ url_for('static', filename='js/new_category.js') }}"></script>
+<script>
+    $('#insert-category-form').submit(function (e) {
+        console.log('abbas')
+        e.preventDefault(); // avoid to execute the actual submit of the form.
+        var form = $(this);
+        var url = form.attr('action');
+        var formData = new FormData(this);
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: formData, // serializes the form's elements.
+            success: function (data) {
+                alert(data)
+                create_category()
+            },
+            cache: false,
+            contentType: false,
+            processData: false
+        });
+    });
+
+    $("#create-btn").click(function () {
+
+        $('#insert-category-form').submit()
+    })
+
+    function menu_subcategory(data) {
+        var categories=data.id
+        console.log(typeof categories)
+        $("#subcategories").html(categories)
+
+
+    }
+</script>

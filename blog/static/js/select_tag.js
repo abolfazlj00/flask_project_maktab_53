@@ -1,5 +1,7 @@
+var my_data__
+
 function select_tag_function(data) {
-    console.log(data.id)
+    my_data__ = data
     $.ajax({
         type: "POST",
         data: {"tag": data.id},
@@ -11,3 +13,5 @@ function select_tag_function(data) {
         }
     })
 }
+
+

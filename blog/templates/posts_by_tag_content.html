@@ -26,7 +26,7 @@
                                     <span>#{{ post_by_tag.tags[2] }}</span>&nbsp;&nbsp;&nbsp;&nbsp;
                                     &nbsp;&nbsp;&nbsp;&nbsp;
                                 {% else %}
-                                    {% for tag in post_by_tagt.tags %}
+                                    {% for tag in post_by_tag.tags %}
                                         <span>#{{ tag }}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                     {% endfor %}
                                 {% endif %}
@@ -101,11 +101,11 @@
                                 {% if session["username"] not in post_by_tag.liked_by %}
                                     <span id="{{ post_by_tag._id }}" class="far fa-heart fa-2x ml-3"
                                           style="cursor: pointer"
-                                          onclick="like_post(0,'_id{{ post_by_tag._id }}')"></span>
+                                          onclick="like_post(0,'_id{{ post_by_tag._id }}', 'posts_by_tag')"></span>
                                 {% else %}
                                     <span id="{{ post_by_tag._id }}" class="fas fa-heart fa-2x ml-3"
                                           style="cursor: pointer"
-                                          onclick="like_post(1,'_id{{ post_by_tag._id }}')"></span>
+                                          onclick="like_post(1,'_id{{ post_by_tag._id }}', 'posts_by_tag')"></span>
                                 {% endif %}
                             {% endif %}
                         </span>
@@ -127,14 +127,15 @@
                     <img class="card-img-top" src="{{ url_for('static', filename='img/posts/' + post_by_tag.image) }}"
                          alt="img_post">
 
-                    {% if post_by_tag.username==post_by_tag.owner or session["username"]=="admin" %}
+                    {% if session["username"]==post_by_tag.owner or session["username"]=="admin" %}
                         <div class="buttons d-flex justify-content-center mt-2">
                             <span class="fa fa-edit fa-3x " id="edit_btn"
-                                  onclick="edit_post('id_{{ post_by_tag._id }}')" style="cursor: pointer"></span>
-                            <span class="fa fa-eye-slash fa-3x mx-3" onclick="post_state(0,'_id{{ post_by_tag._id }}')"
+                                  onclick="edit_post('id_{{ post_by_tag._id }}','posts_by_tag')"
+                                  style="cursor: pointer"></span>
+                            <span class="fa fa-eye-slash fa-3x mx-3" onclick="post_state(0,'_id{{ post_by_tag._id }}', 'posts_by_tag')"
                                   style="cursor: pointer"></span>
                             <span id="{{ post_by_tag._id }}" class="fa fa-trash fa-3x" style="cursor: pointer"
-                                  onclick="delete_post(this)"></span>
+                                  onclick="delete_post(this, 'posts_by_tag')"></span>
 
                         </div>
                     {% endif %}
@@ -178,6 +179,6 @@
     </div>
 {% endfor %}
 
-<script src="{{ url_for('static', filename='js/buttons_for_post_by_tag.js') }}"></script>
+<script src="{{ url_for('static', filename='js/buttons_for_my_post.js') }}"></script>
 <script src="{{ url_for('static', filename='js/home.js') }}"></script>
 <script src="{{ url_for('static', filename='js/select_tag.js') }}"></script>

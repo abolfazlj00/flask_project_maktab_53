@@ -1,3 +1,4 @@
+import pymongo
 from flask import Blueprint, render_template, request, session
 from werkzeug.utils import secure_filename
 import hashlib
@@ -6,7 +7,6 @@ import uuid
 from datetime import datetime
 import jdatetime
 import re
-
 from blog.db import get_db
 
 bp = Blueprint("blog", __name__)
@@ -177,7 +177,7 @@ def create_post():
                         jalali_pub_date.day, jalali_pub_date.hour,
                         jalali_pub_date.minute, jalali_pub_date.second)
     category_of_post = str()
-    like = []
+    liked_by = []
     active_state = 1
 
     user_post = {
@@ -187,7 +187,7 @@ def create_post():
         "image": image,
         "tags": tags,
         "pub_date": pub_date,
-        "like": like,
+        "liked_by": liked_by,
         "category_of_post": category_of_post,
         "active_state": active_state
     }
@@ -205,8 +205,8 @@ def create_category():
     for item in all_categories:
         item['_id']=str(item["_id"])
         list_all_categories.append(item)
-
     return render_template('new_category_content.html', all_categories=list_all_categories)
+
 
 
 @bp.route("/category_in_database/", methods=["POST"])
@@ -237,6 +237,7 @@ def category_in_database():
             return 'لطفا نام دسته بندی مورد نظر را وارد کننید'
 
 
+
 @bp.route("/post/<int:post_id>/")
 def post(post_id):
     return f'post_id is {post_id}'
@@ -250,3 +251,43 @@ def category(category_id):
 @bp.route("/tag-posts/<int:tag_id>/")
 def tag(tag_id):
     return f'tag_id is {tag_id}'
+
+
+@bp.route('/search', methods=['POST'])
+def search():
+    posts_by_search = {}
+    db = get_db()
+
+    db.posts.create_index([('main_text', pymongo.TEXT)], name='main_text')
+    db.users.create_index([('f_name', pymongo.TEXT), ('l_name', pymongo.TEXT)], name='f_name, l_name')
+
+    # display indexes
+    # it can be deleted
+    index_list = sorted(list(db.posts.index_information()))
+    print(index_list)
+    index_list = sorted(list(db.users.index_information()))
+    print(index_list)
+
+    posts_by_tag = db.posts.find({"tags": request.form.get("search"), "active_state": 1})
+    posts_by_main_text = db.posts.find({'$text': {'$search': request.form.get("search")}, 'active_state': 1})
+    users = db.users.find({'$text': {'$search': request.form.get("search")}})
+    list_posts_by_tag = list()
+    list_posts_by_main_text = list()
+    list_users = list()
+
+    for item in posts_by_tag:
+        item["_id"] = str(item["_id"])
+        list_posts_by_tag.append(item)
+
+    for item in posts_by_main_text:
+        item["_id"] = str(item["_id"])
+        list_posts_by_main_text.append(item)
+
+    for item in users:
+        item["_id"] = str(item["_id"])
+        list_users.append(item)
+
+    posts_by_search['tags'] = list_posts_by_tag
+    posts_by_search['main_text'] = list_posts_by_main_text
+    posts_by_search['users'] = list_users
+    return render_template('search_content.html', posts_by_search=posts_by_search)

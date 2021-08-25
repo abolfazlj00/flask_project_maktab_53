@@ -11,7 +11,7 @@
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
-    cursor: pointer;
+
 }
 
 .post {
@@ -23,16 +23,22 @@
     width: 100%;
     border-radius: 6px;
     transition: .3s linear;
+    cursor: pointer;
+
 }
 
 .post-content {
     background-color: #ffffffdd;
     margin: 0 20px;
     padding: 5px 5px;
-    border-radius: 6px;
+    border-radius: 6px 6px 0 0;
+    text-align: center;
+    cursor: pointer;
+}
+
+#content_and_like {
     transform: translateY(-60px);
     transition: .3s linear;
-    text-align: center;
 }
 
 
@@ -46,9 +52,11 @@
     transform: translateY(20px);
 }
 
-.post:hover .post-content {
+
+#content_and_like:hover {
     transform: translateY(-80px);
 }
+
 
 @media screen and (max-width: 1200px) {
     .blog-posts {

@@ -47,8 +47,14 @@
 
 
                     <li class="nav-item">
-                        {#                        <button class="btn btn-block" style="font-size: 1.5rem !important;"> جستجو</button>#}
-                        <input type="text" class="search" name="" id="home" placeholder="دنبال چی میگردید؟">
+                       <form id="serach-form" action="{{ url_for('blog.search') }}" method="post">
+                            <div class="input-group">
+                                <input class="search" name="search" id="search" type="text" placeholder="دنبال چی میگردید؟">
+                                <div class="input-group-append">
+                                    <button id="submit-search" type="button" class="fa fa-search input-group-text" style="margin: 15px 0 15px 15px"></button>
+                                </div>
+                            </div>
+                  </form>
                     </li>
 
 
@@ -73,10 +79,12 @@
 
 <script src="{{ url_for('static', filename='js/home.js') }}"></script>
 <script src="{{ url_for('static', filename='js/login.js') }}"></script>
+
+<script src="{{ url_for('static', filename='js/search.js') }}"></script>
 <script>
     $(document).ready(function () {
         var username = $('#my-data').data();
-        if ((username.name).length != 0) {
+        if ((username.name).length !== 0) {
             get_profile(username.name)
         }
 

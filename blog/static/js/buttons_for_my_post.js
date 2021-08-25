@@ -6,12 +6,12 @@ function post_state(state, post_id) {
         success: function () {
             if (state === 1) {
                 alert('پست موردنظر با موفقیت فعال شد')
-                view_home()
+
             } else {
                 alert('پست  موردنظر با موفقیت غیرفعال شد')
+
             }
-            // $('.modal.fade.toggle');
-           $('.modal-backdrop').remove()
+
             view_home()
         }
     })

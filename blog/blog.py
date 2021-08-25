@@ -176,7 +176,7 @@ def create_post():
                         jalali_pub_date.day, jalali_pub_date.hour,
                         jalali_pub_date.minute, jalali_pub_date.second)
     category_of_post = str()
-    like = []
+    liked_by = []
     active_state = 1
 
     user_post = {
@@ -186,7 +186,7 @@ def create_post():
         "image": image,
         "tags": tags,
         "pub_date": pub_date,
-        "like": like,
+        "liked_by": liked_by,
         "category_of_post": category_of_post,
         "active_state": active_state
     }
@@ -196,14 +196,12 @@ def create_post():
     return user_post
 
 
-
-
 @bp.route("/create_category/")
 def create_category():
     db = get_db()
     all_categories = db.categories.find()
 
-    return render_template('new_category_content.html', all_categories=all_categories )
+    return render_template('new_category_content.html', all_categories=all_categories)
 
 
 @bp.route("/category_in_database", methods=["POST"])
@@ -214,6 +212,7 @@ def category_in_database():
         print(category_name, parent_category)
         print(all_categories[0])
         return 'ok'
+
 
 @bp.route("/post/<int:post_id>/")
 def post(post_id):

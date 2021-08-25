@@ -7,7 +7,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/v4-shims.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
@@ -36,16 +37,17 @@
 
                     <li class="nav-item active">
 
-                        <span class="fa fa-home fa-3x mt-2" id="home" onclick="view_home()" style="cursor: pointer"></span>
+                        <span class="fa fa-home fa-3x mt-2" id="home" onclick="view_home()"
+                              style="cursor: pointer"></span>
 
-{#                        <button id="home" onclick="view_home()" class="btn btn-block "#}
-{#                                style="font-size: 30px !important;"> صفحه اصلی#}
-{#                        </button>#}
+                        {#                        <button id="home" onclick="view_home()" class="btn btn-block "#}
+                        {#                                style="font-size: 30px !important;"> صفحه اصلی#}
+                        {#                        </button>#}
                     </li>
 
 
                     <li class="nav-item">
-{#                        <button class="btn btn-block" style="font-size: 1.5rem !important;"> جستجو</button>#}
+                        {#                        <button class="btn btn-block" style="font-size: 1.5rem !important;"> جستجو</button>#}
                         <input type="text" class="search" name="" id="home" placeholder="دنبال چی میگردید؟">
                     </li>
 
@@ -82,7 +84,7 @@
 </script>
 
 <script>
-     function loadContent(page) {
+    function loadContent(page) {
         $.get('{{ url_for('index') }}' + 'blog/' + page, function (response) {
             $('.content').html('')
 

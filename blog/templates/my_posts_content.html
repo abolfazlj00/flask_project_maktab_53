@@ -1,50 +1,121 @@
 <div class="d-flex justify-content-center">
     <div class="blog-posts d-flex justify-content-start">
         {% for my_post in list_of_user_posts[0] %}
-            <div class="post mr-4" data-toggle="modal" data-target="#id_{{ my_post._id }}" data-backdrop="static"
-                 data-keyboard="false">
-                <img class="post-img" src="{{ url_for('static', filename='img/posts/' + my_post.image) }}"
-                     style="width: 100%;height: 50%">
-                <div class="post-content">
-                    <div class="mb-n2">
-                        <h4 style="color: indigo; font-weight: bold"> {{ my_post.title }}</h4>
-                    </div>
-                    <div style="text-align: center">
-                        <textarea rows="3" readonly
-                                  style=" resize: none; overflow: hidden; text-align: justify; padding-bottom: 1%;width: 99%;cursor: pointer;">{{ my_post.main_text }}</textarea>
-                    </div>
-                    <div style="text-align: center; margin-top: -2%; margin-bottom: 1%; color: #ff6200">
-                        {% if my_post.tags is not none %}
-                            {% if my_post.tags|length >= 3 %}
-                                <span>#{{ my_post.tags[0] }}</span>&nbsp;&nbsp;&nbsp;&nbsp;
-                                &nbsp;&nbsp;&nbsp;&nbsp;
-                                <span>#{{ my_post.tags[1] }}</span>&nbsp;&nbsp;&nbsp;&nbsp;
-                                &nbsp;&nbsp;&nbsp;&nbsp;
-                                <span>#{{ my_post.tags[2] }}</span>&nbsp;&nbsp;&nbsp;&nbsp;
-                                &nbsp;&nbsp;&nbsp;&nbsp;
+            <div class="post mr-4">
+                <img class="post-img" data-toggle="modal" data-target="#id_{{ my_post._id }}" data-backdrop="static"
+                     data-keyboard="false" src="{{ url_for('static', filename='img/posts/' + my_post.image) }}"
+                     style="width: 100%;height: 50%" alt="post_image">
+                <div id="content_and_like">
+                    <div class="post-content" data-toggle="modal" data-target="#id_{{ my_post._id }}"
+                         data-backdrop="static"
+                         data-keyboard="false">
+                        <div class="mb-n2">
+                            <h4 style="color: indigo; font-weight: bold;text-align: center"> {{ my_post.title }}</h4>
+                        </div>
+                        <div style="text-align: center">
+                        <textarea rows="2" readonly
+                                  style="width: 99%;resize: none; overflow: hidden; text-align: justify; padding-bottom: 1px;cursor: pointer;">{{ my_post.main_text }}</textarea>
+                        </div>
+                        <div style="text-align: center; margin-top: -2%; margin-bottom: 1%; color: #ff6200">
+                            {% if my_post.tags is not none %}
+                                {% if my_post.tags|length >= 3 %}
+                                    <span>#{{ my_post.tags[0] }}</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                                    &nbsp;&nbsp;&nbsp;&nbsp;
+                                    <span>#{{ my_post.tags[1] }}</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                                    &nbsp;&nbsp;&nbsp;&nbsp;
+                                    <span>#{{ my_post.tags[2] }}</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                                    &nbsp;&nbsp;&nbsp;&nbsp;
+                                {% else %}
+                                    {% for tag in my_postt.tags %}
+                                        <span>#{{ tag }}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    {% endfor %}
+                                {% endif %}
                             {% else %}
-                                {% for tag in my_post.tags %}
-                                    <span>#{{ tag }}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                {% endfor %}
+                                <span style="visibility: hidden">s</span>
                             {% endif %}
-                        {% else %}
-                            <span style="visibility: hidden">s</span>
-                        {% endif %}
+                        </div>
+
+
+                        <div style="text-align: center; margin-bottom: -17px">
+                            <p class="date_time text"> نوشته شده توسط <span class="date_time"
+                                                                            style="color: #228b40">  {{ my_post.owner }}  </span>
+                                در تاریخ {{ my_post.pub_date.strftime("%Y/%m/%d") }}
+                                ساعت {{ my_post.pub_date.strftime("%H:%M:%S") }}</p>
+                        </div>
                     </div>
-                    <div style="text-align: center; margin-bottom: -17px">
-                        <p class="date_time text"> نوشته شده توسط <span class="date_time"
-                                                                        style="color: #228b40">  {{ my_post.owner }}  </span>
-                            در تاریخ {{ my_post.pub_date.strftime("%Y/%m/%d") }}
-                            ساعت {{ my_post.pub_date.strftime("%H:%M:%S") }}</p>
+
+                    <div id="div_for_like"
+                         class="d-flex justify-content-center"
+                         style="height: 9%; background: #ffffffdd;margin-left: 20px; margin-right: 20px; border-radius: 0 0 6px 6px; border-top: 2px solid black">
+                    <span style="text-align: right; margin-bottom: 1%; color: #ff6200">
+                    {% if my_post.liked_by|length !=0 %}
+                        {% if my_post.liked_by|length ==1 %}
+                            <div class="dropdown">
+
+                            <button class="btn btn-danger btn-sm" type="button" id="dropdownMenuButton"
+                                    data-toggle="dropdown"
+                                    aria-haspopup="true" aria-expanded="false"
+                                    style="direction: ltr">{{ my_post.liked_by|length }} like</button>
+
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton"
+                             style="overflow-y: scroll; max-height: 80px">
+
+
+                            {% for item in my_post.liked_by %}
+                                <a class="dropdown-item text-danger">{{ item }}</a>
+                            {% endfor %}
+
+                    </div>
+
+                    </div>
+                        {% else %}
+                            <div class="dropdown">
+
+                            <button class="btn btn-danger btn-sm" type="button" id="dropdownMenuButton"
+                                    data-toggle="dropdown"
+                                    aria-haspopup="true" aria-expanded="false"
+                                    style="direction: ltr">{{ my_post.liked_by|length }} likes</button>
+
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton"
+                             style="overflow-y: scroll; max-height: 110px;">
+
+
+                            {% for item in my_post.liked_by %}
+                                <a class="dropdown-item text-danger">{{ item }}</a>
+
+                            {% endfor %}
+
+                    </div>
+
+                    </div>
+                        {% endif %}
+                    {% else %}
+                        <button class="btn btn-danger btn-sm" type="button"
+                                style="direction: ltr" disabled>0 likes</button>
+                    {% endif %}
+
+
+                        </span>
+                        <span class="buttons mt-2   d-flex justify-content-center mr-3" style="color: red;">
+                            {% if session %}
+                                {% if session["username"] not in my_post.liked_by %}
+                                    <span id="{{ my_post._id }}" class="far fa-heart fa-2x ml-3"
+                                          style="cursor: pointer"
+                                          onclick="like_post(0,'_id{{ my_post._id }}')"></span>
+                                {% else %}
+                                    <span id="{{ my_post._id }}" class="fas fa-heart fa-2x ml-3"
+                                          style="cursor: pointer"
+                                          onclick="like_post(1,'_id{{ my_post._id }}')"></span>
+                                {% endif %}
+                            {% endif %}
+                        </span>
+
                     </div>
                 </div>
             </div>
         {% endfor %}
     </div>
 </div>
-
-
-
 
 
 {% for my_post in list_of_user_posts[0] %}
@@ -55,35 +126,38 @@
                 <div class="card " style="margin: 0; padding: 0">
                     <img class="card-img-top" src="{{ url_for('static', filename='img/posts/' + my_post.image) }}"
                          alt="img_post">
-                    <div class="buttons d-flex justify-content-center mt-2">
-                        <span class="fa fa-edit fa-3x" id="edit_btn" onclick="edit_post('id_{{ my_post._id }}')"
-                              style="cursor: pointer"></span>
-                        {% if my_post.active_state==1 %}
-                            <span class="fa fa-eye-slash fa-3x mx-3" onclick="post_state(0,'id_{{ my_post._id }}')"
-                                  style="cursor: pointer"></span>
-                        {% else %}
-                            <span class="fa fa-eye fa-3x mx-3" id="enable_btn"
-                                  onclick="post_state(1,'id_{{ my_post._id }}')" style="cursor: pointer"></span>
-                        {% endif %}
 
-                        <span id="{{ my_post._id }}" class="fa fa-trash fa-3x" style="cursor: pointer"
-                              onclick="delete_post(this)"></span>
-                    </div>
+                    {% if my_post.username==my_post.owner or session["username"]=="admin" %}
+                        <div class="buttons d-flex justify-content-center mt-2">
+                            <span class="fa fa-edit fa-3x " id="edit_btn"
+                                  onclick="edit_post('id_{{ my_post._id }}')" style="cursor: pointer"></span>
+                            <span class="fa fa-eye-slash fa-3x mx-3" onclick="post_state(0,'_id{{ my_post._id }}')"
+                                  style="cursor: pointer"></span>
+                            <span id="{{ my_post._id }}" class="fa fa-trash fa-3x" style="cursor: pointer"
+                                  onclick="delete_post(this)"></span>
+
+                        </div>
+                    {% endif %}
                     <div style="margin: 0 15px" class="card-body text-center ">
                         <h2 class="card-title"
-                            style="color: indigo; font-weight: bold;margin-top: -5px;margin-bottom: 14px; text-align: right">{{ my_post.title }}</h2>
+                            style="color: indigo; font-weight: bold;margin-top: -5px;margin-bottom: 14px; text-align: right">{{ my_post.title }}
+                        </h2>
                         <p class="card-text" style="font-size: 22px;text-align: justify">
                             {{ my_post.main_text }}
                         </p>
                         <div style="text-align: center; margin-top: 2%; margin-bottom: 4%; color: #ff6200; font-size: x-large">
+
                             {% if my_post.tags is not none %}
                                 {% for tag in my_post.tags %}
-                                    <span id="{{ tag }}" style="cursor: pointer" onclick="select_tag_function(this)">#{{ tag }}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <span id="{{ tag }}" style="cursor: pointer"
+                                          onclick="select_tag_function(this)">#{{ tag }}</span>
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                     &nbsp;&nbsp;&nbsp;
                                 {% endfor %}
                             {% else %}
-                               <span style="visibility: hidden">s</span>
+                                <span style="visibility: hidden">s</span>
                             {% endif %}
+
                         </div>
                         <p class="date_time text" style="font-size: 16px;margin-bottom: -3px"> نوشته
                             شده توسط <span class="date_time"
@@ -92,7 +166,7 @@
                             ساعت {{ my_post.pub_date.strftime("%H:%M:%S") }}</p>
                     </div>
                     <div class="mb-3 d-flex justify-content-center">
-                        <button type="button"  data-dismiss="modal" class="btn btn-danger w-25">Close
+                        <button id="dismiss_btn" type="button" class="btn btn-danger w-25" data-dismiss="modal">بستن
                         </button>
                     </div>
 
@@ -103,6 +177,7 @@
         </div>
     </div>
 {% endfor %}
+
 <script src="{{ url_for('static', filename='js/buttons_for_my_post.js') }}"></script>
 <script src="{{ url_for('static', filename='js/home.js') }}"></script>
 <script src="{{ url_for('static', filename='js/select_tag.js') }}"></script>

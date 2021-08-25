@@ -162,9 +162,7 @@ def edit_post_in_database():
 
 @bp.route("/posts-list-by-tag/", methods=["POST"])
 def search_by_tag():
-    global list_posts_by_tag
     if request.method == 'POST':
-        print(f'form in search{request.form.get("tag")}')
         db = get_db()
         posts_by_tag = db.posts.find({"tags": request.form.get("tag"), "active_state": 1})
         list_posts_by_tag = list()

@@ -1,4 +1,4 @@
-function post_state(state, post_id) {
+function post_state(state, post_id, page_name) {
     $.ajax({
         type: 'POST',
         url: '/user/change-state/',
@@ -6,7 +6,6 @@ function post_state(state, post_id) {
         success: function () {
             if (state === 1) {
                 alert('پست موردنظر با موفقیت فعال شد')
-                view_home()
             } else {
                 alert('پست  موردنظر با موفقیت غیرفعال شد')
             }
@@ -14,12 +13,18 @@ function post_state(state, post_id) {
             $('#body').css("overflow-y", "scroll").css("padding-right", "0")
 
 
-            view_home()
+            if (page_name === "home") {
+                view_home()
+            } else if (page_name === "my_posts") {
+                show_my_posts()
+            } else if (page_name === "posts_by_tag") {
+                select_tag_function(my_data__)
+            }
         }
     })
 }
 
-function delete_post(data) {
+function delete_post(data, page_name) {
     if (confirm('آیا می خواهید این پست را حذف کنید؟')) {
         // Save it
         $.ajax({
@@ -29,7 +34,13 @@ function delete_post(data) {
             success: function (data) {
                 $('.modal-backdrop').remove()
                 $('#body').css("overflow-y", "scroll").css("padding-right", "0")
-                view_home()
+                if (page_name === "home") {
+                    view_home()
+                } else if (page_name === "my_posts") {
+                    show_my_posts()
+                } else if (page_name === "posts_by_tag") {
+                    select_tag_function(my_data__)
+                }
             }
         })
 
@@ -39,9 +50,9 @@ function delete_post(data) {
 
 }
 
-
-function edit_post(post_id) {
-
+var my_data___
+function edit_post(post_id, page_name) {
+    my_data___ = page_name
     $.ajax({
         type: 'POST',
         url: '/user/edit_post/',
@@ -54,7 +65,7 @@ function edit_post(post_id) {
     })
 }
 
-function like_post(like_state, post_id) {
+function like_post(like_state, post_id, page_name) {
     $.ajax({
         type: 'POST',
         url: '/user/like_post/',
@@ -63,13 +74,27 @@ function like_post(like_state, post_id) {
             console.log(my_dict["like_state"])
             console.log(typeof my_dict["like_state"])
             if (my_dict["like_state"] === 0) {
-                view_home()
+                if (page_name === "home") {
+                    view_home()
+                } else if (page_name === "my_posts") {
+                    show_my_posts()
+                } else if (page_name === "posts_by_tag") {
+                    select_tag_function(my_data__)
+                }
+
             } else {
-                view_home()
+                if (page_name === "home") {
+                    view_home()
+                } else if (page_name === "my_posts") {
+                    show_my_posts()
+                } else if (page_name === "posts_by_tag") {
+                    select_tag_function(my_data__)
+                }
             }
             $('.modal-backdrop').remove()
             $('#body').css("overflow-y", "scroll").css("padding-right", "0")
         }
     })
 }
+
 

@@ -201,18 +201,41 @@ def create_post():
 def create_category():
     db = get_db()
     all_categories = db.categories.find()
+    list_all_categories=list()
+    for item in all_categories:
+        item['_id']=str(item["_id"])
+        list_all_categories.append(item)
+    return render_template('new_category_content.html', all_categories=list_all_categories)
 
-    return render_template('new_category_content.html', all_categories=all_categories)
 
 
-@bp.route("/category_in_database", methods=["POST"])
+@bp.route("/category_in_database/", methods=["POST"])
 def category_in_database():
+    db = get_db()
     if request.method == "POST":
-        category_name = request.form, get('category_name')
-        parent_category = request.form.get('parent_category')
-        print(category_name, parent_category)
-        print(all_categories[0])
-        return 'ok'
+        category_name = request.form.get('category_name')
+        parent_category_name = request.form.get('parent_category')
+        if category_name:
+            if parent_category_name:
+                parent_in_database = db.categories.find({"category_name": parent_category_name})
+                list_of_childes = parent_in_database[0]['childes']
+                list_of_childes.append(category_name)
+                print(list_of_childes)
+                new_values = {"$set": {"childes": list_of_childes}}
+                my_query = {"category_name": parent_category_name}
+                db.categories.update_one(my_query, new_values)
+                new_category = {"category_name": category_name, "parent_id": parent_in_database[0]["_id"],
+                                "childes": list()}
+                db.categories.insert_one(new_category)
+                return "دسته بندی مورد نظر با موفقیت ثبت شد"
+            else:
+                new_category = {"category_name": category_name, "parent_id": None,
+                                "childes": list()}
+                db.categories.insert_one(new_category)
+                return "دسته بندی مورد نظر با موفقیت ثبت شد"
+        else:
+            return 'لطفا نام دسته بندی مورد نظر را وارد کننید'
+
 
 
 @bp.route("/post/<int:post_id>/")

@@ -6,9 +6,13 @@ function post_state(state, post_id, page_name) {
         success: function () {
             if (state === 1) {
                 alert('پست موردنظر با موفقیت فعال شد')
+
             } else {
                 alert('پست  موردنظر با موفقیت غیرفعال شد')
+
             }
+
+
             $('.modal-backdrop').remove()
             $('#body').css("overflow-y", "scroll").css("padding-right", "0")
 
@@ -20,6 +24,7 @@ function post_state(state, post_id, page_name) {
             } else if (page_name === "posts_by_tag") {
                 select_tag_function(my_data__)
             }
+
         }
     })
 }

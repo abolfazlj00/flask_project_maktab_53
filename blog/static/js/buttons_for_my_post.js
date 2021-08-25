@@ -10,8 +10,11 @@ function post_state(state, post_id) {
             } else {
                 alert('پست  موردنظر با موفقیت غیرفعال شد')
             }
-            // $('.modal.fade.toggle');
-           $('.modal-backdrop').remove()
+            $('.modal-backdrop').remove()
+            $('#body').css("overflow-y", "scroll")
+            $('#body').css("padding-right", "0")
+
+
             view_home()
         }
     })
@@ -26,6 +29,8 @@ function delete_post(data) {
             url: "/user/delete_post/",
             success: function (data) {
                 $('.modal-backdrop').remove()
+                $('#body').css("overflow-y", "scroll")
+                $('#body').css("padding-right", "0")
                 view_home()
             }
         })
@@ -45,7 +50,9 @@ function edit_post(post_id) {
         data: {'post_id': post_id},
         success: function (data) {
             $('.content').html(data)
-            $('.modal-backdrop').remove();
+            $('.modal-backdrop').remove()
+            $('#body').css("overflow-y","scroll")
+            $('#body').css("padding-right","0")
             $('#body').css()
         }
     })

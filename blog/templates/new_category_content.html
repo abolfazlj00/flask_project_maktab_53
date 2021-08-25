@@ -36,10 +36,10 @@
                                     {{ category.category_name }}
                                 </button>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    {% for subcategory in category.childes %}
+                                    {% for subcategory in category.children %}
                                         {% for categoryn in all_categories%}
                                             {% if categoryn.category_name==subcategory %}
-                                        <a id="{{ categoryn.childes }}" class="dropdown-item" href="#"
+                                        <a id="{{ categoryn.children }}" class="dropdown-item" href="#"
                                            onclick="menu_subcategory(this)">{{ subcategory }}</a>
                                             {% endif %}
                                             {% endfor %}

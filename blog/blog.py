@@ -218,19 +218,19 @@ def category_in_database():
         if category_name:
             if parent_category_name:
                 parent_in_database = db.categories.find({"category_name": parent_category_name})
-                list_of_childes = parent_in_database[0]['childes']
-                list_of_childes.append(category_name)
-                print(list_of_childes)
-                new_values = {"$set": {"childes": list_of_childes}}
+                list_of_children = parent_in_database[0]['children']
+                list_of_children.append(category_name)
+                print(list_of_children)
+                new_values = {"$set": {"children": list_of_children}}
                 my_query = {"category_name": parent_category_name}
                 db.categories.update_one(my_query, new_values)
                 new_category = {"category_name": category_name, "parent_id": parent_in_database[0]["_id"],
-                                "childes": list()}
+                                "children": list()}
                 db.categories.insert_one(new_category)
                 return "دسته بندی مورد نظر با موفقیت ثبت شد"
             else:
                 new_category = {"category_name": category_name, "parent_id": None,
-                                "childes": list()}
+                                "children": list()}
                 db.categories.insert_one(new_category)
                 return "دسته بندی مورد نظر با موفقیت ثبت شد"
         else:

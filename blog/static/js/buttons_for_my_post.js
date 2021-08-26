@@ -1,4 +1,4 @@
-function post_state(state, post_id) {
+function post_state(state, post_id, page_name) {
     $.ajax({
         type: 'POST',
         url: '/user/change-state/',
@@ -12,12 +12,24 @@ function post_state(state, post_id) {
 
             }
 
-            view_home()
+
+            $('.modal-backdrop').remove()
+            $('#body').css("overflow-y", "scroll").css("padding-right", "0")
+
+
+            if (page_name === "home") {
+                view_home()
+            } else if (page_name === "my_posts") {
+                show_my_posts()
+            } else if (page_name === "posts_by_tag") {
+                select_tag_function(my_data__)
+            }
+
         }
     })
 }
 
-function delete_post(data) {
+function delete_post(data, page_name) {
     if (confirm('آیا می خواهید این پست را حذف کنید؟')) {
         // Save it
         $.ajax({
@@ -26,7 +38,14 @@ function delete_post(data) {
             url: "/user/delete_post/",
             success: function (data) {
                 $('.modal-backdrop').remove()
-                view_home()
+                $('#body').css("overflow-y", "scroll").css("padding-right", "0")
+                if (page_name === "home") {
+                    view_home()
+                } else if (page_name === "my_posts") {
+                    show_my_posts()
+                } else if (page_name === "posts_by_tag") {
+                    select_tag_function(my_data__)
+                }
             }
         })
 
@@ -36,17 +55,51 @@ function delete_post(data) {
 
 }
 
-
-function edit_post(post_id) {
-
+var my_data___
+function edit_post(post_id, page_name) {
+    my_data___ = page_name
     $.ajax({
         type: 'POST',
         url: '/user/edit_post/',
         data: {'post_id': post_id},
         success: function (data) {
             $('.content').html(data)
-            $('.modal-backdrop').remove();
-            $('#body').css()
+            $('.modal-backdrop').remove()
+            $('#body').css("overflow-y", "scroll").css("padding-right", "0")
         }
     })
 }
+
+function like_post(like_state, post_id, page_name) {
+    $.ajax({
+        type: 'POST',
+        url: '/user/like_post/',
+        data: {'like_state': like_state, 'post_id': post_id},
+        success: function (my_dict) {
+            console.log(my_dict["like_state"])
+            console.log(typeof my_dict["like_state"])
+            if (my_dict["like_state"] === 0) {
+                if (page_name === "home") {
+                    view_home()
+                } else if (page_name === "my_posts") {
+                    show_my_posts()
+                } else if (page_name === "posts_by_tag") {
+                    select_tag_function(my_data__)
+                }
+
+            } else {
+                if (page_name === "home") {
+                    view_home()
+                } else if (page_name === "my_posts") {
+                    show_my_posts()
+                } else if (page_name === "posts_by_tag") {
+                    select_tag_function(my_data__)
+                }
+            }
+            $('.modal-backdrop').remove()
+            $('#body').css("overflow-y", "scroll").css("padding-right", "0")
+        }
+    })
+}
+
+

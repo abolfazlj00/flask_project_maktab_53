@@ -78,7 +78,13 @@
             data: formData, // serializes the form's elements.
             success: function () {
                 alert("کاربر گرامی پست شما با موفقیت ویرایش شد")
-                view_home()
+                if (my_data___ === "home") {
+                    view_home()
+                } else if (my_data___ === "my_posts") {
+                    show_my_posts()
+                } else if (my_data___ === "posts_by_tag") {
+                    select_tag_function(my_data__)
+                }
             },
             cache: false,
             contentType: false,

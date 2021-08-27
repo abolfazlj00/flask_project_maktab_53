@@ -1,3 +1,6 @@
+<div class="col-4 d-flex justify-content-center alert alert-success" role="alert" style="font-size: larger; background-color: #f6d8ac;">
+   پست های من
+</div>
 <div class="d-flex justify-content-center">
     <div class="blog-posts d-flex justify-content-start">
         {% for my_post in list_of_user_posts[0] %}
@@ -26,7 +29,7 @@
                                     <span>#{{ my_post.tags[2] }}</span>&nbsp;&nbsp;&nbsp;&nbsp;
                                     &nbsp;&nbsp;&nbsp;&nbsp;
                                 {% else %}
-                                    {% for tag in my_postt.tags %}
+                                    {% for tag in my_post.tags %}
                                         <span>#{{ tag }}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                     {% endfor %}
                                 {% endif %}
@@ -186,3 +189,4 @@
 <script src="{{ url_for('static', filename='js/buttons_for_my_post.js') }}"></script>
 <script src="{{ url_for('static', filename='js/home.js') }}"></script>
 <script src="{{ url_for('static', filename='js/select_tag.js') }}"></script>
+<script src="{{ url_for('static', filename='js/show_tag_recommendation_for_edit.js') }}"></script>

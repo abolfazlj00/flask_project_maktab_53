@@ -1,32 +1,83 @@
-.category .dropdown-submenu {
-    position: relative;
+
+@import url(https://fonts.googleapis.com/css?family=Open+Sans);
+@import url(https://fonts.googleapis.com/css?family=Bree+Serif);
+
+.category {
+	font-size:22px;
+	line-height: 32px;
+	color: #ffffff;
+	word-wrap:break-word !important;
+	font-family: 'Open Sans', sans-serif;
+	}
+
+.category a {
+	color: #FFF;
 }
 
-.category .dropdown-submenu .dropdown-menu {
-    top: 0;
-    right: 100%;
-    margin-top: -1px;
-}
 
-.category li {
-    text-align: center;
-    cursor: pointer;
-    border: 1px solid black;
-
-
+.category {
+	margin: 0 auto;
 }
 
 .category ul {
-    padding: 0;
+	padding: 0;
+  margin: 0;
+	list-style: none;
+	position: relative;
+	}
+
+.category ul li {
+	display:inline-block;
+	background-color: #E64A19;
+	}
+
+.category a {
+	display:block;
+	padding:0 10px;
+	color:#FFF;
+	font-size:20px;
+	line-height: 60px;
+	text-decoration:none;
 }
 
-
-.category li:hover {
-    margin: 0;
-    background-color: #00BCD4;
+.category a:hover {
+	background-color: #000000;
 }
 
-p {
-    padding: 5px;
-
+/* Hide Dropdowns by Default */
+.category ul ul {
+	display: none;
+	position: absolute;
+	top: 60px; /* the height of the main nav */
 }
+
+/* Display Dropdowns on Hover */
+.category ul li:hover > ul {
+	display:inherit;
+}
+
+/* Fisrt Tier Dropdown */
+.category ul ul li {
+	width:170px;
+	float:none;
+	display:list-item;
+	position: relative;
+}
+
+/* Second, Third and more Tiers	*/
+.category ul ul ul li {
+	position: relative;
+	top:-60px;
+	right:170px;
+}
+.category .add-category{
+	margin-left: 6px;
+}
+.category .add-category:hover {
+    color: red;
+	cursor: pointer;
+}
+
+/* Change this in order to change the Dropdown symbol */
+.category li > a:after { content:  '         >'; }
+.category li > a:only-child:after { content: ''; }

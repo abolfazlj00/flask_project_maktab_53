@@ -201,11 +201,13 @@ def create_post():
 def create_category():
     db = get_db()
     all_categories = db.categories.find()
-    list_all_categories=list()
+    list_of_all_categories=list()
     for item in all_categories:
+        item['parent_id']=str(item['parent_id'])
         item['_id']=str(item["_id"])
-        list_all_categories.append(item)
-    return render_template('new_category_content.html', all_categories=list_all_categories)
+        list_of_all_categories.append(item)
+    categories={'list_of_all_categories':list_of_all_categories}
+    return categories
 
 
 
@@ -234,7 +236,7 @@ def category_in_database():
                 db.categories.insert_one(new_category)
                 return "دسته بندی مورد نظر با موفقیت ثبت شد"
         else:
-            return 'لطفا نام دسته بندی مورد نظر را وارد کننید'
+            return 'لطفا نام دسته بندی مورد نظر را وارد کنید'
 
 
 

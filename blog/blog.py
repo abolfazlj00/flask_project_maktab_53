@@ -9,6 +9,7 @@ import jdatetime
 import re
 from blog.db import get_db
 from bson import ObjectId
+
 bp = Blueprint("blog", __name__)
 
 
@@ -176,7 +177,8 @@ def create_post():
     pub_date = datetime(jalali_pub_date.year, jalali_pub_date.month,
                         jalali_pub_date.day, jalali_pub_date.hour,
                         jalali_pub_date.minute, jalali_pub_date.second)
-    category_of_post = str()
+    id_of_cat_in_post = request.form.get("id_of_cat_in_post")
+    id_of_cat = id_of_cat_in_post[18:]
     liked_by = []
     active_state = 1
 
@@ -188,7 +190,7 @@ def create_post():
         "tags": tags,
         "pub_date": pub_date,
         "liked_by": liked_by,
-        "category_of_post": category_of_post,
+        "category_of_post": id_of_cat,
         "active_state": active_state
     }
 
@@ -201,14 +203,13 @@ def create_post():
 def create_category():
     db = get_db()
     all_categories = db.categories.find()
-    list_of_all_categories=list()
+    list_of_all_categories = list()
     for item in all_categories:
-        item['parent_id']=str(item['parent_id'])
-        item['_id']=str(item["_id"])
+        item['parent_id'] = str(item['parent_id'])
+        item['_id'] = str(item["_id"])
         list_of_all_categories.append(item)
-    categories={'list_of_all_categories':list_of_all_categories}
+    categories = {'list_of_all_categories': list_of_all_categories}
     return categories
-
 
 
 @bp.route("/category_in_database/", methods=["POST"])
@@ -217,15 +218,18 @@ def category_in_database():
     if request.method == "POST":
         category_name = request.form.get('category_name')
         parent_category_name = request.form.get('parent_category')
-        id_of_parent_category_str=request.form.get('id_of_par_category')
-        id_of_parent_category=ObjectId(id_of_parent_category_str[2:])
-        if category_name:
-            if parent_category_name:
+        id_of_parent_category_str = request.form.get('id_of_par_category')
+        print(category_name)
+        print(parent_category_name)
+        print(id_of_parent_category_str)
+        if id_of_parent_category_str:
+            if category_name:
+                id_of_parent_category = ObjectId(id_of_parent_category_str[2:])
                 parent_in_database = db.categories.find({"_id": id_of_parent_category})
                 list_of_children = parent_in_database[0]['children']
                 list_of_children.append(category_name)
                 new_values = {"$set": {"children": list_of_children}}
-                my_query = {"_id":id_of_parent_category}
+                my_query = {"_id": id_of_parent_category}
                 db.categories.update_one(my_query, new_values)
                 new_category = {"category_name": category_name, "parent_id": id_of_parent_category,
                                 "children": list()}
@@ -238,7 +242,6 @@ def category_in_database():
                 return "دسته بندی مورد نظر با موفقیت ثبت شد"
         else:
             return 'لطفا نام دسته بندی مورد نظر را وارد کنید'
-
 
 
 @bp.route("/post/<int:post_id>/")
@@ -294,3 +297,12 @@ def search():
     posts_by_search['main_text'] = list_posts_by_main_text
     posts_by_search['users'] = list_users
     return render_template('search_content.html', posts_by_search=posts_by_search)
+
+
+@bp.route("/search_by_category/", methods=["POST"])
+def search_by_category():
+    db = get_db()
+    if request.method == "POST":
+        cat_id = request.form.get("category")[10:]
+        posts_by_category = db.posts.find({"category_of_post": cat_id})
+        return render_template("posts_by_category_content.html", posts_by_category=posts_by_category)

@@ -25,7 +25,7 @@
                                             <div class="mt-3">
                                                 <h4>{{ logged_in_user.f_name }} {{ logged_in_user.l_name }}</h4>
                                                 <p class="text-secondary mb-1">{{ logged_in_user.username }}</p>
-                                                <button onclick="insert_post()" class="btn btn-outline-primary">افزودن
+                                                <button onclick="insert_post(); show_tag_recommendation()" class="btn btn-outline-primary">افزودن
                                                     پست
                                                     جدید
                                                 </button>
@@ -130,3 +130,4 @@ function create_category() {
 
 </script>
 <script src="{{ url_for('static', filename='js/new_category.js') }}"></script>
+<script src="{{ url_for('static', filename='js/show_tag_recommendation.js') }}"></script>

@@ -2,17 +2,33 @@
     <div class="row d-flex justify-content-center">
         <div class="col-xl-7 col-lg-8 col-md-9 col-11 text-center" style="position: static; margin-top: -8%">
             <div class="card" style="background-color: #8ec3eb; position: static">
-                <h5 class="text-center mb-4 font-weight-bold"> ویرایش مطلب </h5>
+                <div class="col-12 d-flex justify-content-center alert" role="alert"
+                     style="font-size: larger; background-color: #f6d8ac;">
+                    ویرایش مطلب
+                </div>
                 <form class="form-card" id="edit_post-form"
                       action="{{ url_for('user.edit_post_in_database') }}" method="post">
+                    <div class="row justify-content-end text-right">
+                        <div class="form-group col-sm-6 flex-column d-flex"><label class="form-control-label px-3 mb-2">تگ
+                            های پیشنهادی<span
+                                    class="text-danger"></span></label>
+                            <div>
+                                {% for tag in recommendation_tags_for_edit %}
+                                    <a href="#" id="{{ tag }}" onclick="select_tag_function(this)"
+                                       class="badge badge-primary p-2 m-2" style="font-size: large"># {{ tag }}</a>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
                     <div class="row justify-content-between text-right">
                         <div class="form-group col-sm-6 flex-column d-flex"><label class="form-control-label px-3 mb-2">عنوان<span
                                 class="text-danger"> </span></label> <input type="text" id="title" name="title"
                                                                             placeholder="{{ selected_post.title }}"/>
                             <label class="form-control-label px-3 mb-2">محتوای
-                                پست<span class="text-danger"> </span></label><textarea cols="10" rows="8" type="text" style="color: rgb(109,109,109) !important;"
+                                پست<span class="text-danger"> </span></label><textarea cols="10" rows="8" type="text"
+                                                                                       style="color: rgb(109,109,109) !important;"
                                                                                        id="main_text"
-{#                                                                                       placeholder="{{ selected_post.main_text }}"#}
+                                    {#                                                                                       placeholder="{{ selected_post.main_text }}"#}
                                                                                        name="main_text">{{ selected_post.main_text }}</textarea>
                         </div>
                         {# remove required attribute from tag input#}
@@ -99,3 +115,4 @@
 
 
 </script>
+<script src="{{ url_for('static', filename='js/select_tag.js') }}"></script>

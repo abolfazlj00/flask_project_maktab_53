@@ -3,6 +3,7 @@ import hashlib
 import re
 import uuid
 from bson import ObjectId
+from collections import Counter
 
 from flask import Blueprint, render_template, request, redirect, session
 from werkzeug.utils import secure_filename
@@ -97,9 +98,7 @@ def my_posts():
 @bp.route("/delete_post/", methods=["POST"])
 def delete_post():
     if request.method == 'POST':
-        print("this delete")
         db = get_db()
-        print(ObjectId(list(request.form.keys())[0]))
         db.posts.delete_one({"_id": ObjectId(list(request.form.keys())[0])})
     return "پست مورد نظر با موفقیت حذف گردید"
 
@@ -123,7 +122,6 @@ def like_post():
     all_posts = db.posts.find()
     like_state = int(request.form.get('like_state'))
     post_id = request.form.get('post_id')[3:]
-    print(post_id)
     for item in all_posts:
         if str(item['_id']) == post_id and like_state == 0:
             new_val = {"$push": {'liked_by': session["username"]}}
@@ -137,7 +135,7 @@ def like_post():
     return my_dict
 
 
-@bp.route('/edit_post/', methods=["POST"])
+@bp.route('/edit_post/', methods=["POST", "GET"])
 def edit_post():
     if request.method == 'POST':
         db = get_db()
@@ -145,7 +143,20 @@ def edit_post():
         post_id = ObjectId(post_id)
         selected_post = db.posts.find_one({"_id": post_id})
         selected_post["_id"] = str(selected_post["_id"])
-        return render_template("edit_post_content.html", selected_post=selected_post)
+        db = get_db()
+        # post_id = request.form.get('post_id')[3:]
+        # post_id = ObjectId(post_id)
+        list_of_dict = db.posts.find({}, {"tags": 1, "_id": 0})
+        list_of_list = [item["tags"] for item in list_of_dict]
+        list_of_list_within_none = [item for item in list_of_list if item is not None]
+        all_tags = [item for sublist in list_of_list_within_none for item in sublist]
+        counter = Counter(all_tags).most_common()
+        list_of_all_tags = [item[0] for item in counter]
+        if len(counter) >= 5:
+            list_of_all_tags = list_of_all_tags[0:5]
+        print(list_of_all_tags)
+        return render_template("edit_post_content.html", selected_post=selected_post, recommendation_tags_for_edit=list_of_all_tags)
+
 
 
 @bp.route("/post-edit-in-database/", methods=["POST"])
@@ -171,9 +182,7 @@ def edit_post_in_database():
                     newvalues = {"$set": {item: fields[item]}}
                     db.posts.update_one(myquery, newvalues)
             else:
-                print(fields[item])
                 if fields[item]:
-                    print("in if")
                     tags = fields[item]
                     for tag in tags:
                         tag_in_database = db.tag_db.find({"tag_name": tag}, {"_id": 0})
@@ -194,3 +203,20 @@ def search_by_tag():
             item["_id"] = str(item["_id"])
             list_posts_by_tag.append(item)
         return render_template("posts_by_tag_content.html", posts_by_tag=(list_posts_by_tag, session))
+
+
+@bp.route('/show_tag_recommendation/', methods=["GET"])
+def show_tag_recommendation():
+    db = get_db()
+    # post_id = request.form.get('post_id')[3:]
+    # post_id = ObjectId(post_id)
+    list_of_dict = db.posts.find({}, {"tags": 1, "_id": 0})
+    list_of_list = [item["tags"] for item in list_of_dict]
+    list_of_list_within_none = [item for item in list_of_list if item is not None]
+    all_tags = [item for sublist in list_of_list_within_none for item in sublist]
+    counter = Counter(all_tags).most_common()
+    list_of_all_tags = [item[0] for item in counter]
+    if len(counter) >= 5:
+        list_of_all_tags = list_of_all_tags[0:5]
+    dict_tags = {"list_of_all_tags":list_of_all_tags}
+    return dict_tags

@@ -2,7 +2,10 @@
     <div class="row d-flex justify-content-center" >
         <div class="col-xl-7 col-lg-8 col-md-9 col-11 text-center" style="position: static">
             <div class="card" style="background-color: #8ec3eb; position: static">
-                <h5 class="text-center mb-4 font-weight-bold">ویرایش اطلاعات</h5>
+                <div class="col-12 d-flex justify-content-center alert" role="alert"
+                     style="font-size: larger; background-color: #f6d8ac;">
+                    ویرایش اطلاعات
+                </div>
                 <form enctype="multipart/form-data" class="form-card" id="edit_profile-form"  action="{{ url_for('user.merge_change') }}" method="post" >
                     <div class="row justify-content-between text-right">
                         <div class="form-group col-sm-6 flex-column d-flex"> <label class="form-control-label px-3 mb-2">نام</label> <input type="text" id="f_name" name="f_name" placeholder="{{ logged_in_user.f_name }}" > </div>

@@ -26,7 +26,16 @@
                             </button>
                         </div>
                     </div>
-                    <div id="for_category" class="category">
+                    <div class="category form-card text-right">
+                        <ul>
+                            <li><a id="main-cat"><span class="add-category fa fa-plus" style="font-size: 16px"></span> دسته بندی ها
+                            </a>
+                                <ul id="for_category">
+
+                                </ul>
+                            </li>
+                        </ul>
+
 
                     </div>
                 </form>
@@ -37,12 +46,20 @@
 </div>
 <script src="{{ url_for('static', filename='js/new_category.js') }}"></script>
 <script>
+var parent_category_id_by_click
+function add_parent_category(parent_category) {
+    var id_of_parent=parent_category.id.split('+')[0]
+    console.log(parent_category.id.split('+'))
+    parent_category_id_by_click=id_of_parent
+    $("#parent_category").val(parent_category.id.split('+')[1])
+
+}
     $('#insert-category-form').submit(function (e) {
-        console.log('abbas')
         e.preventDefault(); // avoid to execute the actual submit of the form.
         var form = $(this);
         var url = form.attr('action');
         var formData = new FormData(this);
+        formData.append('id_of_par_category', parent_category_id_by_click)
         $.ajax({
             type: "POST",
             url: url,

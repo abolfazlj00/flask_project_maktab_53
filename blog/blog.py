@@ -8,7 +8,7 @@ from datetime import datetime
 import jdatetime
 import re
 from blog.db import get_db
-
+from bson import ObjectId
 bp = Blueprint("blog", __name__)
 
 
@@ -217,16 +217,17 @@ def category_in_database():
     if request.method == "POST":
         category_name = request.form.get('category_name')
         parent_category_name = request.form.get('parent_category')
+        id_of_parent_category_str=request.form.get('id_of_par_category')
+        id_of_parent_category=ObjectId(id_of_parent_category_str[2:])
         if category_name:
             if parent_category_name:
-                parent_in_database = db.categories.find({"category_name": parent_category_name})
+                parent_in_database = db.categories.find({"_id": id_of_parent_category})
                 list_of_children = parent_in_database[0]['children']
                 list_of_children.append(category_name)
-                print(list_of_children)
                 new_values = {"$set": {"children": list_of_children}}
-                my_query = {"category_name": parent_category_name}
+                my_query = {"_id":id_of_parent_category}
                 db.categories.update_one(my_query, new_values)
-                new_category = {"category_name": category_name, "parent_id": parent_in_database[0]["_id"],
+                new_category = {"category_name": category_name, "parent_id": id_of_parent_category,
                                 "children": list()}
                 db.categories.insert_one(new_category)
                 return "دسته بندی مورد نظر با موفقیت ثبت شد"

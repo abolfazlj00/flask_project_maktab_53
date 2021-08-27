@@ -28,6 +28,7 @@ function create_category() {
                         // </div>`)
                         $('#for_category').append(`<li><a href="#"><span    id=${span_id}+${category.category_name} onclick="add_parent_category(this)" class="add-category fa fa-plus " style="font-size: 16px"></span>${category.category_name}</a><ul id=${cat_id}></ul></li>`)
                     } else {
+                        let span_id = 'id' + category._id
                         //                       $("#for_category").append(` <li class="dropdown text-right">
                         //   <p><span class="add-category fa fa-plus" style="font-size: 16px; margin-left: 6px"></span>${category.category_name}<span class="show-category fa fa-chevron-left"></span>
                         // </p>

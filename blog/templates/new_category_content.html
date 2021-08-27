@@ -2,7 +2,10 @@
     <div class="row d-flex justify-content-center">
         <div class="col-xl-7 col-lg-8 col-md-9 col-11 text-center" style="position: static; margin-top: -8%">
             <div class="card" style="background-color: #8ec3eb; position: static">
-                <h5 class="text-center mb-4 font-weight-bold"> ایجاد دسته بندی جدید </h5>
+                <div class="col-12 d-flex justify-content-center alert" role="alert"
+                     style="font-size: larger; background-color: #f6d8ac;">
+                    ایجاد دسته بندی جدید
+                </div>
                 <form class="form-card" id="insert-category-form"
                       action="{{ url_for('blog.category_in_database') }}" method="post">
                     <div class="row justify-content-between text-right">
@@ -10,15 +13,13 @@
                         <div class="form-group col-sm-6 flex-column d-flex"><label class="form-control-label px-3 mb-2">نام
                             دسته
                             بندی <span
-                                    class="text-danger"> *</span></label> <input type="text" id="category_name"
-                                                                                 name="category_name"
-                                                                                 required></div>
+                                    class="text-danger"> *</span></label> <input type="text" id="category_name" name="category_name" ></div>
                         <div class="form-group col-sm-6 flex-column d-flex"><label class="form-control-label px-3 mb-2">دسته
                             بندی
                             والد
 
                             <span class="text-danger"> </span></label> <input type="text" id="parent_category"
-                                                                              name="parent_category"></div>
+                                                                              name="parent_category" disabled></div>
                     </div>
                     <div class="row justify-content-center">
                         <div class="form-group col-sm-6">
@@ -28,7 +29,7 @@
                     </div>
                     <div class="category form-card text-right">
                         <ul>
-                            <li><a id="main-cat"><span class="add-category fa fa-plus" style="font-size: 16px"></span> دسته بندی ها
+                            <li><a id="main-cat"><span class="add-category" style="font-size: 16px"></span> دسته بندی ها
                             </a>
                                 <ul id="for_category">
 
@@ -49,7 +50,6 @@
 var parent_category_id_by_click
 function add_parent_category(parent_category) {
     var id_of_parent=parent_category.id.split('+')[0]
-    console.log(parent_category.id.split('+'))
     parent_category_id_by_click=id_of_parent
     $("#parent_category").val(parent_category.id.split('+')[1])
 
@@ -59,6 +59,7 @@ function add_parent_category(parent_category) {
         var form = $(this);
         var url = form.attr('action');
         var formData = new FormData(this);
+        console.log(parent_category_id_by_click)
         formData.append('id_of_par_category', parent_category_id_by_click)
         $.ajax({
             type: "POST",

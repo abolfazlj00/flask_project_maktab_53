@@ -1,16 +1,17 @@
 html {
     margin: 0;
 }
+
 body {
     direction: rtl;
 }
 
-.search{
+.search {
     width: 300px;
     padding: 5px;
-    border-radius: 25px ;
-    -moz-border-radius: 25px ;
-    -webkit-border-radius: 25px ;
+    border-radius: 25px;
+    -moz-border-radius: 25px;
+    -webkit-border-radius: 25px;
     border: none;
     font-size: 18px;
     text-align: center;
@@ -80,6 +81,10 @@ body {
 }
 
 
-
+.ball {
+    position: absolute;
+    border-radius: 100%;
+    opacity: 0.7;
+}
 
 

@@ -17,6 +17,7 @@
 
 .category {
 	margin: 0 auto;
+	z-index: 5;
 }
 
 .category ul {
@@ -28,7 +29,9 @@
 
 .category ul li {
 	display:inline-block;
-	background-color: #E64A19;
+	background-color: #2a6592;
+	cursor: pointer;
+	border-radius: 5px;
 	}
 
 .category a {

@@ -1,3 +1,13 @@
+var parent_category_id_by_click_in_post
+function add_cat_in_post(category) {
+    var id_of_category=category.id.split('+')[0]
+    console.log(category.id.split('+')[1])
+    parent_category_id_by_click_in_post=id_of_category
+    $("#category_of_post").val(category.id.split('+')[1])
+}
+
+
+
 $('#insert_post-form').submit(function (e) {
     e.preventDefault(); // avoid to execute the actual submit of the form.
 
@@ -5,6 +15,8 @@ $('#insert_post-form').submit(function (e) {
     var url = form.attr('action');
     var formData = new FormData(this);
     formData.set('tags',tags);
+    formData.append('id_of_cat_in_post', parent_category_id_by_click_in_post)
+    console.log(parent_category_id_by_click_in_post)
     $.ajax({
         type: "POST",
         url: url,

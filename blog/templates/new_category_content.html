@@ -26,31 +26,9 @@
                             </button>
                         </div>
                     </div>
-                <meta id="my-categories" data-name="{{ all_categories }}">
-                    {% for category in all_categories %}
+                    <div id="for_category" class="category">
 
-                        {% if category.parent_id == None %}
-                            <div class="dropdown">
-                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
-                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    {{ category.category_name }}
-                                </button>
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    {% for subcategory in category.children %}
-                                        {% for categoryn in all_categories%}
-                                            {% if categoryn.category_name==subcategory %}
-                                        <a id="{{ categoryn.children }}" class="dropdown-item" href="#"
-                                           onclick="menu_subcategory(this)">{{ subcategory }}</a>
-                                            {% endif %}
-                                            {% endfor %}
-                                    {% endfor %}
-
-
-                                </div>
-                            </div>
-                        {% endif %}
-                    {% endfor %}
- <ul id="subcategories"></ul>
+                    </div>
                 </form>
 
             </div>
@@ -84,11 +62,6 @@
         $('#insert-category-form').submit()
     })
 
-    function menu_subcategory(data) {
-        var categories=data.id
-        console.log(typeof categories)
-        $("#subcategories").html(categories)
 
-
-    }
 </script>
+<script src="{{ url_for('static', filename='js/category.js') }}"></script>

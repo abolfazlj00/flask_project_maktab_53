@@ -2,18 +2,54 @@
     <div class="row d-flex justify-content-center">
         <div class="col-xl-7 col-lg-8 col-md-9 col-11 text-center" style="position: static; margin-top: -8%">
             <div class="card" style="background-color: #8ec3eb; position: static">
-                <h5 class="text-center mb-4 font-weight-bold"> ایجاد پست جدید </h5>
+                <div class="col-12 d-flex justify-content-center alert" role="alert"
+                     style="font-size: larger; background-color: #f6d8ac;">
+                    ایجاد پست جدید
+                </div>
                 <form enctype="multipart/form-data" class="form-card" id="insert_post-form"
                       action="{{ url_for('blog.create_post') }}" method="post">
                     <div class="row justify-content-between text-right">
-                        <div class="form-group col-sm-6 flex-column d-flex"><label class="form-control-label px-3 mb-2">عنوان<span
+                        <div class="form-group col-sm-12 flex-column d-flex"><label
+                                class="form-control-label px-3 mb-2">عنوان<span
                                 class="text-danger"> *</span></label> <input type="text" id="title" name="title"
                                                                              required="required"></div>
+
+
+                    </div>
+                    <div class="row justify-content-between text-right">
+
+                        <div class="category form-card text-right d-flex justify-content-end mt-4">
+                            <ul>
+                                <li><a id="main-cat_in_insert_post"><span class="add-category" style="font-size: 16px"></span> انتخاب
+                                    دسته بندی
+                                </a>
+                                    <ul id="for_category_in_insert_post">
+
+                                    </ul>
+                                </li>
+                            </ul>
+
+
+                        </div>
+
+
                         <div class="form-group col-sm-6 flex-column d-flex"><label class="form-control-label px-3 mb-2">دسته
                             بندی <span class="text-danger"> *</span></label> <input type="text" id="category_of_post"
                                                                                     name="category_of_post"
-                                                                                    required="required"></div>
+                                                                                    disabled></div>
 
+
+                    </div>
+
+                    <div class="row justify-content-end text-right">
+                        <div class="form-group col-sm-6 flex-column d-flex"><label class="form-control-label px-3 mb-2">تگ
+                            های پیشنهادی<span
+                                    class="text-danger"></span></label>
+                            <div id="for_tag_rec">
+
+
+                            </div>
+                        </div>
                     </div>
                     <div class="row justify-content-between text-right">
 
@@ -30,12 +66,14 @@
                                 <div class="tag-container">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text" id="tag-icon">#</span>
-                                        <input id="tags" type="text" name="tags" placeholder="پس از ورود هر تگ Enter بزنید"/>
+                                        <input id="tags" type="text" name="tags"
+                                               placeholder="پس از ورود هر تگ Enter بزنید"/>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+
                     <div class="row justify-content-start text-right">
                         <div class="form-group col-sm-6 flex-column d-flex"><label class="form-control-label px-3 mb-2">عکس<span
                                 class="text-danger"> *</span></label> <input type="file" class="form-control" id="image"
@@ -58,3 +96,7 @@
 </div>
 <script src="{{ url_for('static', filename='js/tags_for_insert_post.js') }}"></script>
 <script src="{{ url_for('static', filename='js/insert_post.js') }}"></script>
+<script src="{{ url_for('static', filename='js/select_tag.js') }}"></script>
+<script src="{{ url_for('static', filename='js/show_category_in_insert_post.js') }}"></script>
+
+<script></script>

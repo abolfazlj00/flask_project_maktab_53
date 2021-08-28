@@ -23,7 +23,11 @@ function post_state(state, post_id, page_name) {
                 show_my_posts()
             } else if (page_name === "posts_by_tag") {
                 select_tag_function(my_data__)
-            }
+            }else if (page_name === "posts_by_category") {
+                    search_by_category(data_for_search_category)
+                }else if (page_name === "search") {
+                   serach(searched_data)
+                }
 
         }
     })
@@ -45,6 +49,10 @@ function delete_post(data, page_name) {
                     show_my_posts()
                 } else if (page_name === "posts_by_tag") {
                     select_tag_function(my_data__)
+                }else if (page_name === "posts_by_category") {
+                    search_by_category(data_for_search_category)
+                }else if (page_name === "search") {
+                   serach(searched_data)
                 }
             }
         })
@@ -54,7 +62,7 @@ function delete_post(data, page_name) {
     }
 
 }
-
+var data_for_search_category
 var my_data___
 function edit_post(post_id, page_name) {
     my_data___ = page_name
@@ -76,8 +84,6 @@ function like_post(like_state, post_id, page_name) {
         url: '/user/like_post/',
         data: {'like_state': like_state, 'post_id': post_id},
         success: function (my_dict) {
-            console.log(my_dict["like_state"])
-            console.log(typeof my_dict["like_state"])
             if (my_dict["like_state"] === 0) {
                 if (page_name === "home") {
                     view_home()
@@ -85,7 +91,13 @@ function like_post(like_state, post_id, page_name) {
                     show_my_posts()
                 } else if (page_name === "posts_by_tag") {
                     select_tag_function(my_data__)
+                } else if (page_name === "posts_by_category") {
+                    search_by_category(data_for_search_category)
+                }else if (page_name === "search") {
+                    console.log(searched_data)
+                   serach(searched_data)
                 }
+
 
             } else {
                 if (page_name === "home") {
@@ -94,6 +106,10 @@ function like_post(like_state, post_id, page_name) {
                     show_my_posts()
                 } else if (page_name === "posts_by_tag") {
                     select_tag_function(my_data__)
+                } else if (page_name === "posts_by_category") {
+                    search_by_category(data_for_search_category)
+                }else if (page_name === "search") {
+                   serach(searched_data)
                 }
             }
             $('.modal-backdrop').remove()

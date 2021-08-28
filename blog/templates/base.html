@@ -39,7 +39,7 @@
                     <li class="nav-item active">
 
                         <span class="fa fa-home fa-3x mt-2" id="home" onclick="view_home()"
-                              style="cursor: pointer"></span>
+                              style="cursor: pointer;color: black"></span>
 
                         {#                        <button id="home" onclick="view_home()" class="btn btn-block "#}
                         {#                                style="font-size: 30px !important;"> صفحه اصلی#}
@@ -63,10 +63,17 @@
                     <li class="nav-item">
                         <form id="serach-form" action="{{ url_for('blog.search') }}" method="post">
                             <div class="input-group">
-                                <input class="search" name="search" id="search" type="text"
-                                       placeholder="دنبال چی میگردید؟">
+                                <input class="search w-50 "  id="search" name="search" type="text"
+                                       placeholder="جستجو براساس">
+                                <select class="custom-select form-group bg-dark text-light " style="margin-top: 15px" id="type_of_search" >
+                                    <option selected>انتخاب کنید</option>
+                                    <option value="title">عنوان مطالب</option>
+                                    <option value="main_text">متن مطالب</option>
+                                    <option value="tag">برچسب</option>
+                                    <option value="category">دسته بندی</option>
+                                </select>
                                 <div class="input-group-append">
-                                    <button id="submit-search" type="button" class="fa fa-search input-group-text"
+                                    <button id="submit-search" type="button" class="fa fa-search input-group-text bg-dark text-white"
                                             style="margin: 15px 0 15px 15px"></button>
                                 </div>
                             </div>

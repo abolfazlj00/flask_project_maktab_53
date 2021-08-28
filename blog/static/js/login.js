@@ -1,16 +1,16 @@
 function get_profile(username) {
     $("#home").click()
     $("#upper_div").html(`
-<nav class="navbar navbar-expand-lg navbar-light bg-light" >
+<nav class="navbar navbar-expand-lg navbar-light" style="background-color: black">
 
-<li class="nav-item dropdown" style="list-style: none; z-index: 100">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
+<li class="nav-item dropdown " style="list-style: none; z-index: 100;">
+                <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
                    aria-haspopup="true" aria-expanded="false">`
         + "<b>" + username + "</b>" +
         `</a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                    <a class="dropdown-item" href="#" onclick="view_profile()">پنل کاربری</a>
-                    <a class="dropdown-item" href="#" onclick="logout()">خروج</a>
+                <div class="dropdown-menu p-0" style="background-color: black; border: 3px solid gray; color: white; text-align: center" aria-labelledby="navbarDropdownMenuLink">
+                    <a id="user_profile" class="dropdown-item  py-2" href="#" onclick="view_profile()" style="border-bottom: 1px solid gray;color: white;">پنل کاربری</a>
+                    <a id="user_logout" class="dropdown-item  py-2" href="#" onclick="logout()" style="color: white">خروج</a>
                 </div>
             </li>
 
@@ -52,8 +52,8 @@ function logout() {
         success: function (data) {
             $("#home").click()
             $("#upper_div").html(`
-            <button onclick="loadContent('register')" class="btn" id="signup-button"> ثبت نام</button>
-            <button onclick="loadContent('login')" class="btn"> ورود</button>
+            <button onclick="loadContent('register')" id="signup-button"> ثبت نام</button>
+            <button onclick="loadContent('login')" > ورود</button>
             
             `)
 

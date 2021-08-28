@@ -4,7 +4,6 @@ function create_category() {
         url: '/blog/new_category/',
         success: function (data) {
             $(".content").html(data)
-
         }
     })
     $.ajax({

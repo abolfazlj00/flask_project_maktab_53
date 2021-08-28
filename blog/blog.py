@@ -304,7 +304,7 @@ def search():
                 list_posts_by_category.append(item)
             return render_template('search_content.html', posts_by_search=list_posts_by_category)
         else:
-            return render_template('search_content.html', posts_by_search='')
+            return render_template('search_content.html', posts_by_search='', type_of_search=type_of_search)
 
 
 @bp.route("/search_by_category/", methods=["POST"])

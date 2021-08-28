@@ -18,8 +18,14 @@
                             بندی
                             والد
 
-                            <span class="text-danger"> </span></label> <input type="text" id="parent_category"
-                                                                              name="parent_category" disabled></div>
+                            </label><div class="input-group">
+                            <input class="col-10" type="text" id="parent_category" name="parent_category" disabled>
+                            <div class="input-group-prepend col-1">
+                                <span id="clear-pat-cat" class="input-group-text text-danger fa fa-close" style="margin: 7.5px 0 7.5px 7.5px; cursor:pointer;"></span>
+
+                            </div>
+                        </div>
+                            </div>
                     </div>
                     <div class="row justify-content-center">
                         <div class="form-group col-sm-6">
@@ -85,5 +91,7 @@ console.log(parent_category_id_by_click)
         $('#insert-category-form').submit()
     })
 
-
+    $('#clear-pat-cat').click(function (){
+        $('#parent_category').val('')
+    })
 </script>

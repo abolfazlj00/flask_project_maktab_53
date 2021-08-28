@@ -1,11 +1,11 @@
+<div class="col-4 d-flex justify-content-center alert" role="alert"
+     style="font-size: larger; background-color: #f6d8ac;">
+    ایجاد پست جدید
+</div>
 <div class="container px-1 pt-5 mx-auto">
     <div class="row d-flex justify-content-center">
         <div class="col-xl-7 col-lg-8 col-md-9 col-11 text-center" style="position: static; margin-top: -8%">
-            <div class="card" style="background-color: #8ec3eb; position: static">
-                <div class="col-12 d-flex justify-content-center alert" role="alert"
-                     style="font-size: larger; background-color: #f6d8ac;">
-                    ایجاد پست جدید
-                </div>
+            <div class="card" style="background-color: #F7EDE6; position: static">
                 <form enctype="multipart/form-data" class="form-card" id="insert_post-form"
                       action="{{ url_for('blog.create_post') }}" method="post">
                     <div class="row justify-content-between text-right">
@@ -20,7 +20,8 @@
 
                         <div class="category form-card text-right d-flex justify-content-end mt-4">
                             <ul>
-                                <li><a id="main-cat_in_insert_post"><span class="add-category" style="font-size: 16px"></span> انتخاب
+                                <li><a id="main-cat_in_insert_post"><span class="add-category"
+                                                                          style="font-size: 16px"></span> انتخاب
                                     دسته بندی
                                 </a>
                                     <ul id="for_category_in_insert_post">
@@ -86,7 +87,7 @@
 
                     <div class="row justify-content-center">
                         <div class="form-group col-sm-6">
-                            <button type="button" class="btn-block btn-primary mt-3" id="create-btn">ایجاد پست</button>
+                            <button type="button" class="btn-block mt-3" id="create-btn">ایجاد پست</button>
                         </div>
                     </div>
                 </form>

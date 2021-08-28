@@ -124,5 +124,10 @@ h6 {
     background-color: darkslategray;
 }
 
+#user_profile:focus {
+    background-color: darkslategray;
+}
 
-
+#user_logout:focus {
+    background-color: darkslategray;
+}

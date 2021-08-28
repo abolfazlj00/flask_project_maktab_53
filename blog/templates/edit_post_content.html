@@ -14,8 +14,8 @@
                                     class="text-danger"></span></label>
                             <div>
                                 {% for tag in recommendation_tags_for_edit %}
-                                    <a href="#" id="{{ tag }}" onclick="select_tag_function(this)"
-                                       class="badge badge-primary p-2 m-2" style="font-size: large"># {{ tag }}</a>
+                                    <span  id="{{ tag }}"
+                                       class="badge badge-pill badge-primary p-3 m-2" style="font-size: large"># {{ tag }}</span>
                                 {% endfor %}
                             </div>
                         </div>
@@ -100,6 +100,10 @@
                     show_my_posts()
                 } else if (my_data___ === "posts_by_tag") {
                     select_tag_function(my_data__)
+                }else if (my_data___ === "posts_by_category") {
+                    search_by_category(data_for_search_category)
+                }else if (my_data___ === "search") {
+                   serach(searched_data)
                 }
             },
             cache: false,

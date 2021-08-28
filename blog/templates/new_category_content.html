@@ -1,11 +1,11 @@
+<div class="col-4 d-flex justify-content-center alert" role="alert"
+     style="font-size: larger; background-color: #f6d8ac;">
+    ایجاد دسته بندی جدید
+</div>
 <div class="container px-1 pt-5 mx-auto">
     <div class="row d-flex justify-content-center">
         <div class="col-xl-7 col-lg-8 col-md-9 col-11 text-center" style="position: static; margin-top: -8%">
-            <div class="card" style="background-color: #8ec3eb; position: static">
-                <div class="col-12 d-flex justify-content-center alert" role="alert"
-                     style="font-size: larger; background-color: #f6d8ac;">
-                    ایجاد دسته بندی جدید
-                </div>
+            <div class="card" style="background-color: #F7EDE6; position: static">
                 <form class="form-card" id="insert-category-form"
                       action="{{ url_for('blog.category_in_database') }}" method="post">
                     <div class="row justify-content-between text-right">
@@ -23,7 +23,7 @@
                     </div>
                     <div class="row justify-content-center">
                         <div class="form-group col-sm-6">
-                            <button type="button" class="btn-block btn-primary mt-3" id="create-btn">ایجاد دسته بندی
+                            <button type="button" id="create-btn">ایجاد دسته بندی
                             </button>
                         </div>
                     </div>

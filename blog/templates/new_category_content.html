@@ -50,6 +50,7 @@
 var parent_category_id_by_click
 function add_parent_category(parent_category) {
     var id_of_parent=parent_category.id.split('+')[0]
+    console.log(parent_category.id.split('+'))
     parent_category_id_by_click=id_of_parent
     $("#parent_category").val(parent_category.id.split('+')[1])
 
@@ -59,8 +60,12 @@ function add_parent_category(parent_category) {
         var form = $(this);
         var url = form.attr('action');
         var formData = new FormData(this);
-        console.log(parent_category_id_by_click)
-        formData.append('id_of_par_category', parent_category_id_by_click)
+console.log(parent_category_id_by_click)
+        if(parent_category_id_by_click){
+            formData.append('id_of_par_category', parent_category_id_by_click)
+            console.log(parent_category_id_by_click)
+        }
+
         $.ajax({
             type: "POST",
             url: url,
@@ -82,4 +87,3 @@ function add_parent_category(parent_category) {
 
 
 </script>
-<script src="{{ url_for('static', filename='js/category.js') }}"></script>

@@ -1,6 +1,12 @@
-<div class="col-4 d-flex justify-content-center alert alert-success" role="alert" style="font-size: larger; background-color: #f6d8ac;">
+{% if posts_by_tag %}
+<div class="col-4 d-flex justify-content-center alert bg-success" role="alert" style="font-size: larger; ">
    پست های یافت شده بر اساس برچسپ مورد نظر
 </div>
+    {% else %}
+    <div class="col-4 d-flex justify-content-center alert bg-danger" role="alert" style="font-size: larger;">
+   پستی بر اساس برچسب مورد نظر پیدا نشد
+</div>
+{% endif %}
 <div class="d-flex justify-content-center">
     <div class="blog-posts d-flex justify-content-start">
         {% for post_by_tag in posts_by_tag[0] %}

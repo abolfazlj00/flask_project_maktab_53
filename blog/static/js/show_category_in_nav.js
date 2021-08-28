@@ -1,4 +1,5 @@
-$.ajax({
+
+    $.ajax({
     type: 'GET',
     url: '/blog/create_category/',
     success: function (categories) {
@@ -57,6 +58,7 @@ $.ajax({
 
 
 function search_by_category(data) {
+    data_for_search_category=data
     $.ajax({
         type: "POST",
         data: {"category": data},
@@ -66,3 +68,4 @@ function search_by_category(data) {
         }
     })
 }
+

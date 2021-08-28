@@ -221,9 +221,10 @@ def category_in_database():
         id_of_parent_category_str = request.form.get('id_of_par_category')
         print(category_name)
         print(parent_category_name)
-        print(id_of_parent_category_str)
-        if id_of_parent_category_str:
-            if category_name:
+        print(type(id_of_parent_category_str))
+        if category_name:
+            if id_of_parent_category_str:
+                print(id_of_parent_category_str)
                 id_of_parent_category = ObjectId(id_of_parent_category_str[2:])
                 parent_in_database = db.categories.find({"_id": id_of_parent_category})
                 list_of_children = parent_in_database[0]['children']
@@ -261,42 +262,49 @@ def tag(tag_id):
 
 @bp.route('/search', methods=['POST'])
 def search():
-    posts_by_search = {}
     db = get_db()
-
-    db.posts.create_index([('main_text', pymongo.TEXT)], name='main_text')
-    db.users.create_index([('f_name', pymongo.TEXT), ('l_name', pymongo.TEXT)], name='f_name, l_name')
-
-    # display indexes
-    # it can be deleted
-    index_list = sorted(list(db.posts.index_information()))
-    print(index_list)
-    index_list = sorted(list(db.users.index_information()))
-    print(index_list)
-
-    posts_by_tag = db.posts.find({"tags": request.form.get("search"), "active_state": 1})
-    posts_by_main_text = db.posts.find({'$text': {'$search': request.form.get("search")}, 'active_state': 1})
-    users = db.users.find({'$text': {'$search': request.form.get("search")}})
-    list_posts_by_tag = list()
-    list_posts_by_main_text = list()
-    list_users = list()
-
-    for item in posts_by_tag:
-        item["_id"] = str(item["_id"])
-        list_posts_by_tag.append(item)
-
-    for item in posts_by_main_text:
-        item["_id"] = str(item["_id"])
-        list_posts_by_main_text.append(item)
-
-    for item in users:
-        item["_id"] = str(item["_id"])
-        list_users.append(item)
-
-    posts_by_search['tags'] = list_posts_by_tag
-    posts_by_search['main_text'] = list_posts_by_main_text
-    posts_by_search['users'] = list_users
-    return render_template('search_content.html', posts_by_search=posts_by_search)
+    if request.method == 'POST':
+        # display indexes
+        # it can be deleted
+        index_list = sorted(list(db.posts.index_information()))
+        index_list = sorted(list(db.users.index_information()))
+        type_of_search = request.form.get("type_of_search")
+        if type_of_search == "title":
+            posts_by_title = db.posts.find({'title': request.form.get("search"), 'active_state': 1})
+            list_posts_by_title = list()
+            for item in posts_by_title:
+                item["_id"] = str(item["_id"])
+                list_posts_by_title.append(item)
+            return render_template('search_content.html', posts_by_search=list_posts_by_title)
+        elif type_of_search == "main_text":
+            db.posts.create_index([('main_text', pymongo.TEXT)], name='main_text')
+            posts_by_main_text = db.posts.find({'$text': {'$search': request.form.get("search")}, 'active_state': 1})
+            list_posts_by_main_text = list()
+            for item in posts_by_main_text:
+                item["_id"] = str(item["_id"])
+                list_posts_by_main_text.append(item)
+            return render_template('search_content.html', posts_by_search=list_posts_by_main_text)
+        elif type_of_search == "tag":
+            posts_by_tag = db.posts.find({"tags": request.form.get("search"), "active_state": 1})
+            list_posts_by_tag = list()
+            for item in posts_by_tag:
+                item["_id"] = str(item["_id"])
+                list_posts_by_tag.append(item)
+            return render_template('search_content.html', posts_by_search=list_posts_by_tag)
+        elif type_of_search == "category":
+            list_of_category_id = db.categories.find({"category_name": request.form.get("search")}, {"_id": 1})
+            posts_by_category = list()
+            for id_of_category in list_of_category_id:
+                posts_by_category.append(
+                    list(db.posts.find({"category_of_post": str(id_of_category["_id"]), "active_state": 1})))
+            flat_list = [item for sublist in posts_by_category for item in sublist]
+            list_posts_by_category = list()
+            for item in flat_list:
+                item["_id"] = str(item["_id"])
+                list_posts_by_category.append(item)
+            return render_template('search_content.html', posts_by_search=list_posts_by_category)
+        else:
+            return render_template('search_content.html', posts_by_search='')
 
 
 @bp.route("/search_by_category/", methods=["POST"])
@@ -304,5 +312,9 @@ def search_by_category():
     db = get_db()
     if request.method == "POST":
         cat_id = request.form.get("category")[10:]
-        posts_by_category = db.posts.find({"category_of_post": cat_id})
-        return render_template("posts_by_category_content.html", posts_by_category=posts_by_category)
+        posts_by_category = db.posts.find({"category_of_post": cat_id, "active_state": 1})
+        list_posts_by_category = list()
+        for item in posts_by_category:
+            item["_id"] = str(item["_id"])
+            list_posts_by_category.append(item)
+        return render_template("posts_by_category_content.html", posts_by_category=list_posts_by_category)
